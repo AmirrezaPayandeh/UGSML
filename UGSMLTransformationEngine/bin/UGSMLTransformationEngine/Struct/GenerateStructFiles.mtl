@@ -1,0 +1,158 @@
+[comment encoding = UTF-8 /]
+[module GenerateStructFiles('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::Main::PluginDirectories /]
+[import UGSMLTransformationEngine::Main::PrintCopyrightText /]
+[import UGSMLTransformationEngine::Services::HelperService /]
+
+[template public GenerateStructFiles(GameModel : Game)]
+[for (GameStructureContainerInstance : GameStructureContainer | GameModel.GameFeatureContainers)]
+[for (DataStructureInstance : DataBasedStructure | GameStructureContainerInstance.GameStructures)]
+[file (GetPublicDirectory() + 'Structs/' + DataStructureInstance.FeatureName + '.h', false, 'UTF-8')]
+[PrintCopyrightText()/]
+
+#pragma once
+
+[for (StructureBasedAttributeInstance : StructureBasedAttribute | DataStructureInstance.StructureAttributes)]
+#include "Structs/[StructureBasedAttributeInstance.DataType.FeatureName/].h"
+[/for]
+#include "Enumurations/UGSMLEnumurations.h"
+#include "[DataStructureInstance.FeatureName/].generated.h"
+
+USTRUCT(BlueprintType)
+struct F[DataStructureInstance.FeatureName/]
+{
+	GENERATED_BODY()
+
+public:
+	FORCEINLINE F[DataStructureInstance.FeatureName/]() {}
+
+	explicit FORCEINLINE F[DataStructureInstance.FeatureName/]([PrintStructureConstructorParameters(DataStructureInstance)/]);
+
+	bool operator!=(const F[DataStructureInstance.FeatureName/]& Other) const;
+
+	bool operator==(const F[DataStructureInstance.FeatureName/]& Other) const;
+	[PrintMemberVariable(DataStructureInstance)/]
+};
+
+FORCEINLINE F[DataStructureInstance.FeatureName/]::F[DataStructureInstance.FeatureName/]([PrintStructureConstructorParameters(DataStructureInstance)/])
+	: [PrintStructureParameterInitialization(DataStructureInstance)/]
+{
+}
+
+FORCEINLINE bool F[DataStructureInstance.FeatureName/]::operator!=(const F[DataStructureInstance.FeatureName/]& Other) const
+{
+	return !(*this == Other);
+}
+
+FORCEINLINE bool F[DataStructureInstance.FeatureName/]::operator==(const F[DataStructureInstance.FeatureName/]& Other) const
+{
+	return true[PrintEqualOperatorReturn(DataStructureInstance)/];
+}
+
+FORCEINLINE uint32 GetTypeHash(const F[DataStructureInstance.FeatureName/]& Structure)
+{
+	return FCrc::MemCrc_DEPRECATED(&Structure, sizeof(Structure));
+}
+[/file]
+[/for]
+[/for]
+[/template]
+
+[template private PrintStructureConstructorParameters(StructModel : DataBasedStructure)]
+[for (StructModel.StructureAttributes) separator (', ')][if (self.oclIsTypeOf(IntegerBasedAttribute))]int32 In[self.FeatureName/][/if][if (self.oclIsTypeOf(DecimalBasedAttribute))]float In[self.FeatureName/][/if][if (self.oclIsTypeOf(BooleanBasedAttribute))]bool In[self.FeatureName/][/if][if (self.oclIsTypeOf(CharacterBasedAttribute) or self.oclIsTypeOf(StringBasedAttribute))]FString In[self.FeatureName/][/if][if (self.oclIsTypeOf(NameBasedAttribute))]FName In[self.FeatureName/][/if][if (self.oclIsTypeOf(TextBasedAttribute))]FText In[self.FeatureName/][/if][if (self.oclIsTypeOf(Vector2DBasedAttribute))]FVector2D In[self.FeatureName/][/if][if (self.oclIsTypeOf(VectorBasedAttribute))]FVector In[self.FeatureName/][/if][if (self.oclIsTypeOf(RotatorBasedAttribute))]FRotator In[self.FeatureName/][/if][if (self.oclIsTypeOf(TransformationBasedAttribute))]FTransform In[self.FeatureName/][/if][if (self.oclIsTypeOf(ColorBasedAttribute))]FColor In[self.FeatureName/][/if][if (self.oclIsTypeOf(TextureBasedAttribute))]UTexture2D* In[self.FeatureName/][/if][if (self.oclIsTypeOf(ModelBasedAttribute))]UStaticMesh* In[self.FeatureName/][/if][if (self.oclIsTypeOf(ParticleBasedAttribute))]UNiagaraSystem* In[self.FeatureName/][/if][if (self.oclIsTypeOf(AudioBasedAttribute))]USoundBase* In[self.FeatureName/][/if][if (self.oclIsTypeOf(MaterialBasedAttribute))]UMaterialInterface* In[self.FeatureName/][/if][if (self.oclIsTypeOf(EnumBasedAttribute))][let SimpleEnumType : SimpleEnumStructure = self.oclAsType(EnumBasedAttribute).EnumType]E[SimpleEnumType.FeatureName/] In[self.FeatureName/][/let][let BitmaskedEnumType : BitmaskedEnumStructure = self.oclAsType(EnumBasedAttribute).EnumType]E[BitmaskedEnumType.FeatureName/]::Type In[self.FeatureName/][/let][/if][if (self.oclIsTypeOf(StructureBasedAttribute))][let StructureType : DataBasedStructure = self.oclAsType(StructureBasedAttribute).DataType]F[StructureType.FeatureName/] In[self.FeatureName/][/let][/if][/for]
+[/template]
+
+[template private PrintStructureParameterInitialization(StructModel : DataBasedStructure)]
+[for (StructModel.StructureAttributes) separator (', ')][if (not self.oclIsTypeOf(BooleanBasedAttribute))][self.FeatureName/](In[self.FeatureName/])[/if][if (self.oclIsTypeOf(BooleanBasedAttribute))]b[self.FeatureName/](In[self.FeatureName/])[/if][/for]
+[/template]
+
+[template private PrintMemberVariable(StructModel : DataBasedStructure)]
+[for (AttributeStructureInstance : GameAttribute | StructModel.StructureAttributes)]
+
+[if (AttributeStructureInstance.oclIsTypeOf(BitmaskedEnumStructure))]
+[let BitmaskedAttributeInstance : BitmaskedEnumStructure = AttributeStructureInstance.oclAsType(BitmaskedEnumStructure)]
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (Bitmask, BitmaskEnum = "E[BitmaskedAttributeInstance.FeatureName/]::Type"))
+[/let]
+[/if]
+[if (not AttributeStructureInstance.oclIsTypeOf(BitmaskedEnumStructure))]
+UPROPERTY(EditAnywhere, BlueprintReadWrite)
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(IntegerBasedAttribute))]
+int32 [AttributeStructureInstance.FeatureName/] = [AttributeStructureInstance.oclAsType(IntegerBasedAttribute).DefaultValue/];
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(DecimalBasedAttribute))]
+float [AttributeStructureInstance.FeatureName/] = [AttributeStructureInstance.oclAsType(DecimalBasedAttribute).DefaultValue/]f;
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(BooleanBasedAttribute))]
+bool b[AttributeStructureInstance.FeatureName/] = [AttributeStructureInstance.oclAsType(BooleanBasedAttribute).DefaultValue/];
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(CharacterBasedAttribute))]
+FString [AttributeStructureInstance.FeatureName/] = FString("[AttributeStructureInstance.oclAsType(CharacterBasedAttribute).DefaultValue/]");
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(NameBasedAttribute))]
+FName [AttributeStructureInstance.FeatureName/] = FName("[AttributeStructureInstance.oclAsType(NameBasedAttribute).DefaultValue/]");
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(StringBasedAttribute))]
+FString [AttributeStructureInstance.FeatureName/] = FString("[AttributeStructureInstance.oclAsType(StringBasedAttribute).DefaultValue/]");
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(TextBasedAttribute))]
+FText [AttributeStructureInstance.FeatureName/] = FText::FromString("[AttributeStructureInstance.oclAsType(TextBasedAttribute).DefaultValue/]");
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(Vector2DBasedAttribute))]
+FVector2D [AttributeStructureInstance.FeatureName/] = FVector2D([AttributeStructureInstance.oclAsType(Vector2DBasedAttribute).X/], [AttributeStructureInstance.oclAsType(Vector2DBasedAttribute).Y/]);
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(VectorBasedAttribute))]
+FVector [AttributeStructureInstance.FeatureName/] = FVector([AttributeStructureInstance.oclAsType(VectorBasedAttribute).X/], [AttributeStructureInstance.oclAsType(VectorBasedAttribute).Y/], [AttributeStructureInstance.oclAsType(VectorBasedAttribute).Z/]);
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(RotatorBasedAttribute))]
+FRotator [AttributeStructureInstance.FeatureName/] = FVector([AttributeStructureInstance.oclAsType(RotatorBasedAttribute).Roll/], [AttributeStructureInstance.oclAsType(RotatorBasedAttribute).Pitch/], [AttributeStructureInstance.oclAsType(RotatorBasedAttribute).Yaw/]);
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(TransformationBasedAttribute))]
+FTransform [AttributeStructureInstance.FeatureName/] = FTransform(FRotator([AttributeStructureInstance.oclAsType(TransformationBasedAttribute).Rotation.Roll/], [AttributeStructureInstance.oclAsType(TransformationBasedAttribute).Rotation.Pitch/], [AttributeStructureInstance.oclAsType(TransformationBasedAttribute).Rotation.Yaw/]), FVector([AttributeStructureInstance.oclAsType(TransformationBasedAttribute).Translation.X/], [AttributeStructureInstance.oclAsType(TransformationBasedAttribute).Translation.Y/], [AttributeStructureInstance.oclAsType(TransformationBasedAttribute).Translation.Z/]), FVector([AttributeStructureInstance.oclAsType(TransformationBasedAttribute).Scale3D.X/], [AttributeStructureInstance.oclAsType(TransformationBasedAttribute).Scale3D.Y/], [AttributeStructureInstance.oclAsType(TransformationBasedAttribute).Scale3D.Z/]));
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(ColorBasedAttribute))]
+FColor [AttributeStructureInstance.FeatureName/] = FColor([AttributeStructureInstance.oclAsType(ColorBasedAttribute).R/], [AttributeStructureInstance.oclAsType(ColorBasedAttribute).G/], [AttributeStructureInstance.oclAsType(ColorBasedAttribute).B/], [AttributeStructureInstance.oclAsType(ColorBasedAttribute).A/]);
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(TextureBasedAttribute))]
+UTexture* [AttributeStructureInstance.FeatureName/];
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(ModelBasedAttribute))]
+UStaticMesh* [AttributeStructureInstance.FeatureName/];
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(ParticleBasedAttribute))]
+UNiagaraSystem* [AttributeStructureInstance.FeatureName/];
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(AudioBasedAttribute))]
+USoundBase* [AttributeStructureInstance.FeatureName/];
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(MaterialBasedAttribute))]
+UMaterialInterface* [AttributeStructureInstance.FeatureName/];
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(EnumBasedAttribute))]
+[if (AttributeStructureInstance.oclAsType(EnumBasedAttribute).EnumType.oclIsTypeOf(SimpleEnumStructure))]
+E[AttributeStructureInstance.oclAsType(EnumBasedAttribute).EnumType.FeatureName/] [AttributeStructureInstance.FeatureName/] = E[AttributeStructureInstance.oclAsType(EnumBasedAttribute).EnumType.FeatureName/]::[AttributeStructureInstance.oclAsType(EnumBasedAttribute).EnumType.EnumStates->first().FeatureName/];
+[/if]
+[if (AttributeStructureInstance.oclAsType(EnumBasedAttribute).EnumType.oclIsTypeOf(BitmaskedEnumStructure))]
+int32 [AttributeStructureInstance.FeatureName/] = static_cast<int32>(E[AttributeStructureInstance.oclAsType(EnumBasedAttribute).EnumType.FeatureName/]::[AttributeStructureInstance.oclAsType(EnumBasedAttribute).EnumType.EnumStates->first().FeatureName/]);
+[/if]
+[/if]
+[if (AttributeStructureInstance.oclIsTypeOf(StructureBasedAttribute))]
+F[AttributeStructureInstance.oclAsType(StructureBasedAttribute).DataType.FeatureName/] [AttributeStructureInstance.FeatureName/];
+[/if]
+[/for]
+[/template]
+
+[template private PrintEqualOperatorReturn(StructModel : DataBasedStructure)]
+[for (StructureAttributeInstance : GameAttribute | StructModel.StructureAttributes)][if (StructureAttributeInstance.oclIsTypeOf(BooleanBasedAttribute))] && b[StructureAttributeInstance.FeatureName/] == Other.b[StructureAttributeInstance.FeatureName/][/if][if (StructureAttributeInstance.oclIsTypeOf(TextBasedAttribute))] && [StructureAttributeInstance.FeatureName/].ToString() == Other.[StructureAttributeInstance.FeatureName/].ToString()[/if][if (not (StructureAttributeInstance.oclIsTypeOf(BooleanBasedAttribute) or StructureAttributeInstance.oclIsTypeOf(TextBasedAttribute)))] && [StructureAttributeInstance.FeatureName/] == Other.[StructureAttributeInstance.FeatureName/][/if][/for]
+[/template]
+
+
+
+
+
+
+
+
+
+

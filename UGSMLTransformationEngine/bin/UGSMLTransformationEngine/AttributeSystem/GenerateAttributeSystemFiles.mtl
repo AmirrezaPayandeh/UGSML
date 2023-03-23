@@ -1,0 +1,12 @@
+[comment encoding = UTF-8 /]
+[module GenerateAttributeSystemFiles('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::AttributeSystem::GenerateAttributeSystemHeaderFile /]
+[import UGSMLTransformationEngine::AttributeSystem::GenerateAttributeSystemCppFile /]
+
+[template public GenerateAttributeSystemFiles(GameModel : Game)]
+[for (AttributeSystemInstance : AttributeSystem | GameModel.GameSystems)]
+[GenerateAttributeSystemHeaderFile(AttributeSystemInstance)/]
+[GenerateAttributeSystemCppFile(AttributeSystemInstance)/]
+[/for]
+[/template]

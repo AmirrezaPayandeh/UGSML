@@ -1,0 +1,6 @@
+[comment encoding = UTF-8 /]
+[module PrintCopyrightText('http://www.example.org/UGSML')]
+
+[template public PrintCopyrightText(Model : OclAny)]
+// Copyright MDSE Research Group. All Rights Reserved.
+[/template]

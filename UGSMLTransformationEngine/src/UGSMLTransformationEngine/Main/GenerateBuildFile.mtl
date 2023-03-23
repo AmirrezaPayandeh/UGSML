@@ -1,0 +1,25 @@
+[comment encoding = UTF-8 /]
+[module GenerateBuildFile('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::Main::PluginDirectories/]
+[import UGSMLTransformationEngine::Main::PrintCopyrightText/]
+
+[template public GenerateBuildFile(Model : OclAny)]
+[file (GetUGSMLDirectory() + 'UGSML.Build.cs', false, 'UTF-8')]
+[PrintCopyrightText()/]
+
+using UnrealBuildTool;
+
+public class UGSML : ModuleRules
+{
+	public UGSML(ReadOnlyTargetRules Target) : base(Target)
+	{
+		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+
+		PublicDependencyModuleNames.AddRange(new string['[]'/] { "Core", "CoreUObject", "Engine", "InputCore", "Niagara" });
+
+		PrivateDependencyModuleNames.AddRange(new string['[]'/] {  });
+	}
+}
+[/file]
+[/template]

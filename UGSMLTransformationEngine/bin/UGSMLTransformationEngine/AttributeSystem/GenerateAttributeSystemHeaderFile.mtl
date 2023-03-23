@@ -1,0 +1,919 @@
+[comment encoding = UTF-8 /]
+[module GenerateAttributeSystemHeaderFile('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::Main::PrintCopyrightText /]
+[import UGSMLTransformationEngine::Main::PluginDirectories /]
+
+[template public GenerateAttributeSystemHeaderFile(AttributeSystemModel : AttributeSystem)]
+[file (GetPublicDirectory() + 'AttributeSystem/' + AttributeSystemModel.SystemName + '.h', false, 'UTF-8')]
+[PrintCopyrightText()/]
+
+#pragma once
+
+#include "CoreMinimal.h"
+[if (AttributeSystemModel.ParentAttributeSystem->notEmpty())]#include "AttributeSystem/[AttributeSystemModel.ParentAttributeSystem.SystemName/].h"[/if]
+#include "Components/ActorComponent.h"
+#include "UGSMLDependencies.h"
+#include "Module/UGSMLModule.h"
+#include "[AttributeSystemModel.SystemName/].generated.h"
+
+// Forward Declarations
+class UMOERandomGenerator;
+class UNiagaraSystem;
+
+// Delegate signatures
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(F[AttributeSystemModel.SystemName/]MinMaxSignature);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]FloatVariableStatusSignature, float, OldValue, float, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]IntVariableStatusSignature, int32, OldValue, int32, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]BoolVariableStatusSignature, bool, OldValue, bool, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]NameVariableStatusSignature, FName, OldValue, FName, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]StringVariableStatusSignature, FString, OldValue, FString, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]TextVariableStatusSignature, FText, OldValue, FText, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]Vector2DVariableStatusSignature, FVector2D, OldValue, FVector2D, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]VectorVariableStatusSignature, FVector, OldValue, FVector, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]RotatorVariableStatusSignature, FRotator, OldValue, FRotator, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]TransformationVariableStatusSignature, FTransform, OldValue, FTransform, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]ColorVariableStatusSignature, FColor, OldValue, FColor, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]TextureVariableStatusSignature, UTexture2D*, OldValue, UTexture2D*, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]ModelVariableStatusSignature, UStaticMesh*, OldValue, UStaticMesh*, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]ParticleVariableStatusSignature, UNiagaraSystem*, OldValue, UNiagaraSystem*, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]AudioVariableStatusSignature, USoundBase*, OldValue, USoundBase*, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]MaterialVariableStatusSignature, UMaterialInterface*, OldValue, UMaterialInterface*, NewValue);
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))]
+[for (EnumBasedAttributeInstance : EnumBasedAttribute | SingleValueConstraintInstance.oclAsType(EnumBasedConstraint).ConstrainedAttributeInstance)]
+[if (EnumBasedAttributeInstance.EnumType.oclIsTypeOf(SimpleEnumStructure))]
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/][EnumBasedAttributeInstance.EnumType.FeatureName/]VariableStatusSignature, E[EnumBasedAttributeInstance.EnumType.FeatureName/], OldValue, E[EnumBasedAttributeInstance.EnumType.FeatureName/], NewValue);
+[/if]
+[if (EnumBasedAttributeInstance.EnumType.oclIsTypeOf(BitmaskedEnumStructure))]
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/][EnumBasedAttributeInstance.EnumType.FeatureName/]VariableStatusSignature, E[EnumBasedAttributeInstance.EnumType.FeatureName/]::Type, OldValue, E[EnumBasedAttributeInstance.EnumType.FeatureName/]::Type, NewValue);
+[/if]
+[/for]
+[/if]
+[if (SingleValueConstraintInstance.oclIsTypeOf(StructureBasedConstraint))]
+[for (StructureBasedAttributeInstance : StructureBasedAttribute | SingleValueConstraintInstance.oclAsType(StructureBasedConstraint).ConstrainedAttributeInstance)]
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/][StructureBasedAttributeInstance.DataType.FeatureName/]VariableStatusSignature, F[StructureBasedAttributeInstance.DataType.FeatureName/], OldValue, F[StructureBasedAttributeInstance.DataType.FeatureName/], NewValue);
+[/for]
+[/if]
+[/for]
+
+UCLASS(ClassGroup=(GameSystems), meta=(BlueprintSpawnableComponent))
+class UGSML_API [PrintClassName(AttributeSystemModel)/] : public [if (AttributeSystemModel.ParentAttributeSystem->notEmpty())]U[AttributeSystemModel.ParentAttributeSystem.SystemName/][/if][if (AttributeSystemModel.ParentAttributeSystem->isEmpty())]UActorComponent[/if]
+{
+	GENERATED_BODY()
+
+public:
+	[PrintClassName(AttributeSystemModel)/]();
+
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	virtual void InitializeComponent() override;
+
+protected:
+	virtual void BeginPlay() override;
+
+public:
+	/// Delegates
+[PrintDelegates(AttributeSystemModel)/]
+	/// ~Delegates
+
+	/// Functions
+[PrintFunctionDeclarations()/]
+	/// ~Functions
+
+protected:
+[PrintSystemAttributes(AttributeSystemModel)/]
+
+private:
+	/// Other
+[PrintInitializationFunctionDeclarations(AttributeSystemModel)/]
+	/// ~Other
+
+	/// Dependency Functions
+[PrintDependencyFunctionDeclarations(AttributeSystemModel)/]
+	/// ~Dependency Functions
+
+	// Auxiliary Functions
+	void Initialize[AttributeSystemModel.SystemName/]();
+
+protected:
+[if (AttributeSystemModel.ParentAttributeSystem->isEmpty())]
+	template<typename T>
+	T RemapValue(T Value, T OldMin, T OldMax, T NewMin, T NewMax) const;
+
+	template<typename T>
+	T ClampValue(T Value, T Min, T Max) const;
+
+	FVector2D ClampVector2D(FVector2D Value, FVector2D Min, FVector2D Max) const;
+
+	FVector ClampVector(FVector Value, FVector Min, FVector Max) const;
+
+	FRotator ClampRotator(FRotator Value, FRotator Min, FRotator Max) const;
+
+	FTransform ClampTransform(FTransform Value, FTransform Min, FTransform Max) const;
+
+	template<typename T>
+	bool ValueInRange(T Value, T Min, T Max) const;
+
+	bool Vector2DInRange(FVector2D Value, FVector2D Min, FVector2D Max) const;
+
+	bool VectorInRange(FVector Value, FVector Min, FVector Max) const;
+
+	bool RotatorInRange(FRotator Value, FRotator Min, FRotator Max) const;
+
+	bool TransformInRange(FTransform Value, FTransform Min, FTransform Max) const;
+
+	bool StringContainsExclusion(const FString& StringToCheck, TArray<FString> ExclusionArray) const;
+
+	bool StringRefusesInclusion(const FString& StringToCheck, TArray<FString> InclusionArray) const;
+
+	bool ColorContainsExclusion(const FColor& ColorToCheck, TArray<FColor> ExclusionArray) const;
+
+	bool ColorRefusesInclusion(const FColor& ColorToCheck, TArray<FColor> InclusionArray) const;
+[/if]
+};
+[/file]
+[/template]
+
+[template private PrintDelegates(AttributeSystemModel : AttributeSystem)]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)][comment Start For each single value constraint /]
+[if (IsAttributeVariable(SingleValueConstraintInstance))][comment Start if the single value constraint is variable (not a constant) /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))][comment Start Integer/Float /]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+
+	// [ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]")
+[if (ValueBasedConstraintInstance.ConstrainedAttributeInstance.oclIsTypeOf(DecimalBasedAttribute))]
+	F[AttributeSystemModel.SystemName/]FloatVariableStatusSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]Changed;
+[/if]
+[if (ValueBasedConstraintInstance.ConstrainedAttributeInstance.oclIsTypeOf(IntegerBasedAttribute))]
+	F[AttributeSystemModel.SystemName/]IntVariableStatusSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]Changed;
+[/if]
+[let ValueRangeBasedConstraintInstance : ValueRangeBasedConstraint = ValueBasedConstraintInstance.BaseOrRangeConstraint]
+[if (not ValueRangeBasedConstraintInstance.MaximumValue.oclIsUndefined())]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]MinMaxSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]HitMax;
+[/if]
+[if (not ValueRangeBasedConstraintInstance.MinimumValue.oclIsUndefined())]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]MinMaxSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]HitMin;
+[/if]
+[/let]
+[/let]
+[/if][comment End Integer/Float /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(BooleanBasedConstraint))][comment Start Boolean /]
+[for (BooleanBasedAttributeInstance : BooleanBasedAttribute | SingleValueConstraintInstance.oclAsType(BooleanBasedConstraint).ConstrainedAttributeInstance)]
+
+	// [BooleanBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "Attribute System|[BooleanBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]BoolVariableStatusSignature On[BooleanBasedAttributeInstance.FeatureName/]Changed;
+[/for]
+[/if][comment End Boolean /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(LetterBasedConstraint))][comment Start Letters /]
+[let CharacterBasedAttributeInstance : CharacterBasedAttribute = SingleValueConstraintInstance.oclAsType(LetterBasedConstraint).ConstrainedAttributeInstance]
+
+	// [CharacterBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[CharacterBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]StringVariableStatusSignature On[CharacterBasedAttributeInstance.FeatureName/]Changed;
+[/let]
+[let StringBasedAttributeInstance : StringBasedAttribute = SingleValueConstraintInstance.oclAsType(LetterBasedConstraint).ConstrainedAttributeInstance]
+
+	// [StringBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[StringBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]StringVariableStatusSignature On[StringBasedAttributeInstance.FeatureName/]Changed;
+[/let]
+[let NameBasedAttributeInstance : NameBasedAttribute = SingleValueConstraintInstance.oclAsType(LetterBasedConstraint).ConstrainedAttributeInstance]
+
+	// [NameBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[NameBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]NameVariableStatusSignature On[NameBasedAttributeInstance.FeatureName/]Changed;
+[/let]
+[let TextBasedAttributeInstance : TextBasedAttribute = SingleValueConstraintInstance.oclAsType(LetterBasedConstraint).ConstrainedAttributeInstance]
+
+	// [TextBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[TextBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]TextVariableStatusSignature On[TextBasedAttributeInstance.FeatureName/]Changed;
+[/let]
+[/if][comment End Letters /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(Vector2DBasedConstraint))][comment Start Vector2D /]
+[let Vector2DBasedAttributeInstance : Vector2DBasedAttribute = SingleValueConstraintInstance.oclAsType(Vector2DBasedConstraint).ConstrainedAttributeInstance]
+
+	// [Vector2DBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[Vector2DBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]Vector2DVariableStatusSignature On[Vector2DBasedAttributeInstance.FeatureName/]Changed;
+[/let]
+[/if][comment End Vector2D /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(VectorBasedConstraint))][comment Start Vector /]
+[let VectorBasedAttributeInstance : VectorBasedAttribute = SingleValueConstraintInstance.oclAsType(VectorBasedConstraint).ConstrainedAttributeInstance]
+
+	// [VectorBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[VectorBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]VectorVariableStatusSignature On[VectorBasedAttributeInstance.FeatureName/]Changed;
+[/let]
+[/if][comment End Vector /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(RotatorBasedConstraint))][comment Start Rotator /]
+[let RotatorBasedAttributeInstance : RotatorBasedAttribute = SingleValueConstraintInstance.oclAsType(RotatorBasedConstraint).ConstrainedAttributeInstance]
+
+	// [RotatorBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[RotatorBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]RotatorVariableStatusSignature On[RotatorBasedAttributeInstance.FeatureName/]Changed;
+[/let]
+[/if][comment End Rotator /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(TransformationBasedConstraint))][comment Start Transformation /]
+[let TransformationBasedAttributeInstance : TransformationBasedAttribute = SingleValueConstraintInstance.oclAsType(TransformationBasedConstraint).ConstrainedAttributeInstance]
+
+	// [TransformationBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[TransformationBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]TransformationVariableStatusSignature On[TransformationBasedAttributeInstance.FeatureName/]Changed;
+[/let]
+[/if][comment Start Transformation /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ColorBasedConstraint))][comment Start Color /]
+[let ColorBasedAttributeInstance : ColorBasedAttribute = SingleValueConstraintInstance.oclAsType(ColorBasedConstraint).ConstrainedAttributeInstance]
+
+	// [ColorBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ColorBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]ColorVariableStatusSignature On[ColorBasedAttributeInstance.FeatureName/]Changed;
+[/let]
+[/if][comment End Color /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(TextureBasedConstraint))][comment Start Texture /]
+[for (TextureBasedAttributeInstance : TextureBasedAttribute | SingleValueConstraintInstance.oclAsType(TextureBasedConstraint).ConstrainedAttributeInstance)]
+
+	// [TextureBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[TextureBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]TextureVariableStatusSignature On[TextureBasedAttributeInstance.FeatureName/]Changed;
+[/for]
+[/if][comment End Texture /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ModelBasedConstraint))][comment Start Model /]
+[for (ModelBasedAttributeInstance : ModelBasedAttribute | SingleValueConstraintInstance.oclAsType(ModelBasedConstraint).ConstrainedAttributeInstance)]
+
+	// [ModelBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ModelBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]ModelVariableStatusSignature On[ModelBasedAttributeInstance.FeatureName/]Changed;
+[/for]
+[/if][comment End Model /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ParticleBasedConstraint))][comment Start Particle /]
+[for (ParticleBasedAttributeInstance : ParticleBasedAttribute | SingleValueConstraintInstance.oclAsType(ParticleBasedConstraint).ConstrainedAttributeInstance)]
+
+	// [ParticleBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ParticleBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]ParticleVariableStatusSignature On[ParticleBasedAttributeInstance.FeatureName/]Changed;
+[/for]
+[/if][comment End Particle /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(AudioBasedConstraint))][comment Start Audio /]
+[for (AudioBasedAttributeInstance : AudioBasedAttribute | SingleValueConstraintInstance.oclAsType(AudioBasedConstraint).ConstrainedAttributeInstance)]
+
+	// [AudioBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[AudioBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]AudioVariableStatusSignature On[AudioBasedAttributeInstance.FeatureName/]Changed;
+[/for]
+[/if][comment End Audio /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(MaterialBasedConstraint))][comment Start Material /]
+[for (MaterialBasedAttributeInstance : MaterialBasedAttribute | SingleValueConstraintInstance.oclAsType(MaterialBasedConstraint).ConstrainedAttributeInstance)]
+
+	// [MaterialBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[MaterialBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/]MaterialVariableStatusSignature On[MaterialBasedAttributeInstance.FeatureName/]Changed;
+[/for]
+[/if][comment End Material /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))][comment Start Enumeration /]
+[for (EnumBasedAttributeInstance : EnumBasedAttribute | SingleValueConstraintInstance.oclAsType(EnumBasedConstraint).ConstrainedAttributeInstance)]
+
+	// [EnumBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[EnumBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/][EnumBasedAttributeInstance.EnumType.FeatureName/]VariableStatusSignature On[EnumBasedAttributeInstance.FeatureName/]Changed;
+[/for]
+[/if][comment End Enumeration /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(StructureBasedConstraint))][comment Start Structure /]
+[for (StructureBasedAttributeInstance : StructureBasedAttribute | SingleValueConstraintInstance.oclAsType(StructureBasedConstraint).ConstrainedAttributeInstance)]
+
+	// [StructureBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[StructureBasedAttributeInstance.FeatureName/]")
+	F[AttributeSystemModel.SystemName/][StructureBasedAttributeInstance.DataType.FeatureName/]VariableStatusSignature On[StructureBasedAttributeInstance.FeatureName/]Changed;
+[/for]
+[/if][comment End Structure /]
+[/if][comment End if the single value constraint is variable (not a constant) /]
+[/for][comment End For each single value constraint /]
+[/template]
+
+[template private PrintFunctionDeclarations(AttributeSystemModel : AttributeSystem)]
+[for (ArrayConstraintInstance : ArrayConstraint | AttributeSystemModel.ArrayConstraints)]
+[for (ConstrainedAttributeInstance : GameAttribute | ArrayConstraintInstance.ConstrainedAttributeInstance)]
+
+	// [ConstrainedAttributeInstance.FeatureName/]
+	UFUNCTION(BlueprintCallable, Category = "Attribute System|[ConstrainedAttributeInstance.FeatureName/]")
+	void Add[ConstrainedAttributeInstance.FeatureName/]([PrintAttributeType(ConstrainedAttributeInstance)/] Value);
+	UFUNCTION(BlueprintCallable, Category = "Attribute System|[ConstrainedAttributeInstance.FeatureName/]")
+	void Remove[ConstrainedAttributeInstance.FeatureName/]([PrintAttributeType(ConstrainedAttributeInstance)/] Value);
+	UFUNCTION(BlueprintCallable, Category = "Attribute System|[ConstrainedAttributeInstance.FeatureName/]")
+	TArray<[PrintAttributeType(ConstrainedAttributeInstance)/]> Get[ConstrainedAttributeInstance.FeatureName/]() const;
+[/for]
+[/for]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))][comment Start ValueBasedConstraint Functions /]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint).ConstrainedAttributeInstance]
+
+	// [ValueBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(ValueBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedAttributeInstance.FeatureName/]")
+	void Set[ValueBasedAttributeInstance.FeatureName/]([PrintAttributeType(ValueBasedAttributeInstance)/] Value);
+[if (IsValueBasedConstraintBounded(ValueBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedAttributeInstance.FeatureName/]")
+	bool CanAdd[ValueBasedAttributeInstance.FeatureName/]([PrintAttributeType(ValueBasedAttributeInstance)/] Amount) const;
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedAttributeInstance.FeatureName/]")
+	bool Add[ValueBasedAttributeInstance.FeatureName/]([PrintAttributeType(ValueBasedAttributeInstance)/] Amount[PrintDistortionArgumentDeclaration(ValueBasedConstraintInstance)/]);
+[if (DoesValueBasedConstraintHaveBase(ValueBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedAttributeInstance.FeatureName/]")
+	[PrintAttributeType(ValueBasedAttributeInstance)/] GetBase[ValueBasedAttributeInstance.FeatureName/]() const;
+[/if]
+[if (DoesValueBasedConstraintHaveDependency(ValueBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedAttributeInstance.FeatureName/]")
+	[PrintAttributeType(ValueBasedAttributeInstance)/] GetDependent[ValueBasedAttributeInstance.FeatureName/]() const;
+[/if]
+[/if][comment End only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedAttributeInstance.FeatureName/]")
+	[PrintAttributeType(ValueBasedAttributeInstance)/] GetDynamic[ValueBasedAttributeInstance.FeatureName/]() const;
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedAttributeInstance.FeatureName/]")
+	[PrintAttributeType(ValueBasedAttributeInstance)/] GetTotal[ValueBasedAttributeInstance.FeatureName/]() const;
+[if (DoesValueBasedConstraintHaveMOE(ValueBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedAttributeInstance.FeatureName/]")
+	void Set[ValueBasedAttributeInstance.FeatureName/]MOERandomGenerator(TSubclassOf<UMOERandomGenerator> MOERandomGeneratorClass);
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedAttributeInstance.FeatureName/]")
+	[PrintAttributeType(ValueBasedAttributeInstance)/] GetRandom[ValueBasedAttributeInstance.FeatureName/]() const;
+[/if]
+[if (IsAttributeVariable(ValueBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+[if (DoesValueBasedConstraintHaveRegeneration(ValueBasedConstraintInstance))]
+[let RegenerationAttribute : ValueBasedAttribute = ValueBasedConstraintInstance.RegenerationConstraint.RegenerationAttribute]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[RegenerationAttribute.FeatureName/]")
+	bool Is[RegenerationAttribute.FeatureName/]Disabled() const;
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[RegenerationAttribute.FeatureName/]")
+	void Disable[RegenerationAttribute.FeatureName/]();
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[RegenerationAttribute.FeatureName/]")
+	void Enable[RegenerationAttribute.FeatureName/]();
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[RegenerationAttribute.FeatureName/]")
+	void Toggle[RegenerationAttribute.FeatureName/]();
+[/let]
+[/if]
+[/if][comment End only attributes that are not const can have these functions /]
+[/let]
+[/let]
+[/if][comment End ValueBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(BooleanBasedConstraint))][comment Start BooleanBasedConstraint Functions /]
+[let BooleanBasedConstraintInstance : BooleanBasedConstraint = SingleValueConstraintInstance.oclAsType(BooleanBasedConstraint)]
+[for (BooleanBasedAttributeInstance : BooleanBasedAttribute | SingleValueConstraintInstance.oclAsType(BooleanBasedConstraint).ConstrainedAttributeInstance)]
+
+	// [BooleanBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(BooleanBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[BooleanBasedAttributeInstance.FeatureName/]")
+	void Set[BooleanBasedAttributeInstance.FeatureName/](bool Value);
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[BooleanBasedAttributeInstance.FeatureName/]")
+	void Toggle[BooleanBasedAttributeInstance.FeatureName/]();
+[/if][comment End only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[BooleanBasedAttributeInstance.FeatureName/]")
+	bool Get[BooleanBasedAttributeInstance.FeatureName/]() const;
+[/for]
+[/let]
+[/if][comment End BooleanBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(LetterBasedConstraint))][comment Start LetterBasedConstraint Functions /]
+[let LetterBasedConstraintInstance : LetterBasedConstraint = SingleValueConstraintInstance.oclAsType(LetterBasedConstraint)]
+[let LetterBasedAttributeInstance : LetterBasedAttribute = LetterBasedConstraintInstance.ConstrainedAttributeInstance]
+
+[if (IsAttributeVariable(LetterBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+	// [LetterBasedAttributeInstance.FeatureName/]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[LetterBasedAttributeInstance.FeatureName/]")
+	bool Set[LetterBasedAttributeInstance.FeatureName/]([PrintAttributeType(LetterBasedAttributeInstance)/] Value);
+[/if][comment End only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[LetterBasedAttributeInstance.FeatureName/]")
+	[PrintAttributeType(LetterBasedAttributeInstance)/] Get[LetterBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End LetterBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(Vector2DBasedConstraint))][comment Start Vector2DBasedConstraint Functions /]
+[let Vector2DBasedConstraintInstance : Vector2DBasedConstraint = SingleValueConstraintInstance.oclAsType(Vector2DBasedConstraint)]
+[let Vector2DBasedAttributeInstance : Vector2DBasedAttribute = Vector2DBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [Vector2DBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(Vector2DBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[Vector2DBasedAttributeInstance.FeatureName/]")
+	void Set[Vector2DBasedAttributeInstance.FeatureName/](FVector2D Value);
+[let Vector2DRangeBasedConstraintInstance : Vector2DRangeBasedConstraint = Vector2DBasedConstraintInstance.Vector2DRangeBasedConstraint]
+[if (Vector2DRangeBasedConstraintInstance.Limit = AdditionLimit::Bounded)]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[Vector2DBasedAttributeInstance.FeatureName/]")
+	bool CanAdd[Vector2DBasedAttributeInstance.FeatureName/](FVector2D Amount) const;
+[/if]
+[/let]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[Vector2DBasedAttributeInstance.FeatureName/]")
+	bool Add[Vector2DBasedAttributeInstance.FeatureName/](FVector2D Amount);
+[/if][comment End only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[Vector2DBasedAttributeInstance.FeatureName/]")
+	FVector2D Get[Vector2DBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End Vector2DBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(VectorBasedConstraint))][comment Start VectorBasedConstraint Functions /]
+[let VectorBasedConstraintInstance : VectorBasedConstraint = SingleValueConstraintInstance.oclAsType(VectorBasedConstraint)]
+[let VectorBasedAttributeInstance : VectorBasedAttribute = VectorBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [VectorBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(VectorBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[VectorBasedAttributeInstance.FeatureName/]")
+	void Set[VectorBasedAttributeInstance.FeatureName/](FVector Value);
+[let VectorRangeBasedConstraintInstance : VectorRangeBasedConstraint = VectorBasedConstraintInstance.VectorRangeBasedConstraint]
+[if (VectorRangeBasedConstraintInstance.Limit = AdditionLimit::Bounded)]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[VectorBasedAttributeInstance.FeatureName/]")
+	bool CanAdd[VectorBasedAttributeInstance.FeatureName/](FVector Amount) const;
+[/if]
+[/let]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[VectorBasedAttributeInstance.FeatureName/]")
+	bool Add[VectorBasedAttributeInstance.FeatureName/](FVector Amount);
+[/if][comment End only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[VectorBasedAttributeInstance.FeatureName/]")
+	FVector Get[VectorBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End VectorBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(RotatorBasedConstraint))][comment Start RotatorBasedConstraint Functions /]
+[let RotatorBasedConstraintInstance : RotatorBasedConstraint = SingleValueConstraintInstance.oclAsType(RotatorBasedConstraint)]
+[let RotatorBasedAttributeInstance : RotatorBasedAttribute = RotatorBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [RotatorBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(RotatorBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[RotatorBasedAttributeInstance.FeatureName/]")
+	void Set[RotatorBasedAttributeInstance.FeatureName/](FRotator Value);
+[let RotatorRangeBasedConstraintInstance : RotatorRangeBasedConstraint = RotatorBasedConstraintInstance.RotatorRangeBasedConstraint]
+[if (RotatorRangeBasedConstraintInstance.Limit = AdditionLimit::Bounded)]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[RotatorBasedAttributeInstance.FeatureName/]")
+	bool CanAdd[RotatorBasedAttributeInstance.FeatureName/](FRotator Amount) const;
+[/if]
+[/let]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[RotatorBasedAttributeInstance.FeatureName/]")
+	bool Add[RotatorBasedAttributeInstance.FeatureName/](FRotator Amount);
+[/if][comment End only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[RotatorBasedAttributeInstance.FeatureName/]")
+	FRotator Get[RotatorBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End RotatorBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(TransformationBasedConstraint))][comment Start TransformationBasedConstraint Functions /]
+[let TransformationBasedConstraintInstance : TransformationBasedConstraint = SingleValueConstraintInstance.oclAsType(TransformationBasedConstraint)]
+[let TransformationBasedAttributeInstance : TransformationBasedAttribute = TransformationBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [TransformationBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(TransformationBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[TransformationBasedAttributeInstance.FeatureName/]")
+	void Set[TransformationBasedAttributeInstance.FeatureName/]([PrintAttributeType(TransformationBasedAttributeInstance)/] Value);
+[let TransformationRangeBasedConstraintInstance : TransformationRangeBasedConstraint = TransformationBasedConstraintInstance.TransformationRangeBasedConstraint]
+[if (TransformationRangeBasedConstraintInstance.Limit = AdditionLimit::Bounded)]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[TransformationBasedAttributeInstance.FeatureName/]")
+	bool CanAdd[TransformationBasedAttributeInstance.FeatureName/]([PrintAttributeType(TransformationBasedAttributeInstance)/] Amount) const;
+[/if]
+[/let]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[TransformationBasedAttributeInstance.FeatureName/]")
+	bool Add[TransformationBasedAttributeInstance.FeatureName/]([PrintAttributeType(TransformationBasedAttributeInstance)/] Amount);
+[/if][comment End only attributes that are not const can have these functions /]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[TransformationBasedAttributeInstance.FeatureName/]")
+	[PrintAttributeType(TransformationBasedAttributeInstance)/] Get[TransformationBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End TransformationBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ColorBasedConstraint))][comment Start ColorBasedConstraint Functions /]
+[let ColorBasedConstraintInstance : ColorBasedConstraint = SingleValueConstraintInstance.oclAsType(ColorBasedConstraint)]
+[let ColorBasedAttributeInstance : ColorBasedAttribute = ColorBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [ColorBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(ColorBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ColorBasedAttributeInstance.FeatureName/]")
+	bool Set[ColorBasedAttributeInstance.FeatureName/](FColor Value);
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ColorBasedAttributeInstance.FeatureName/]")
+	FColor Get[ColorBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End ColorBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(TextureBasedConstraint))][comment Start TextureBasedConstraint Functions /]
+[let TextureBasedConstraintInstance : TextureBasedConstraint = SingleValueConstraintInstance.oclAsType(TextureBasedConstraint)]
+[let TextureBasedAttributeInstance : TextureBasedAttribute = TextureBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [TextureBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(TextureBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[TextureBasedAttributeInstance.FeatureName/]")
+	void Set[TextureBasedAttributeInstance.FeatureName/](UTexture2D* Value);
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[TextureBasedAttributeInstance.FeatureName/]")
+	UTexture2D* Get[TextureBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End TextureBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ModelBasedConstraint))][comment Start ModelBasedConstraint Functions /]
+[let ModelBasedConstraintInstance : ModelBasedConstraint = SingleValueConstraintInstance.oclAsType(ModelBasedConstraint)]
+[let ModelBasedAttributeInstance : ModelBasedAttribute = ModelBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [ModelBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(ModelBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ModelBasedAttributeInstance.FeatureName/]")
+	void Set[ModelBasedAttributeInstance.FeatureName/](UStaticMesh* Value);
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ModelBasedAttributeInstance.FeatureName/]")
+	UStaticMesh* Get[ModelBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End ModelBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ParticleBasedConstraint))][comment Start ParticleBasedConstraint Functions /]
+[let ParticleBasedConstraintInstance : ParticleBasedConstraint = SingleValueConstraintInstance.oclAsType(ParticleBasedConstraint)]
+[let ParticleBasedAttributeInstance : ParticleBasedAttribute = ParticleBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [ParticleBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(ParticleBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ParticleBasedAttributeInstance.FeatureName/]")
+	void Set[ParticleBasedAttributeInstance.FeatureName/](UNiagaraSystem* Value);
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[ParticleBasedAttributeInstance.FeatureName/]")
+	UNiagaraSystem* Get[ParticleBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End ParticleBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(AudioBasedConstraint))][comment Start AudioBasedConstraint Functions /]
+[let AudioBasedConstraintInstance : AudioBasedConstraint = SingleValueConstraintInstance.oclAsType(AudioBasedConstraint)]
+[let AudioBasedAttributeInstance : AudioBasedAttribute = AudioBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [AudioBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(AudioBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[AudioBasedAttributeInstance.FeatureName/]")
+	void Set[AudioBasedAttributeInstance.FeatureName/](USoundBase* Value);
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[AudioBasedAttributeInstance.FeatureName/]")
+	USoundBase* Get[AudioBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End AudioBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(MaterialBasedConstraint))][comment Start MaterialBasedConstraint Functions /]
+[let MaterialBasedConstraintInstance : MaterialBasedConstraint = SingleValueConstraintInstance.oclAsType(MaterialBasedConstraint)]
+[let MaterialBasedAttributeInstance : MaterialBasedAttribute = MaterialBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [MaterialBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(MaterialBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[MaterialBasedAttributeInstance.FeatureName/]")
+	void Set[MaterialBasedAttributeInstance.FeatureName/](UMaterialInterface* Value);
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[MaterialBasedAttributeInstance.FeatureName/]")
+	UMaterialInterface* Get[MaterialBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End MaterialBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))][comment Start EnumBasedConstraint Functions /]
+[let EnumBasedConstraintInstance : EnumBasedConstraint = SingleValueConstraintInstance.oclAsType(EnumBasedConstraint)]
+[for (EnumBasedAttributeInstance : EnumBasedAttribute | EnumBasedConstraintInstance.ConstrainedAttributeInstance)]
+[if (EnumBasedAttributeInstance.EnumType.oclIsTypeOf(SimpleEnumStructure))]
+
+	// [EnumBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(EnumBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[EnumBasedAttributeInstance.FeatureName/]")
+	void Set[EnumBasedAttributeInstance.FeatureName/]([PrintAttributeType(EnumBasedAttributeInstance)/] Value);
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[EnumBasedAttributeInstance.FeatureName/]")
+	[PrintAttributeType(EnumBasedAttributeInstance)/] Get[EnumBasedAttributeInstance.FeatureName/]() const;
+[/if]
+[if (EnumBasedAttributeInstance.EnumType.oclIsTypeOf(BitmaskedEnumStructure))]
+
+	// [EnumBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(EnumBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[EnumBasedAttributeInstance.FeatureName/]")
+	void Add[EnumBasedAttributeInstance.FeatureName/]Key([PrintAttributeType(EnumBasedAttributeInstance)/] Key);
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[EnumBasedAttributeInstance.FeatureName/]")
+	void Remove[EnumBasedAttributeInstance.FeatureName/]Key([PrintAttributeType(EnumBasedAttributeInstance)/] Key);
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[EnumBasedAttributeInstance.FeatureName/]")
+	[PrintAttributeType(EnumBasedAttributeInstance)/] Get[EnumBasedAttributeInstance.FeatureName/]() const;
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[EnumBasedAttributeInstance.FeatureName/]")
+	bool [EnumBasedAttributeInstance.FeatureName/]HasKey([PrintAttributeType(EnumBasedAttributeInstance)/] Key) const;
+[/if]
+[/for]
+[/let]
+[/if][comment End EnumBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(StructureBasedConstraint))][comment Start StructureBasedConstraint Functions /]
+[let StructureBasedConstraintInstance : StructureBasedConstraint = SingleValueConstraintInstance.oclAsType(StructureBasedConstraint)]
+[for (StructureBasedAttributeInstance : StructureBasedAttribute | StructureBasedConstraintInstance.ConstrainedAttributeInstance)]
+
+	// [StructureBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(StructureBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[StructureBasedAttributeInstance.FeatureName/]")
+	void Set[StructureBasedAttributeInstance.FeatureName/]([PrintAttributeType(StructureBasedAttributeInstance)/] Value);
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[StructureBasedAttributeInstance.FeatureName/]")
+	[PrintAttributeType(StructureBasedAttributeInstance)/] Get[StructureBasedAttributeInstance.FeatureName/]() const;
+[/for]
+[/let]
+[/if][comment End StructureBasedConstraint Functions /]
+[/for]
+[/template]
+
+[template private PrintSystemAttributes(AttributeSystemModel : AttributeSystem)]
+[for (ArrayConstraintInstance : ArrayConstraint | AttributeSystemModel.ArrayConstraints)]
+	/// Arrays
+[for (GameAttributeInstance : GameAttribute | ArrayConstraintInstance.ConstrainedAttributeInstance)]
+
+	// [GameAttributeInstance.FeatureName/]
+	UPROPERTY(EditAnywhere, Category = "[AttributeSystemModel.SystemName/]|[GameAttributeInstance.FeatureName/]")
+	TArray<[PrintAttributeType(GameAttributeInstance)/]> [GameAttributeInstance.FeatureName/];
+[/for]
+	/// ~Arrays
+[/for]
+
+	/// Single Attributes
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))][comment Start Print ValueBasedAttribute Variables /]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = ValueBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [ValueBasedAttributeInstance.FeatureName/]
+	[PrintConstAttribute(ValueBasedConstraintInstance)/][PrintAttributeType(ValueBasedAttributeInstance)/] [ValueBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(ValueBasedAttributeInstance)/];
+[if (DoesValueBasedConstraintHaveMOE(ValueBasedConstraintInstance))][comment Start Print MOE Related /]
+	UPROPERTY(EditAnywhere, Category = "[AttributeSystemModel.SystemName/]|MOE")
+	TSubclassOf<UMOERandomGenerator> [ValueBasedAttributeInstance.FeatureName/]MOERandomGeneratorClass = nullptr;
+	TObjectPtr<UMOERandomGenerator> [ValueBasedAttributeInstance.FeatureName/]MOERandomGenerator = nullptr;
+[/if][comment End Print MOE Related /]
+[if (ValueBasedConstraintInstance.Variability = VariabilityType::Variable)][comment Start Variability /]
+[if (DoesValueBasedConstraintHaveRegeneration(ValueBasedConstraintInstance))][comment Start Print Regeneration Related /]
+[let RegenerationAttribute : ValueBasedAttribute = ValueBasedConstraintInstance.RegenerationConstraint.RegenerationAttribute]
+	bool bIs[RegenerationAttribute.FeatureName/]Disabled[PrintAttributeDefaultValue(RegenerationAttribute)/];
+[/let]
+[/if][comment End Print Regeneration Related /]
+[if (DoesValueBasedConstraintHaveBase(ValueBasedConstraintInstance))][comment Start Print Base Variable /]
+[let BaseValueConstraintInstance : BaseValueConstraint = ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(BaseValueConstraint)]
+	UPROPERTY(EditAnywhere, Category = "[AttributeSystemModel.SystemName/]|BaseAttribute")
+	[PrintAttributeType(ValueBasedAttributeInstance)/] Base[ValueBasedAttributeInstance.FeatureName/] = BASE_[ValueBasedAttributeInstance.FeatureName.toUpperCase()/];
+[/let]
+[/if][comment End Print Base Variable /]
+[if (DoesValueBasedConstraintHaveDependency(ValueBasedConstraintInstance))][comment Start Print Dependency Variable /]
+	[PrintAttributeType(ValueBasedAttributeInstance)/] Dependent[ValueBasedAttributeInstance.FeatureName/] = 0;
+[/if][comment End Print Dependency Variable /]
+[/if][comment End Variability /]
+[/let]
+[/let]
+[/if][comment End Print ValueBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(BooleanBasedConstraint))][comment Start Print BooleanBasedAttribute Variables /]
+[let BooleanBasedConstraintInstance : BooleanBasedConstraint = SingleValueConstraintInstance.oclAsType(BooleanBasedConstraint)]
+[for (BooleanBasedAttributeInstance : BooleanBasedAttribute | BooleanBasedConstraintInstance.ConstrainedAttributeInstance)]
+
+	// [BooleanBasedAttributeInstance.FeatureName/]
+	[PrintConstAttribute(BooleanBasedConstraintInstance)/][PrintAttributeType(BooleanBasedAttributeInstance)/] b[BooleanBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(BooleanBasedAttributeInstance)/];
+[/for]
+[/let]
+[/if][comment End Print BooleanBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(LetterBasedConstraint))][comment Start Print LetterBasedAttribute Variables /]
+[let LetterBasedConstraintInstance : LetterBasedConstraint = SingleValueConstraintInstance.oclAsType(LetterBasedConstraint)]
+[let LetterBasedAttributeInstance : LetterBasedAttribute = LetterBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [LetterBasedAttributeInstance.FeatureName/]
+	[PrintConstAttribute(LetterBasedConstraintInstance)/][PrintAttributeType(LetterBasedAttributeInstance)/] [LetterBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(LetterBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print LetterBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(Vector2DBasedConstraint))][comment Start Print Vector2DBasedAttribute Variables /]
+[let Vector2DBasedConstraintInstance : Vector2DBasedConstraint = SingleValueConstraintInstance.oclAsType(Vector2DBasedConstraint)]
+[let Vector2DBasedAttributeInstance : Vector2DBasedAttribute = Vector2DBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [Vector2DBasedAttributeInstance.FeatureName/]
+	[PrintConstAttribute(Vector2DBasedConstraintInstance)/][PrintAttributeType(Vector2DBasedAttributeInstance)/] [Vector2DBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(Vector2DBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print Vector2DBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(VectorBasedConstraint))][comment Start Print VectorBasedAttribute Variables /]
+[let VectorBasedConstraintInstance : VectorBasedConstraint = SingleValueConstraintInstance.oclAsType(VectorBasedConstraint)]
+[let VectorBasedAttributeInstance : VectorBasedAttribute = VectorBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [VectorBasedAttributeInstance.FeatureName/]
+	[PrintConstAttribute(VectorBasedConstraintInstance)/][PrintAttributeType(VectorBasedAttributeInstance)/] [VectorBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(VectorBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print VectorBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(RotatorBasedConstraint))][comment Start Print RotatorBasedAttribute Variables /]
+[let RotatorBasedConstraintInstance : RotatorBasedConstraint = SingleValueConstraintInstance.oclAsType(RotatorBasedConstraint)]
+[let RotatorBasedAttributeInstance : RotatorBasedAttribute = RotatorBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [RotatorBasedAttributeInstance.FeatureName/]
+	[PrintConstAttribute(RotatorBasedConstraintInstance)/][PrintAttributeType(RotatorBasedAttributeInstance)/] [RotatorBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(RotatorBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print RotatorBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(TransformationBasedConstraint))][comment Start Print TransformationBasedAttribute Variables /]
+[let TransformationBasedConstraintInstance : TransformationBasedConstraint = SingleValueConstraintInstance.oclAsType(TransformationBasedConstraint)]
+[let TransformationBasedAttributeInstance : TransformationBasedAttribute = TransformationBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [TransformationBasedAttributeInstance.FeatureName/]
+	[PrintConstAttribute(TransformationBasedConstraintInstance)/][PrintAttributeType(TransformationBasedAttributeInstance)/] [TransformationBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(TransformationBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print TransformationBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ColorBasedConstraint))][comment Start Print ColorBasedAttribute Variables /]
+[let ColorBasedConstraintInstance : ColorBasedConstraint = SingleValueConstraintInstance.oclAsType(ColorBasedConstraint)]
+[let ColorBasedAttributeInstance : ColorBasedAttribute = ColorBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [ColorBasedAttributeInstance.FeatureName/]
+	[PrintConstAttribute(ColorBasedConstraintInstance)/][PrintAttributeType(ColorBasedAttributeInstance)/] [ColorBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(ColorBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print ColorBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(TextureBasedConstraint))][comment Start Print TextureBasedAttribute Variables /]
+[let TextureBasedConstraintInstance : TextureBasedConstraint = SingleValueConstraintInstance.oclAsType(TextureBasedConstraint)]
+[let TextureBasedAttributeInstance : TextureBasedAttribute = TextureBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [TextureBasedAttributeInstance.FeatureName/]
+	UPROPERTY(EditAnywhere)
+	[PrintAttributeType(TextureBasedAttributeInstance)/] [TextureBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(TextureBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print TextureBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ModelBasedConstraint))][comment Start Print ModelBasedAttribute Variables /]
+[let ModelBasedConstraintInstance : ModelBasedConstraint = SingleValueConstraintInstance.oclAsType(ModelBasedConstraint)]
+[let ModelBasedAttributeInstance : ModelBasedAttribute = ModelBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [ModelBasedAttributeInstance.FeatureName/]
+	UPROPERTY(EditAnywhere)
+	[PrintAttributeType(ModelBasedAttributeInstance)/] [ModelBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(ModelBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print ModelBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ParticleBasedConstraint))][comment Start Print ParticleBasedAttribute Variables /]
+[let ParticleBasedConstraintInstance : ParticleBasedConstraint = SingleValueConstraintInstance.oclAsType(ParticleBasedConstraint)]
+[let ParticleBasedAttributeInstance : ParticleBasedAttribute = ParticleBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [ParticleBasedAttributeInstance.FeatureName/]
+	UPROPERTY(EditAnywhere)
+	[PrintAttributeType(ParticleBasedAttributeInstance)/] [ParticleBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(ParticleBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print ParticleBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(AudioBasedConstraint))][comment Start Print AudioBasedAttribute Variables /]
+[let AudioBasedConstraintInstance : AudioBasedConstraint = SingleValueConstraintInstance.oclAsType(AudioBasedConstraint)]
+[let AudioBasedAttributeInstance : AudioBasedAttribute = AudioBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [AudioBasedAttributeInstance.FeatureName/]
+	UPROPERTY(EditAnywhere)
+	[PrintAttributeType(AudioBasedAttributeInstance)/] [AudioBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(AudioBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print AudioBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(MaterialBasedConstraint))][comment Start Print MaterialBasedAttribute Variables /]
+[let MaterialBasedConstraintInstance : MaterialBasedConstraint = SingleValueConstraintInstance.oclAsType(MaterialBasedConstraint)]
+[let MaterialBasedAttributeInstance : MaterialBasedAttribute = MaterialBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [MaterialBasedAttributeInstance.FeatureName/]
+	UPROPERTY(EditAnywhere)
+	[PrintAttributeType(MaterialBasedAttributeInstance)/] [MaterialBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(MaterialBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print MaterialBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))][comment Start Print EnumBasedAttribute Variables /]
+[let EnumBasedConstraintInstance : EnumBasedConstraint = SingleValueConstraintInstance.oclAsType(EnumBasedConstraint)]
+[for (EnumBasedAttributeInstance : EnumBasedAttribute | EnumBasedConstraintInstance.ConstrainedAttributeInstance)]
+
+	// [EnumBasedAttributeInstance.FeatureName/]
+[if (EnumBasedAttributeInstance.EnumType.oclIsTypeOf(BitmaskedEnumStructure))]
+	UPROPERTY(Meta = (Bitmask, BitmaskEnum = "E[EnumBasedAttributeInstance.EnumType.FeatureName/]::Type"))
+[/if]
+	[PrintConstAttribute(EnumBasedConstraintInstance)/][PrintAttributeType(EnumBasedAttributeInstance)/] [EnumBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(EnumBasedAttributeInstance)/];
+[/for]
+[/let]
+[/if][comment End Print EnumBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(StructureBasedConstraint))][comment Start Print StructureBasedAttribute Variables /]
+[let StructureBasedConstraintInstance : StructureBasedConstraint = SingleValueConstraintInstance.oclAsType(StructureBasedConstraint)]
+[for (StructureBasedAttributeInstance : StructureBasedAttribute | StructureBasedConstraintInstance.ConstrainedAttributeInstance)]
+
+	// [StructureBasedAttributeInstance.FeatureName/]
+	[PrintAttributeType(StructureBasedAttributeInstance)/] [StructureBasedAttributeInstance.FeatureName/];
+[/for]
+[/let]
+[/if][comment End Print StructureBasedAttribute Variables /]
+[/for]
+	/// ~Single Attributes
+[/template]
+
+[template public PrintAttributeType(GameAttributeModel : GameAttribute)]
+[if (GameAttributeModel.oclIsTypeOf(DecimalBasedAttribute))]float[/if][if (GameAttributeModel.oclIsTypeOf(IntegerBasedAttribute))]int32[/if][if (GameAttributeModel.oclIsTypeOf(BooleanBasedAttribute))]bool[/if][if (GameAttributeModel.oclIsTypeOf(CharacterBasedAttribute) or GameAttributeModel.oclIsTypeOf(StringBasedAttribute))]FString[/if][if (GameAttributeModel.oclIsTypeOf(NameBasedAttribute))]FName[/if][if (GameAttributeModel.oclIsTypeOf(TextBasedAttribute))]FText[/if][if (GameAttributeModel.oclIsTypeOf(Vector2DBasedAttribute))]FVector2D[/if][if (GameAttributeModel.oclIsTypeOf(VectorBasedAttribute))]FVector[/if][if (GameAttributeModel.oclIsTypeOf(RotatorBasedAttribute))]FRotator[/if][if (GameAttributeModel.oclIsTypeOf(TransformationBasedAttribute))]FTransform[/if][if (GameAttributeModel.oclIsTypeOf(ColorBasedAttribute))]FColor[/if][if (GameAttributeModel.oclIsTypeOf(TextureBasedAttribute))]UTexture2D*[/if][if (GameAttributeModel.oclIsTypeOf(ModelBasedAttribute))]UStaticMesh*[/if][if (GameAttributeModel.oclIsTypeOf(ParticleBasedAttribute))]UNiagaraSystem*[/if][if (GameAttributeModel.oclIsTypeOf(AudioBasedAttribute))]USoundBase*[/if][if (GameAttributeModel.oclIsTypeOf(MaterialBasedAttribute))]UMaterialInterface*[/if][if (GameAttributeModel.oclIsTypeOf(EnumBasedAttribute))][if (GameAttributeModel.oclAsType(EnumBasedAttribute).EnumType.oclIsTypeOf(SimpleEnumStructure))]E[GameAttributeModel.oclAsType(EnumBasedAttribute).EnumType.FeatureName/][/if][if (GameAttributeModel.oclAsType(EnumBasedAttribute).EnumType.oclIsTypeOf(BitmaskedEnumStructure))]int32[/if][/if][if (GameAttributeModel.oclIsTypeOf(StructureBasedAttribute))]F[GameAttributeModel.oclAsType(StructureBasedAttribute).DataType.FeatureName/][/if]
+[/template]
+
+[query public IsValueBasedConstraintBounded(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if (not ValueBasedConstraintModel.BaseOrRangeConstraint.oclIsUndefined() and ValueBasedConstraintModel.BaseOrRangeConstraint.oclIsTypeOf(ValueRangeBasedConstraint)) then ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).Limit = AdditionLimit::Bounded else false endif /]
+[query public IsVector2DBasedConstraintBounded(Vector2DBasedConstraintModel : Vector2DBasedConstraint) : Boolean = if (not Vector2DBasedConstraintModel.Vector2DRangeBasedConstraint.oclIsUndefined()) then Vector2DBasedConstraintModel.Vector2DRangeBasedConstraint.Limit = AdditionLimit::Bounded else false endif /]
+[query public IsVectorBasedConstraintBounded(VectorBasedConstraintModel : VectorBasedConstraint) : Boolean = if (not VectorBasedConstraintModel.VectorRangeBasedConstraint.oclIsUndefined()) then VectorBasedConstraintModel.VectorRangeBasedConstraint.Limit = AdditionLimit::Bounded else false endif /]
+[query public IsRotatorBasedConstraintBounded(RotatorBasedConstraintModel : RotatorBasedConstraint) : Boolean = if (not RotatorBasedConstraintModel.RotatorRangeBasedConstraint.oclIsUndefined()) then RotatorBasedConstraintModel.RotatorRangeBasedConstraint.Limit = AdditionLimit::Bounded else false endif /]
+[query public IsTransformationBasedConstraintBounded(TransformationBasedConstraintModel : TransformationBasedConstraint) : Boolean = if (not TransformationBasedConstraintModel.TransformationRangeBasedConstraint.oclIsUndefined()) then TransformationBasedConstraintModel.TransformationRangeBasedConstraint.Limit = AdditionLimit::Bounded else false endif /]
+
+[query public DoesValueBasedConstraintHaveBase(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if not ValueBasedConstraintModel.BaseOrRangeConstraint.oclIsUndefined() then ValueBasedConstraintModel.BaseOrRangeConstraint.oclIsTypeOf(BaseValueConstraint) else false endif /]
+[query public DoesValueBasedConstraintHaveDependency(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = not ValueBasedConstraintModel.DirectDependencyConstraint.oclIsUndefined() /]
+[query public DoesValueBasedConstraintHaveRegeneration(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = not ValueBasedConstraintModel.RegenerationConstraint.oclIsUndefined() /]
+[query public DoesValueBasedConstraintHaveMOE(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = not ValueBasedConstraintModel.MarginOfError.oclIsUndefined() /]
+[query public DoesValueBasedConstraintHaveSetterDistortion(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if ValueBasedConstraintModel.DistortionConstraints->size() > 0 then ValueBasedConstraintModel.DistortionConstraints->select(e | e.oclIsKindOf(SetterDistortionConstraint))->size() > 0 else false endif /]
+[query public DoesValueBasedConstraintHaveGetterDistortion(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if ValueBasedConstraintModel.DistortionConstraints->size() > 0 then ValueBasedConstraintModel.DistortionConstraints->select(e | e.oclIsKindOf(GetterDistortionConstraint))->size() > 0 else false endif /]
+
+[query public DoesValueBasedConstraintHaveConversionDependencyConstraint(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if DoesValueBasedConstraintHaveMinMax(ValueBasedConstraintModel) then (not ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.oclIsUndefined()) else false endif /]
+[query public DoesValueBasedConstraintHaveConversionChain(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if DoesValueBasedConstraintHaveConversionDependencyConstraint(ValueBasedConstraintModel) then (ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.ConversionChain->size() > 0) else false endif /]
+[query public DoesValueBasedConstraintHaveNextAttributeInChain(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if DoesValueBasedConstraintHaveConversionDependencyConstraint(ValueBasedConstraintModel) then (not ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.NextAttributeInChain.oclIsUndefined()) else false endif /]
+
+[query public DoesValueBasedConstraintHaveMin(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if (not ValueBasedConstraintModel.BaseOrRangeConstraint.oclIsUndefined() and ValueBasedConstraintModel.BaseOrRangeConstraint.oclIsTypeOf(ValueRangeBasedConstraint)) then (not ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MinimumValue.oclIsUndefined()) else false endif /]
+[query public DoesValueBasedConstraintHaveMax(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if (not ValueBasedConstraintModel.BaseOrRangeConstraint.oclIsUndefined() and ValueBasedConstraintModel.BaseOrRangeConstraint.oclIsTypeOf(ValueRangeBasedConstraint)) then (not ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MaximumValue.oclIsUndefined()) else false endif /]
+[query public DoesValueBasedConstraintHaveMinMax(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = DoesValueBasedConstraintHaveMin(ValueBasedConstraintModel) or DoesValueBasedConstraintHaveMax(ValueBasedConstraintModel) /]
+
+[query public DoesVector2DBasedConstraintHaveMin(Vector2DBasedConstraintModel : Vector2DBasedConstraint) : Boolean = if (not Vector2DBasedConstraintModel.Vector2DRangeBasedConstraint.oclIsUndefined()) then not Vector2DBasedConstraintModel.Vector2DRangeBasedConstraint.MinimumVector2DAttribute.oclIsUndefined() else false endif /]
+[query public DoesVector2DBasedConstraintHaveMax(Vector2DBasedConstraintModel : Vector2DBasedConstraint) : Boolean = if (not Vector2DBasedConstraintModel.Vector2DRangeBasedConstraint.oclIsUndefined()) then not Vector2DBasedConstraintModel.Vector2DRangeBasedConstraint.MaximumVector2DAttribute.oclIsUndefined() else false endif /]
+
+[query public DoesVectorBasedConstraintHaveMin(VectorBasedConstraintModel : VectorBasedConstraint) : Boolean = if (not VectorBasedConstraintModel.VectorRangeBasedConstraint.oclIsUndefined()) then not VectorBasedConstraintModel.VectorRangeBasedConstraint.MinimumVectorAttribute.oclIsUndefined() else false endif /]
+[query public DoesVectorBasedConstraintHaveMax(VectorBasedConstraintModel : VectorBasedConstraint) : Boolean = if (not VectorBasedConstraintModel.VectorRangeBasedConstraint.oclIsUndefined()) then not VectorBasedConstraintModel.VectorRangeBasedConstraint.MaximumVectorAttribute.oclIsUndefined() else false endif /]
+
+[query public DoesRotatorBasedConstraintHaveMin(RotatorBasedConstraintModel : RotatorBasedConstraint) : Boolean = if (not RotatorBasedConstraintModel.RotatorRangeBasedConstraint.oclIsUndefined()) then not RotatorBasedConstraintModel.RotatorRangeBasedConstraint.MinimumRotatorAttribute.oclIsUndefined() else false endif /]
+[query public DoesRotatorBasedConstraintHaveMax(RotatorBasedConstraintModel : RotatorBasedConstraint) : Boolean = if (not RotatorBasedConstraintModel.RotatorRangeBasedConstraint.oclIsUndefined()) then not RotatorBasedConstraintModel.RotatorRangeBasedConstraint.MaximumRotatorAttribute.oclIsUndefined() else false endif /]
+
+[query public DoesTransformationBasedConstraintHaveMin(TransformationBasedConstraintModel : TransformationBasedConstraint) : Boolean = if (not TransformationBasedConstraintModel.TransformationRangeBasedConstraint.oclIsUndefined()) then not TransformationBasedConstraintModel.TransformationRangeBasedConstraint.MinimumTransformationAttribute.oclIsUndefined() else false endif /]
+[query public DoesTransformationBasedConstraintHaveMax(TransformationBasedConstraintModel : TransformationBasedConstraint) : Boolean = if (not TransformationBasedConstraintModel.TransformationRangeBasedConstraint.oclIsUndefined()) then not TransformationBasedConstraintModel.TransformationRangeBasedConstraint.MaximumTransformationAttribute.oclIsUndefined() else false endif /]
+
+[query public ShouldInitializeToMin(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if DoesValueBasedConstraintHaveMinMax(ValueBasedConstraintModel) then ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).Initializer = InitializationMode::Minimum else false endif /]
+[query public ShouldInitializeToMax(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if DoesValueBasedConstraintHaveMinMax(ValueBasedConstraintModel) then ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).Initializer = InitializationMode::Maximum else false endif /]
+[query public ShouldInitializeToMinMax(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = ShouldInitializeToMin(ValueBasedConstraintModel) or ShouldInitializeToMax(ValueBasedConstraintModel) /]
+
+[query public ShouldRemapToMin(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if DoesValueBasedConstraintHaveMinMax(ValueBasedConstraintModel) then ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MinimumValue.RemapValue else false endif /]
+[query public ShouldRemapToMax(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if DoesValueBasedConstraintHaveMinMax(ValueBasedConstraintModel) then ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MaximumValue.RemapValue else false endif /]
+[query public ShouldRemapToMinMax(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if DoesValueBasedConstraintHaveMinMax(ValueBasedConstraintModel) then ShouldRemapToMin(ValueBasedConstraintModel) or ShouldRemapToMax(ValueBasedConstraintModel) else false endif /]
+
+[query public ShouldReclampValue(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if DoesValueBasedConstraintHaveMinMax(ValueBasedConstraintModel) then not ShouldRemapToMinMax(ValueBasedConstraintModel) else false endif /]
+
+[query public IsAttributeVariable(SingleValueConstraintModel : SingleValueConstraint) : Boolean = SingleValueConstraintModel.Variability = VariabilityType::Variable /]
+[query public IsValueBasedAttributeDecimal(ValueBasedAttributeModel : ValueBasedAttribute) : Boolean = ValueBasedAttributeModel.oclIsTypeOf(DecimalBasedAttribute) /]
+[query public IsValueBasedAttributeInteger(ValueBasedAttributeModel : ValueBasedAttribute) : Boolean = ValueBasedAttributeModel.oclIsTypeOf(IntegerBasedAttribute) /]
+
+[template public PrintDistortionArgumentDeclaration(ValueBasedConstraintModel : ValueBasedConstraint)]
+[if (ValueBasedConstraintModel.DistortionConstraints->selectByType(SetterDistortionConstraint)->size() > 0)], bool ApplyDistortion[/if]
+[/template]
+
+[template private PrintAttributeDefaultValue(GameAttributeModel : GameAttribute)]
+[if (GameAttributeModel.oclIsTypeOf(DecimalBasedAttribute))] = [GameAttributeModel.oclAsType(DecimalBasedAttribute).DefaultValue/]f[/if][if (GameAttributeModel.oclIsTypeOf(IntegerBasedAttribute))] = [GameAttributeModel.oclAsType(IntegerBasedAttribute).DefaultValue/][/if][if (GameAttributeModel.oclIsTypeOf(BooleanBasedAttribute))] = [GameAttributeModel.oclAsType(BooleanBasedAttribute).DefaultValue/][/if][if (GameAttributeModel.oclIsTypeOf(CharacterBasedAttribute))] = FString("[GameAttributeModel.oclAsType(CharacterBasedAttribute).DefaultValue/]")[/if][if (GameAttributeModel.oclIsTypeOf(StringBasedAttribute))] = FString("[GameAttributeModel.oclAsType(StringBasedAttribute).DefaultValue/]")[/if][if (GameAttributeModel.oclIsTypeOf(NameBasedAttribute))] = FName("[GameAttributeModel.oclAsType(NameBasedAttribute).DefaultValue/]")[/if][if (GameAttributeModel.oclIsTypeOf(TextBasedAttribute))] = FText::FromString("[GameAttributeModel.oclAsType(TextBasedAttribute).DefaultValue/]")[/if][if (GameAttributeModel.oclIsTypeOf(Vector2DBasedAttribute))][let Vector2D : Vector2DBasedAttribute = GameAttributeModel.oclAsType(Vector2DBasedAttribute)] = FVector2D([Vector2D.X/]f, [Vector2D.Y/]f)[/let][/if][if (GameAttributeModel.oclIsTypeOf(VectorBasedAttribute))][let Vector : VectorBasedAttribute = GameAttributeModel.oclAsType(VectorBasedAttribute)] = FVector([Vector.X/]f, [Vector.Y/]f, [Vector.Z/]f)[/let][/if][if (GameAttributeModel.oclIsTypeOf(RotatorBasedAttribute))][let Rotator : RotatorBasedAttribute = GameAttributeModel.oclAsType(RotatorBasedAttribute)] = FRotator([Rotator.Roll/]f, [Rotator.Pitch/]f, [Rotator.Yaw/]f)[/let][/if][if (GameAttributeModel.oclIsTypeOf(TransformationBasedAttribute))][let Transformation : TransformationBasedAttribute = GameAttributeModel.oclAsType(TransformationBasedAttribute)] = FTransform(FRotator([Transformation.Rotation.Roll/]f, [Transformation.Rotation.Pitch/]f, [Transformation.Rotation.Yaw/]f), FVector([Transformation.Translation.X/]f, [Transformation.Translation.Y/]f, [Transformation.Translation.Z/]f), FVector([Transformation.Scale3D.X/]f, [Transformation.Scale3D.Y/]f, [Transformation.Scale3D.Z/]f))[/let][/if][if (GameAttributeModel.oclIsTypeOf(ColorBasedAttribute))][let Color : ColorBasedAttribute = GameAttributeModel.oclAsType(ColorBasedAttribute)] = FColor([Color.R/], [Color.G/], [Color.B/], [Color.A/])[/let][/if][if (GameAttributeModel.oclIsTypeOf(EnumBasedAttribute))][let Enum : EnumBasedAttribute = GameAttributeModel.oclAsType(EnumBasedAttribute)][if (Enum.EnumType.oclIsTypeOf(SimpleEnumStructure))] = E[Enum.EnumType.FeatureName/]::[Enum.EnumType.EnumStates->first().FeatureName/][/if][if (Enum.EnumType.oclIsTypeOf(BitmaskedEnumStructure))] = static_cast<int32>(E[Enum.EnumType.FeatureName/]::[Enum.EnumType.EnumStates->first().FeatureName/])[/if][/let][/if]
+[/template]
+
+[template private PrintDependencyFunctionDeclarations(AttributeSystemModel : AttributeSystem)]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[if (DoesValueBasedConstraintHaveDependency(ValueBasedConstraintInstance))]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = ValueBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [ValueBasedAttributeInstance.FeatureName/]
+	[PrintAttributeType(ValueBasedAttributeInstance)/] Calculate[ValueBasedAttributeInstance.FeatureName/]Dependencies() const;
+	void Update[ValueBasedAttributeInstance.FeatureName/]Dependencies();
+	UFUNCTION()
+	void Update[ValueBasedAttributeInstance.FeatureName/]DependenciesInt(int32 OldValue, int32 NewValue);
+	UFUNCTION()
+	void Update[ValueBasedAttributeInstance.FeatureName/]DependenciesFloat(float OldValue, float NewValue);
+[/let]
+[/if]
+[/let]
+[/if]
+[/for]
+[/template]
+
+[template private PrintInitializationFunctionDeclarations(AttributeSystemModel : AttributeSystem)]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = ValueBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (ShouldInitializeToMinMax(ValueBasedConstraintInstance) or DoesValueBasedConstraintHaveMOE(ValueBasedConstraintInstance) or ShouldRemapToMinMax(ValueBasedConstraintInstance) or ShouldReclampValue(ValueBasedConstraintInstance) or DoesValueBasedConstraintHaveRegeneration(ValueBasedConstraintInstance))]
+
+	// [ValueBasedAttributeInstance.FeatureName/]
+[if (ShouldInitializeToMinMax(ValueBasedConstraintInstance) or DoesValueBasedConstraintHaveMOE(ValueBasedConstraintInstance))]
+	void Initialize[ValueBasedAttributeInstance.FeatureName/]();
+[/if]
+[if (ShouldRemapToMinMax(ValueBasedConstraintInstance))]
+[if (ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MinimumValue.RemapValue)]
+	UFUNCTION()
+	void Remap[ValueBasedAttributeInstance.FeatureName/]ForMin(float OldMin[ValueBasedAttributeInstance.FeatureName/], float NewMin[ValueBasedAttributeInstance.FeatureName/]);
+[/if]
+[if (ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MaximumValue.RemapValue)]
+	UFUNCTION()
+	void Remap[ValueBasedAttributeInstance.FeatureName/]ForMax(float OldMax[ValueBasedAttributeInstance.FeatureName/], float NewMax[ValueBasedAttributeInstance.FeatureName/]);
+[/if]
+[/if]
+[if (ShouldReclampValue(ValueBasedConstraintInstance))]
+	UFUNCTION()
+	void Reclamp[ValueBasedAttributeInstance.FeatureName/]Int(int32 OldValue, int32 NewValue);
+	UFUNCTION()
+	void Reclamp[ValueBasedAttributeInstance.FeatureName/]Float(float OldValue, float NewValue);
+[/if]
+[if (DoesValueBasedConstraintHaveRegeneration(ValueBasedConstraintInstance))]
+	void Regenerate[ValueBasedAttributeInstance.FeatureName/](float DeltaTime);
+[/if]
+[/if]
+[/let]
+[/let]
+[/if]
+[/for]
+[/template]
+
+[template private PrintConstAttribute(SingleValueConstraintModel : SingleValueConstraint)]
+[if (SingleValueConstraintModel.Variability = VariabilityType::Constant)]const [/if]
+[/template]
+
+[template public PrintClassName(AttributeSystemModel : AttributeSystem)]
+U[AttributeSystemModel.SystemName/]Component
+[/template]
+
+
+

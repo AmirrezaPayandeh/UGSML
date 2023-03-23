@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/UGSML/src-gen" creationIcons="false" editDirectory="/UGSML.edit/src-gen"
+    editorDirectory="/UGSML.editor/src-gen" modelPluginID="UGSML" modelName="UGSML"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>UGSML.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="UGSML" basePackage="org.eclipse.sirius.sample" disposableProviderFactory="true"
+      ecorePackage="UGSML.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="UGSML.ecore#//AdditionLimit">
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//AdditionLimit/NoLimit"/>
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//AdditionLimit/Bounded"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="UGSML.ecore#//VariabilityType">
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//VariabilityType/Constant"/>
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//VariabilityType/Variable"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="UGSML.ecore#//FilteringType">
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//FilteringType/Inclusion"/>
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//FilteringType/Exclusion"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="UGSML.ecore#//ArithmeticOperations">
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//ArithmeticOperations/Addition"/>
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//ArithmeticOperations/Subtraction"/>
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//ArithmeticOperations/Multiplication"/>
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//ArithmeticOperations/Division"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="UGSML.ecore#//InitializationMode">
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//InitializationMode/Default"/>
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//InitializationMode/Minimum"/>
+      <genEnumLiterals ecoreEnumLiteral="UGSML.ecore#//InitializationMode/Maximum"/>
+    </genEnums>
+    <genClasses ecoreClass="UGSML.ecore#//Root">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//Root/Game"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//Game">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//Game/GameTitle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//Game/GameFeatureContainers"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//Game/GameSystems"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//Game/GameVersionName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//Game/GameVersionNumber"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//GameFeatureContainer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//GameFeatureContainer/FeatureCategory"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//GameAttributeContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//GameAttributeContainer/GameAttributes"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//GameFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//GameFeature/FeatureName"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//GameAttribute"/>
+    <genClasses ecoreClass="UGSML.ecore#//EnumerationBasedStructure">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//EnumerationBasedStructure/EnumStates"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//EnumState"/>
+    <genClasses ecoreClass="UGSML.ecore#//DataBasedStructure">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//DataBasedStructure/StructureAttributes"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//BooleanBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//BooleanBasedAttribute/DefaultValue"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ValueBasedAttribute"/>
+    <genClasses ecoreClass="UGSML.ecore#//LetterBasedAttribute"/>
+    <genClasses ecoreClass="UGSML.ecore#//NameBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//NameBasedAttribute/DefaultValue"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//StringBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//StringBasedAttribute/DefaultValue"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//TextBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//TextBasedAttribute/DefaultValue"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//Vector2DBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//Vector2DBasedAttribute/X"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//Vector2DBasedAttribute/Y"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//VectorBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//VectorBasedAttribute/X"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//VectorBasedAttribute/Y"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//VectorBasedAttribute/Z"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//VectorBasedAttribute/TOwningTransformation"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//VectorBasedAttribute/SOwningTransformation"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//RotatorBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//RotatorBasedAttribute/Roll"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//RotatorBasedAttribute/Pitch"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//RotatorBasedAttribute/Yaw"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//RotatorBasedAttribute/ROwningTransformation"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//TransformationBasedAttribute">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//TransformationBasedAttribute/Translation"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//TransformationBasedAttribute/Rotation"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//TransformationBasedAttribute/Scale3D"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ColorBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//ColorBasedAttribute/R"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//ColorBasedAttribute/G"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//ColorBasedAttribute/B"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//ColorBasedAttribute/A"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//TextureBasedAttribute"/>
+    <genClasses ecoreClass="UGSML.ecore#//GameItemContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//GameItemContainer/GameItems"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//GameItem">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//GameItem/ItemAttributeInstances"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//GameItem/ItemModes"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//GameItem/DerivedItems"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//GameItem/ParentItem"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//GameItem/PlacableInventories"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//GameItem/IsAbstract"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ItemMode"/>
+    <genClasses ecoreClass="UGSML.ecore#//GameSystem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//GameSystem/SystemName"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//AttributeSystem">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//AttributeSystem/ArrayConstraints"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//AttributeSystem/SingleValueConstraints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//AttributeSystem/ParentAttributeSystem"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//GameSystemConstraint"/>
+    <genClasses ecoreClass="UGSML.ecore#//AttributeSystemConstraint"/>
+    <genClasses ecoreClass="UGSML.ecore#//BaseGameConstraintRule"/>
+    <genClasses ecoreClass="UGSML.ecore#//AttributeConstraintRule"/>
+    <genClasses ecoreClass="UGSML.ecore#//ArrayConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//ArrayConstraint/ConstrainedAttributeInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//BooleanBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//BooleanBasedConstraint/ConstrainedAttributeInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ValueBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//ValueBasedConstraint/ConstrainedAttributeInstance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//ValueBasedConstraint/BaseOrRangeConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//ValueBasedConstraint/MarginOfError"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//ValueBasedConstraint/RegenerationConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//ValueBasedConstraint/DirectDependencyConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//ValueBasedConstraint/DistortionConstraints"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//MinimumValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//MinimumValue/MinimumAttribute"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//MaximumValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//MaximumValue/MaximumAttribute"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//RegenerationConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//RegenerationConstraint/RegenerationAttribute"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//DependencyConstraint"/>
+    <genClasses ecoreClass="UGSML.ecore#//LetterBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//LetterBasedConstraint/ConstrainedAttributeInstance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//LetterBasedConstraint/LetterLengthConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//LetterBasedConstraint/LetterCustomizationConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//InventorySystem">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//InventorySystem/InventoryConstraints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//InventorySystem/SystemItems"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//InventorySystemConstraint">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//InventorySystemConstraint/SelectionConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//InventorySystemConstraint/EquipItemConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//InventorySystemConstraint/SlotConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//InventorySystemConstraint/StackWeightConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//InventorySystemConstraint/AutoCraftConstraint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//InventorySystemConstraint/VainConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//InventoryConstraintRule"/>
+    <genClasses ecoreClass="UGSML.ecore#//AutoCraftConstraint"/>
+    <genClasses ecoreClass="UGSML.ecore#//StackWeightConstraint"/>
+    <genClasses ecoreClass="UGSML.ecore#//StackConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//StackConstraint/StackAmount"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//WeightConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//WeightConstraint/TotalWeight"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//SlotConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//SlotConstraint/NumberOfSlots"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//SlotConstraint/MaximumSlots"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//EquipItemConstraint"/>
+    <genClasses ecoreClass="UGSML.ecore#//SelectionConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//SelectionConstraint/SelectableAmount"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ModelBasedAttribute"/>
+    <genClasses ecoreClass="UGSML.ecore#//ParticleBasedAttribute"/>
+    <genClasses ecoreClass="UGSML.ecore#//VainConstraint"/>
+    <genClasses ecoreClass="UGSML.ecore#//BaseValueConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//BaseValueConstraint/DefaultBaseValue"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//BaseOrRangeConstraint"/>
+    <genClasses ecoreClass="UGSML.ecore#//ValueRangeBasedConstraint">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//ValueRangeBasedConstraint/MinimumValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//ValueRangeBasedConstraint/MaximumValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//ValueRangeBasedConstraint/Initializer"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//ValueRangeBasedConstraint/ConversionDependencyConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//BaseValueRangedConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//BaseValueRangedConstraint/RemapValue"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//SingleValueConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//SingleValueConstraint/Variability"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//MarginOfErrorConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//MarginOfErrorConstraint/MOEAttribute"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//AudioBasedAttribute"/>
+    <genClasses ecoreClass="UGSML.ecore#//CharacterBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//CharacterBasedAttribute/DefaultValue"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//IntegerBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//IntegerBasedAttribute/DefaultValue"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//DecimalBasedAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//DecimalBasedAttribute/DefaultValue"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//DirectDependencyConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//DirectDependencyConstraint/DependentAttributes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//DirectDependencyConstraint/DependencyFormula"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ConversionDependencyConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//ConversionDependencyConstraint/AttributeName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//ConversionDependencyConstraint/ConversionUnitToBase"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//ConversionDependencyConstraint/ConversionChain"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//ConversionDependencyConstraint/ValueRangeBasedConstraint"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//ConversionDependencyConstraint/NextAttributeInChain"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//ConversionDependencyConstraint/ConversionRate"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//DistortionConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//DistortionConstraint/DistortionAttribute"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//DistortionConstraint/DistortionMode"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//Vector2DBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//Vector2DBasedConstraint/ConstrainedAttributeInstance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//Vector2DBasedConstraint/Vector2DRangeBasedConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//VectorBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//VectorBasedConstraint/ConstrainedAttributeInstance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//VectorBasedConstraint/VectorRangeBasedConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//RotatorBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//RotatorBasedConstraint/ConstrainedAttributeInstance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//RotatorBasedConstraint/RotatorRangeBasedConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//TransformationBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//TransformationBasedConstraint/ConstrainedAttributeInstance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//TransformationBasedConstraint/TransformationRangeBasedConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ColorBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//ColorBasedConstraint/ConstrainedAttributeInstance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//ColorBasedConstraint/ColorCustomizationConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//TextureBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//TextureBasedConstraint/ConstrainedAttributeInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ModelBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//ModelBasedConstraint/ConstrainedAttributeInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ParticleBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//ParticleBasedConstraint/ConstrainedAttributeInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//AudioBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//AudioBasedConstraint/ConstrainedAttributeInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//LetterLengthConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//LetterLengthConstraint/MaximumLengthAttribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//LetterLengthConstraint/MinimumLengthAttribute"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//LetterCustomizationConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//LetterCustomizationConstraint/FilterStrings"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ValueConstraintRule"/>
+    <genClasses ecoreClass="UGSML.ecore#//LetterConstraintRule"/>
+    <genClasses ecoreClass="UGSML.ecore#//Vector2DRangeBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//Vector2DRangeBasedConstraint/MinimumVector2DAttribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//Vector2DRangeBasedConstraint/MaximumVector2DAttribute"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//Vector2DConstraintRule"/>
+    <genClasses ecoreClass="UGSML.ecore#//VectorConstraintRule"/>
+    <genClasses ecoreClass="UGSML.ecore#//VectorRangeBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//VectorRangeBasedConstraint/MaximumVectorAttribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//VectorRangeBasedConstraint/MinimumVectorAttribute"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//RangeBasedConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//RangeBasedConstraint/Limit"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//RotatorConstraintRule"/>
+    <genClasses ecoreClass="UGSML.ecore#//RotatorRangeBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//RotatorRangeBasedConstraint/MaximumRotatorAttribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//RotatorRangeBasedConstraint/MinimumRotatorAttribute"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//TransformationConstraintRule"/>
+    <genClasses ecoreClass="UGSML.ecore#//TransformationRangeBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//TransformationRangeBasedConstraint/MaximumTransformationAttribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//TransformationRangeBasedConstraint/MinimumTransformationAttribute"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//CustomizationType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//CustomizationType/FilterType"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ColorCustomizationConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//ColorCustomizationConstraint/FilterColors"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//ColorConstraintRule"/>
+    <genClasses ecoreClass="UGSML.ecore#//EnumBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//EnumBasedConstraint/ConstrainedAttributeInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//SimpleEnumStructure"/>
+    <genClasses ecoreClass="UGSML.ecore#//BitmaskedEnumStructure"/>
+    <genClasses ecoreClass="UGSML.ecore#//GameStructureContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//GameStructureContainer/GameStructures"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//GameStructure"/>
+    <genClasses ecoreClass="UGSML.ecore#//EnumBasedAttribute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//EnumBasedAttribute/EnumType"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//StructureBasedAttribute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//StructureBasedAttribute/DataType"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//StructureBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//StructureBasedConstraint/ConstrainedAttributeInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//GetterDistortionConstraint"/>
+    <genClasses ecoreClass="UGSML.ecore#//SetterDistortionConstraint"/>
+    <genClasses ecoreClass="UGSML.ecore#//MaterialBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//MaterialBasedConstraint/ConstrainedAttributeInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="UGSML.ecore#//MaterialBasedAttribute"/>
+  </genPackages>
+</genmodel:GenModel>

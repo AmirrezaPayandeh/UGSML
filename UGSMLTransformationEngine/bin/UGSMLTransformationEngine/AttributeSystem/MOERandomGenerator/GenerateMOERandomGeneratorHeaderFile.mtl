@@ -1,0 +1,32 @@
+[comment encoding = UTF-8 /]
+[module GenerateMOERandomGeneratorHeaderFile('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::Main::PluginDirectories /]
+[import UGSMLTransformationEngine::Main::PrintCopyrightText /]
+
+[template public GenerateMOERandomGeneratorHeaderFile(Model : OclAny)]
+[file (GetPublicDirectory() + '/AttributeSystem/MOERandomGenerator.h', false, 'UTF-8')]
+[PrintCopyrightText()/]
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
+#include "MOERandomGenerator.generated.h"
+
+/**
+ * Base margin of error random generator. Inherit from this class and implement your own random function in c++ or blueprint.
+ */
+UCLASS(Blueprintable, BlueprintType)
+class UGSML_API UMOERandomGenerator : public UObject
+{
+	GENERATED_BODY()
+	
+public:
+	UFUNCTION(BlueprintNativeEvent, Category = "MOE")
+	float GetRandomWithMOE(float Value, float MOE) const;
+	virtual float GetRandomWithMOE_Implementation(float Value, float MOE) const;
+
+};
+[/file]
+[/template]

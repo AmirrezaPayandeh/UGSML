@@ -1,0 +1,52 @@
+[comment encoding = UTF-8 /]
+[module GenerateEnumurationFile('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::Main::PluginDirectories /]
+[import UGSMLTransformationEngine::Main::PrintCopyrightText /]
+[import UGSMLTransformationEngine::Services::HelperService /]
+
+[template public GenerateEnumurationFile(GameModel : Game)]
+[file (GetPublicDirectory() + 'Enumurations/UGSMLEnumurations.h', false, 'UTF-8')]
+[PrintCopyrightText()/]
+
+#pragma once
+
+[for (GameStructureContainerInstance : GameStructureContainer | GameModel.GameFeatureContainers.oclAsType(GameStructureContainer))]
+[for (GameStructureInstance : GameStructure | GameStructureContainerInstance.GameStructures)]
+[if (GameStructureInstance.oclIsKindOf(EnumerationBasedStructure))]
+[SetHasAnyEnumeration()/]
+[/if]
+[/for]
+[/for]
+[if (GetHasAnyEnumeration())]
+#include "UGSMLEnumurations.generated.h"
+[/if]
+[for (GameStructureContainerInstance : GameStructureContainer | GameModel.GameFeatureContainers)]
+[for (SimpleEnumurationInstance : SimpleEnumStructure | GameStructureContainerInstance.GameStructures)]
+
+UENUM(BlueprintType)
+enum class E[SimpleEnumurationInstance.FeatureName/] : uint8
+{
+[for (EnumStateInstance : EnumState | SimpleEnumurationInstance.EnumStates)]
+	[EnumStateInstance.FeatureName/] UMETA(DisplayName = "[EnumStateInstance.FeatureName/]"),
+[/for]
+};
+[/for]
+[for (BitmaskedEnumurationInstance : BitmaskedEnumStructure | GameStructureContainerInstance.GameStructures)]
+
+UENUM(BlueprintType, Meta = (Bitflags))
+namespace E[BitmaskedEnumurationInstance.FeatureName/]
+{
+	enum Type
+	{
+		[BitmaskedEnumurationInstance.EnumStates->first().FeatureName/] = 0 UMETA(DisplayName = "[BitmaskedEnumurationInstance.EnumStates->first().FeatureName/]"),
+		[for (EnumStateInstance : EnumState | BitmaskedEnumurationInstance.EnumStates->excluding(BitmaskedEnumurationInstance.EnumStates->first()))]
+		[EnumStateInstance.FeatureName/] = 1 << [IncreamentBitmaskCounter()/] UMETA(DisplayName = "[EnumStateInstance.FeatureName/]"),
+		[/for]
+		[ResetBitmaskCounter()/]
+	};
+}
+[/for]
+[/for]
+[/file]
+[/template]

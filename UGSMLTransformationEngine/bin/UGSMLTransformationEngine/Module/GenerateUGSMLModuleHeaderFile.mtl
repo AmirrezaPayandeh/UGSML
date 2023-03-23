@@ -1,0 +1,41 @@
+[comment encoding = UTF-8 /]
+[module GenerateUGSMLModuleHeaderFile('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::Main::PluginDirectories /]
+[import UGSMLTransformationEngine::Main::PrintCopyrightText /]
+
+[template public GenerateUGSMLModuleHeaderFile(GameModel : Game)]
+[file (GetPublicDirectory() + 'Module/UGSMLModule.h', false, 'UTF-8')]
+[PrintCopyrightText()/]
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Modules/ModuleManager.h"
+
+class FUGSMLModule : public IModuleInterface
+{
+public:
+	virtual void StartupModule() override;
+	virtual void ShutdownModule() override;
+};
+[for (GameSystemInstance : GameSystem | GameModel.GameSystems)]
+[let AttributeSystemInstance : AttributeSystem = GameSystemInstance.oclAsType(AttributeSystem)]
+/// [AttributeSystemInstance.SystemName/]
+DECLARE_LOG_CATEGORY_EXTERN(Log[AttributeSystemInstance.SystemName/], Log, All);
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemInstance.SingleValueConstraints)]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[if (ValueBasedConstraintInstance.BaseOrRangeConstraint.oclIsTypeOf(BaseValueConstraint))]
+
+// Base[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]
+#define BASE_[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName.toUpperCase()/] [PrintDefaultValue(ValueBasedConstraintInstance)/]
+[/if]
+[/let]
+[/for]
+/// ~End [AttributeSystemInstance.SystemName/]
+[/let]
+[/for]
+[/file]
+[/template]
+
+[template private PrintDefaultValue(ValueBasedConstraintModel : ValueBasedConstraint)][ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(BaseValueConstraint).DefaultBaseValue/][/template]

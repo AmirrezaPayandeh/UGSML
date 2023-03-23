@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="BehavioralUGSML" nsURI="http://www.example.org/BehavioralUGSML"
+    nsPrefix="BehavioralUGSML">
+  <eClassifiers xsi:type="ecore:EClass" name="Game">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="GameTitle" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="Game Title"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="GameVersionName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="V1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="GameVersionNumber" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="1.0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="GameSystems" upperBound="-1"
+        eType="#//GameSystem" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GameSystem" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="SystemName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="SystemName"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeSystem" eSuperTypes="#//GameSystem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ArrayConstraints" upperBound="-1"
+        eType="#//ArrayConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="SingleValueConstraints"
+        upperBound="-1" eType="#//SingleValueConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ParentAttributeSystem"
+        eType="#//AttributeSystem"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GameSystemConstraint" abstract="true"
+      interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeSystemConstraint" abstract="true"
+      interface="true" eSuperTypes="#//GameSystemConstraint"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="VariabilityType">
+    <eLiterals name="Variable"/>
+    <eLiterals name="Constant" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ArrayConstraint" eSuperTypes="#//AttributeSystemConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SingleValueConstraint" abstract="true"
+      interface="true" eSuperTypes="#//AttributeSystemConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Variability" lowerBound="1"
+        eType="#//VariabilityType" defaultValueLiteral="Variable"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GameConstraintRule" abstract="true"
+      interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AttributeSystemConstraintRule" abstract="true"
+      interface="true" eSuperTypes="#//GameConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueBasedConstraintRule" abstract="true"
+      interface="true" eSuperTypes="#//AttributeSystemConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueBasedConstraint" eSuperTypes="#//SingleValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="BaseOrRangeConstraint"
+        eType="#//BaseOrRangeConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="MarginOfErrorConstraint"
+        eType="#//MarginOfErrorConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="RegenerationConstraint"
+        eType="#//RegenerationConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="DirectDependencyConstraint"
+        eType="#//DirectDependencyConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="DistortionConstraints"
+        upperBound="-1" eType="#//DistortionConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BaseOrRangeConstraint" abstract="true"
+      interface="true" eSuperTypes="#//ValueBasedConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RangeBasedConstraint" abstract="true"
+      interface="true" eSuperTypes="#//AttributeSystemConstraintRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Limit" lowerBound="1" eType="#//AdditionLimit"
+        defaultValueLiteral="NoLimit"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AdditionLimit">
+    <eLiterals name="NoLimit"/>
+    <eLiterals name="Bounded" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomizationType" abstract="true" interface="true"
+      eSuperTypes="#//AttributeSystemConstraintRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="FilterType" lowerBound="1"
+        eType="#//FilterMode" defaultValueLiteral="Inclusion"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="FilterMode">
+    <eLiterals name="Inclusion"/>
+    <eLiterals name="Exclusion" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BaseValueConstraint" eSuperTypes="#//BaseOrRangeConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueRangeBasedConstraint" eSuperTypes="#//BaseOrRangeConstraint #//RangeBasedConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Initializer" lowerBound="1"
+        eType="#//InitializationMode" defaultValueLiteral="Default"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="MinimumValueConstraint"
+        eType="#//MinimumValueConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="MaximumValueConstraint"
+        eType="#//MaximumValueConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ConversionDependencyConstraint"
+        eType="#//ConversionDependencyConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MarginOfErrorConstraint" eSuperTypes="#//ValueBasedConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="InitializationMode">
+    <eLiterals name="Default"/>
+    <eLiterals name="Minimum" value="1"/>
+    <eLiterals name="Maximum" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RangeConstraint" abstract="true" interface="true"
+      eSuperTypes="#//ValueBasedConstraintRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="RemapValue" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MinimumValueConstraint" eSuperTypes="#//RangeConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MaximumValueConstraint" eSuperTypes="#//RangeConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RegenerationConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DependencyConstraint" abstract="true"
+      interface="true" eSuperTypes="#//ValueBasedConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConversionDependencyConstraint" eSuperTypes="#//DependencyConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ConversionUnitToBase" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="1.0"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ConversionChain" eType="#//ConversionDependencyConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ConversionRate" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="1.0"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DirectDependencyConstraint" eSuperTypes="#//DependencyConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DependencyFormula" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DistortionConstraint" abstract="true"
+      interface="true" eSuperTypes="#//ValueBasedConstraintRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DistortionMode" lowerBound="1"
+        eType="#//ArithmeticOperations" defaultValueLiteral="Multiplication"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ArithmeticOperations">
+    <eLiterals name="Addition"/>
+    <eLiterals name="Subtraction" value="1"/>
+    <eLiterals name="Multiplication" value="2"/>
+    <eLiterals name="Division" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GetterDistortion" eSuperTypes="#//DistortionConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SetterDistortion" eSuperTypes="#//DistortionConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BooleanBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LetterBasedConstraint" eSuperTypes="#//SingleValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="LetterLengthConstraint"
+        eType="#//LetterLengthConstraint" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="LetterFilterConstraint"
+        eType="#//LetterFilterConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LetterConstraintRule" abstract="true"
+      interface="true" eSuperTypes="#//AttributeSystemConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LetterFilterConstraint" eSuperTypes="#//LetterConstraintRule #//CustomizationType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LetterLengthConstraint" eSuperTypes="#//LetterConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Vector2DBasedConstraint" eSuperTypes="#//SingleValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Vector2DRangeBasedConstraint"
+        eType="#//Vector2DRangeBasedConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Vector2DRangeBasedConstraint" eSuperTypes="#//Vector2DConstraintRule #//RangeBasedConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Vector2DConstraintRule" abstract="true"
+      interface="true" eSuperTypes="#//AttributeSystemConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VectorBasedConstraint" eSuperTypes="#//SingleValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="VectorRangeBasedConstraint"
+        eType="#//VectorRangeBasedConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VectorRangeBasedConstraint" eSuperTypes="#//VectorConstraintRule #//RangeBasedConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="VectorConstraintRule" abstract="true"
+      interface="true" eSuperTypes="#//AttributeSystemConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RotatorBasedConstraint" eSuperTypes="#//SingleValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="RotatorRangeBasedConstraint"
+        eType="#//RotatorRangeBasedConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RotatorRangeBasedConstraint" eSuperTypes="#//RotatorConstraintRule #//RangeBasedConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RotatorConstraintRule" abstract="true"
+      interface="true" eSuperTypes="#//AttributeSystemConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationBasedConstraint" eSuperTypes="#//SingleValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="TransformationRangeBasedConstraint"
+        eType="#//TransformationRangeBasedConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationRangeBasedConstraint"
+      eSuperTypes="#//TransformationConstraintRule #//RangeBasedConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TransformationConstraintRule" abstract="true"
+      interface="true" eSuperTypes="#//AttributeSystemConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ColorBasedConstraint" eSuperTypes="#//SingleValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ColorFilterConstraint"
+        eType="#//ColorFilterConstraint" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ColorConstraintRule" abstract="true"
+      interface="true" eSuperTypes="#//AttributeSystemConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ColorFilterConstraint" eSuperTypes="#//CustomizationType #//ColorConstraintRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TextureBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ParticleBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AudioBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MaterialBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EnumBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StructureBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
+</ecore:EPackage>

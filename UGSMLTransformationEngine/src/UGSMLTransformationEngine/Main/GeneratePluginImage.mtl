@@ -1,0 +1,14 @@
+[comment encoding = UTF-8 /]
+[module GeneratePluginImage('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::Main::PluginDirectories /]
+[import UGSMLTransformationEngine::Services::HelperService /]
+
+[template public GeneratePluginImage(anOclAny : OclAny)]
+[BuildResourcesDirectory()/]
+[CopyPluginImage()/]
+[/template]
+
+[template private BuildResourcesDirectory(anOclAny : OclAny)]
+[file (GetPluginDirectory() + 'Resources/Icon128.png', false, 'UTF-8')][/file]
+[/template]

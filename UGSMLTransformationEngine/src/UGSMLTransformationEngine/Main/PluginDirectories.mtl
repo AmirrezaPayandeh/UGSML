@@ -1,0 +1,18 @@
+[comment encoding = UTF-8 /]
+[module PluginDirectories('http://www.example.org/UGSML')]
+
+[template public GetPluginDirectory(Model : OclAny)]
+Plugins/UGSML/
+[/template]
+
+[template public GetUGSMLDirectory(Model : OclAny)]
+Plugins/UGSML/Source/UGSML/
+[/template]
+
+[template public GetPublicDirectory(Model : OclAny)]
+Plugins/UGSML/Source/UGSML/Public/
+[/template]
+
+[template public GetPrivateDirectory(Model : OclAny)]
+Plugins/UGSML/Source/UGSML/Private/
+[/template]

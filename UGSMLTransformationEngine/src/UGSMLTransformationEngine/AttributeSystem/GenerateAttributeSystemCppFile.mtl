@@ -1,0 +1,1134 @@
+[comment encoding = UTF-8 /]
+[module GenerateAttributeSystemCppFile('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::Main::PrintCopyrightText /]
+[import UGSMLTransformationEngine::Main::PluginDirectories /]
+[import UGSMLTransformationEngine::AttributeSystem::GenerateAttributeSystemHeaderFile /]
+
+[template public GenerateAttributeSystemCppFile(AttributeSystemModel : AttributeSystem)]
+[file (GetPrivateDirectory() + 'AttributeSystem/' + AttributeSystemModel.SystemName + '.cpp', false, 'UTF-8')]
+[PrintCopyrightText()/]
+
+#include "AttributeSystem/[AttributeSystemModel.SystemName/].h"
+#include "AttributeSystem/MOERandomGenerator.h"
+#include "NiagaraSystem.h"
+
+[PrintClassName(AttributeSystemModel)/]::[PrintClassName(AttributeSystemModel)/]()
+{
+	PrimaryComponentTick.bCanEverTick = true;
+	bWantsInitializeComponent = true;
+}
+
+void [PrintClassName(AttributeSystemModel)/]::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// Regenerations
+[PrintRegenerateFunctionCalls(AttributeSystemModel)/]
+}
+
+void [PrintClassName(AttributeSystemModel)/]::InitializeComponent()
+{
+	Super::InitializeComponent();
+	Initialize[AttributeSystemModel.SystemName/]();
+}
+
+void [PrintClassName(AttributeSystemModel)/]::BeginPlay()
+{
+	Super::BeginPlay();
+[RegisterDelegates(AttributeSystemModel)/]
+}
+[PrintFunctionImplementations()/]
+[PrintInitializeAndRemapAndRegenerateFunctions(AttributeSystemModel)/]
+[PrintCalculateAndUpdateFunctions(AttributeSystemModel)/]
+
+void [PrintClassName(AttributeSystemModel)/]::Initialize[AttributeSystemModel.SystemName/]()
+{
+	// Dependency Updates
+[PrintUpdateFunctionCalls(AttributeSystemModel)/]
+	// Initializations
+[PrintInitializeFunctionCalls(AttributeSystemModel)/]
+}
+
+[if (AttributeSystemModel.ParentAttributeSystem->isEmpty())]
+template<typename T>
+T [PrintClassName(AttributeSystemModel)/]::RemapValue(T Value, T OldMin, T OldMax, T NewMin, T NewMax) const
+{
+	return FMath::GetMappedRangeValueClamped(FVector2D(OldMin, OldMax), FVector2D(NewMin, NewMax), Value);
+}
+
+template<typename T>
+T [PrintClassName(AttributeSystemModel)/]::ClampValue(T Value, T Min, T Max) const
+{
+	return FMath::Clamp(Value, Min, Max);
+}
+
+template<typename T>
+bool [PrintClassName(AttributeSystemModel)/]::ValueInRange(T Value, T Min, T Max) const
+{
+	return Value >= Min && Value <= Max;
+}
+
+FVector2D [PrintClassName(AttributeSystemModel)/]::ClampVector2D(FVector2D Value, FVector2D Min, FVector2D Max) const
+{
+	FVector2D Result;
+	Result.X = ClampValue(Value.X, Min.X, Max.X);
+	Result.Y = ClampValue(Value.Y, Min.Y, Max.Y);
+	return Result;
+}
+
+FVector [PrintClassName(AttributeSystemModel)/]::ClampVector(FVector Value, FVector Min, FVector Max) const
+{
+	FVector Result;
+	Result.X = ClampValue(Value.X, Min.X, Max.X);
+	Result.Y = ClampValue(Value.Y, Min.Y, Max.Y);
+	Result.Z = ClampValue(Value.Z, Min.Z, Max.Z);
+	return Result;
+}
+
+FRotator [PrintClassName(AttributeSystemModel)/]::ClampRotator(FRotator Value, FRotator Min, FRotator Max) const
+{
+	FRotator Result;
+	Result.Roll = ClampValue(Value.Roll, Min.Roll, Max.Roll);
+	Result.Pitch = ClampValue(Value.Pitch, Min.Pitch, Max.Pitch);
+	Result.Yaw = ClampValue(Value.Yaw, Min.Yaw, Max.Yaw);
+	return Result;
+}
+
+FTransform [PrintClassName(AttributeSystemModel)/]::ClampTransform(FTransform Value, FTransform Min, FTransform Max) const
+{
+	FVector NewTranslation;
+	NewTranslation.X = ClampValue(Value.GetTranslation().X, Min.GetTranslation().X, Max.GetTranslation().X);
+	NewTranslation.Y = ClampValue(Value.GetTranslation().Y, Min.GetTranslation().Y, Max.GetTranslation().Y);
+	NewTranslation.Z = ClampValue(Value.GetTranslation().Z, Min.GetTranslation().Z, Max.GetTranslation().Z);
+
+	FVector NewScale3D;
+	NewScale3D.X = ClampValue(Value.GetScale3D().X, Min.GetScale3D().X, Max.GetScale3D().X);
+	NewScale3D.Y = ClampValue(Value.GetScale3D().Y, Min.GetScale3D().Y, Max.GetScale3D().Y);
+	NewScale3D.Z = ClampValue(Value.GetScale3D().Z, Min.GetScale3D().Z, Max.GetScale3D().Z);
+
+	FRotator NewRotation;
+	NewRotation.Roll = ClampValue(Value.GetRotation().Rotator().Roll, Min.GetRotation().Rotator().Roll, Max.GetRotation().Rotator().Roll);
+	NewRotation.Pitch = ClampValue(Value.GetRotation().Rotator().Pitch, Min.GetRotation().Rotator().Pitch, Max.GetRotation().Rotator().Pitch);
+	NewRotation.Yaw = ClampValue(Value.GetRotation().Rotator().Yaw, Min.GetRotation().Rotator().Yaw, Max.GetRotation().Rotator().Yaw);
+
+	return FTransform(NewRotation, NewTranslation, NewScale3D);
+}
+
+bool [PrintClassName(AttributeSystemModel)/]::Vector2DInRange(FVector2D Value, FVector2D Min, FVector2D Max) const
+{
+	return Value.ComponentwiseAllGreaterOrEqual(Min) && Value.ComponentwiseAllLessOrEqual(Max);
+}
+
+bool [PrintClassName(AttributeSystemModel)/]::VectorInRange(FVector Value, FVector Min, FVector Max) const
+{
+	return ((Value.X >= Min.X && Value.Y >= Min.Y && Value.Z >= Min.Z) && (Value.X <= Max.X && Value.Y <= Max.Y && Value.Z <= Max.Z));
+}
+
+bool [PrintClassName(AttributeSystemModel)/]::RotatorInRange(FRotator Value, FRotator Min, FRotator Max) const
+{
+	return ((Value.Roll >= Min.Roll && Value.Pitch >= Min.Pitch && Value.Yaw >= Min.Yaw) && (Value.Roll <= Max.Roll && Value.Pitch <= Max.Pitch && Value.Yaw <= Max.Yaw));
+}
+
+bool [PrintClassName(AttributeSystemModel)/]::TransformInRange(FTransform Value, FTransform Min, FTransform Max) const
+{
+	return VectorInRange(Value.GetTranslation(), Min.GetTranslation(), Max.GetTranslation()) && VectorInRange(Value.GetScale3D(), Min.GetScale3D(), Max.GetScale3D()) && RotatorInRange(Value.GetRotation().Rotator(), Min.GetRotation().Rotator(), Max.GetRotation().Rotator());
+}
+
+bool [PrintClassName(AttributeSystemModel)/]::StringContainsExclusion(const FString& StringToCheck, TArray<FString> ExclusionArray) const
+{
+	for (const FString& ExclusionString : ExclusionArray)
+		if (StringToCheck.Contains(ExclusionString))
+			return true;
+	return false;
+}
+
+bool [PrintClassName(AttributeSystemModel)/]::StringRefusesInclusion(const FString& StringToCheck, TArray<FString> InclusionArray) const
+{
+	TArray<FString> Words;
+	StringToCheck.ParseIntoArray(Words, TEXT(" "), true);
+	for (FString WordToCheck : Words)
+		if (!InclusionArray.Contains(WordToCheck))
+			return true;
+	return false;
+}
+
+bool [PrintClassName(AttributeSystemModel)/]::ColorContainsExclusion(const FColor& ColorToCheck, TArray<FColor> ExclusionArray) const
+{
+	for (const FColor& ExclusionColor : ExclusionArray)
+		if (ColorToCheck == ExclusionColor)
+			return true;
+	return false;
+}
+
+bool [PrintClassName(AttributeSystemModel)/]::ColorRefusesInclusion(const FColor& ColorToCheck, TArray<FColor> InclusionArray) const
+{
+	for (const FColor& InclusionColor : InclusionArray)
+		if (ColorToCheck == InclusionColor)
+			return false;
+	return true;
+}
+[/if]
+[/file]
+[/template]
+
+[template private PrintSetterDistortionCalculation(ValueBasedConstraintModel : ValueBasedConstraint)]
+[if (DoesValueBasedConstraintHaveSetterDistortion(ValueBasedConstraintModel))][for (SetterDistortionConstraintInstance : SetterDistortionConstraint | ValueBasedConstraintModel.DistortionConstraints->selectByType(SetterDistortionConstraint))]([/for]Amount[for (SetterDistortionConstraintInstance : SetterDistortionConstraint | ValueBasedConstraintModel.DistortionConstraints->selectByType(SetterDistortionConstraint))] [PrintDistortionMode(SetterDistortionConstraintInstance)/] GetTotal[SetterDistortionConstraintInstance.DistortionAttribute.FeatureName/]())[/for][/if]
+[/template]
+
+[template private PrintConversionUnitToBase(ValueBasedConstraintModel : ValueBasedConstraint)]
+[ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.ConversionUnitToBase/]
+[/template]
+
+[template private PrintConversionChainMaxCalculation(ValueBasedConstraintModel : ValueBasedConstraint)]
+[if (DoesValueBasedConstraintHaveConversionChain(ValueBasedConstraintModel))][for (ConversionDependencyConstraintInstance : ConversionDependencyConstraint | ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.ConversionChain)] + static_cast<int64>(GetTotal[ConversionDependencyConstraintInstance.ValueRangeBasedConstraint.MaximumValue.MaximumAttribute.FeatureName/]()) * [ConversionDependencyConstraintInstance.ConversionUnitToBase/][/for][/if]
+[/template]
+
+[template private PrintConversionChainTotalCalculation(ValueBasedConstraintModel : ValueBasedConstraint)]
+[if (DoesValueBasedConstraintHaveConversionChain(ValueBasedConstraintModel))][for (ConversionDependencyConstraintInstance : ConversionDependencyConstraint | ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.ConversionChain)] + static_cast<int64>(GetTotal[ConversionDependencyConstraintInstance.AttributeName/]()) * [ConversionDependencyConstraintInstance.ConversionUnitToBase/][/for][/if]
+[/template]
+
+[template private PrintLetterToString(LetterBasedAttributeModel : LetterBasedAttribute)]
+[if (LetterBasedAttributeModel.oclIsTypeOf(NameBasedAttribute) or LetterBasedAttributeModel.oclIsTypeOf(TextBasedAttribute))][LetterBasedAttributeModel.FeatureName/].ToString()[/if][if (LetterBasedAttributeModel.oclIsTypeOf(CharacterBasedAttribute) or LetterBasedAttributeModel.oclIsTypeOf(StringBasedAttribute))][LetterBasedAttributeModel.FeatureName/][/if]
+[/template]
+
+[template private PrintLetterMinLength(LetterBasedConstraintModel : LetterBasedConstraint)]
+[if (LetterBasedConstraintModel.ConstrainedAttributeInstance.oclIsTypeOf(CharacterBasedAttribute))]1[/if][if (not LetterBasedConstraintModel.ConstrainedAttributeInstance.oclIsTypeOf(CharacterBasedAttribute))][if (not LetterBasedConstraintModel.LetterLengthConstraint.MinimumLengthAttribute.oclIsUndefined())]GetTotal[LetterBasedConstraintModel.LetterLengthConstraint.MinimumLengthAttribute.FeatureName/]()[/if][if (LetterBasedConstraintModel.LetterLengthConstraint.MinimumLengthAttribute.oclIsUndefined())]1[/if][/if]
+[/template]
+
+[template private PrintLetterMaxLength(LetterBasedConstraintModel : LetterBasedConstraint)]
+[if (LetterBasedConstraintModel.ConstrainedAttributeInstance.oclIsTypeOf(CharacterBasedAttribute))]1[/if][if (not LetterBasedConstraintModel.ConstrainedAttributeInstance.oclIsTypeOf(CharacterBasedAttribute))][if (not LetterBasedConstraintModel.LetterLengthConstraint.MaximumLengthAttribute.oclIsUndefined())]GetTotal[LetterBasedConstraintModel.LetterLengthConstraint.MaximumLengthAttribute.FeatureName/]()[/if][if (LetterBasedConstraintModel.LetterLengthConstraint.MaximumLengthAttribute.oclIsUndefined())]MAX_int32[/if][/if]
+[/template]
+
+[template private PrintDistortionArgument(ValueBasedConstraintModel : ValueBasedConstraint)]
+[if (DoesValueBasedConstraintHaveSetterDistortion(ValueBasedConstraintModel))], false[/if]
+[/template]
+
+[template private PrintDistortionMode(DistortionConstraintModel : DistortionConstraint)]
+[if (DistortionConstraintModel.DistortionMode = ArithmeticOperations::Addition)]+[/if][if (DistortionConstraintModel.DistortionMode = ArithmeticOperations::Subtraction)]-[/if][if (DistortionConstraintModel.DistortionMode = ArithmeticOperations::Multiplication)]*[/if][if (DistortionConstraintModel.DistortionMode = ArithmeticOperations::Division)]/[/if]
+[/template]
+
+[template private PrintGetTotalValue(ValueBasedConstraintModel : ValueBasedConstraint)]
+[if (DoesValueBasedConstraintHaveGetterDistortion(ValueBasedConstraintModel))][for (GetterDistrotion : GetterDistortionConstraint | ValueBasedConstraintModel.DistortionConstraints->selectByType(GetterDistortionConstraint))]([/for][/if]([if (DoesValueBasedConstraintHaveBase(ValueBasedConstraintModel))]GetBase[ValueBasedConstraintModel.ConstrainedAttributeInstance.FeatureName/]() + [/if]GetDynamic[ValueBasedConstraintModel.ConstrainedAttributeInstance.FeatureName/]()[if (DoesValueBasedConstraintHaveDependency(ValueBasedConstraintModel))] + GetDependent[ValueBasedConstraintModel.ConstrainedAttributeInstance.FeatureName/]()[/if])[if (DoesValueBasedConstraintHaveGetterDistortion(ValueBasedConstraintModel))][for (GetterDistortionConstraintInstance : GetterDistortionConstraint | ValueBasedConstraintModel.DistortionConstraints->selectByType(GetterDistortionConstraint))] [PrintDistortionMode(GetterDistortionConstraintInstance)/] GetTotal[GetterDistortionConstraintInstance.DistortionAttribute.FeatureName/]())[/for][/if]
+[/template]
+
+[template private PrintGetTotalAttributeMin(SingleValueConstraintModel : SingleValueConstraint)]
+[if (SingleValueConstraintModel.oclIsTypeOf(ValueBasedConstraint))][let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintModel.oclAsType(ValueBasedConstraint)][if (DoesValueBasedConstraintHaveMin(ValueBasedConstraintInstance))]GetTotal[ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MinimumValue.MinimumAttribute.FeatureName/]()[/if][if (not DoesValueBasedConstraintHaveMin(ValueBasedConstraintInstance))][if (IsValueBasedAttributeDecimal(ValueBasedConstraintInstance.ConstrainedAttributeInstance))]MIN_flt[/if][if (IsValueBasedAttributeInteger(ValueBasedConstraintInstance.ConstrainedAttributeInstance))]MIN_int32[/if][/if][/let][/if][if (SingleValueConstraintModel.oclIsTypeOf(Vector2DBasedConstraint))][let Vector2DBasedConstraintInstance : Vector2DBasedConstraint = SingleValueConstraintModel.oclAsType(Vector2DBasedConstraint)][if (DoesVector2DBasedConstraintHaveMin(Vector2DBasedConstraintInstance))]Get[Vector2DBasedConstraintInstance.Vector2DRangeBasedConstraint.MinimumVector2DAttribute.FeatureName/]()[/if][if (not DoesVector2DBasedConstraintHaveMin(Vector2DBasedConstraintInstance))]FVector2D(MIN_dbl)[/if][/let][/if][if (SingleValueConstraintModel.oclIsTypeOf(VectorBasedConstraint))][let VectorBasedConstraintInstance : VectorBasedConstraint = SingleValueConstraintModel.oclAsType(VectorBasedConstraint)][if (DoesVectorBasedConstraintHaveMin(VectorBasedConstraintInstance))]Get[VectorBasedConstraintInstance.VectorRangeBasedConstraint.MinimumVectorAttribute.FeatureName/]()[/if][if (not DoesVectorBasedConstraintHaveMin(VectorBasedConstraintInstance))]FVector(MIN_dbl)[/if][/let][/if][if (SingleValueConstraintModel.oclIsTypeOf(RotatorBasedConstraint))][let RotatorBasedConstraintInstance : RotatorBasedConstraint = SingleValueConstraintModel.oclAsType(RotatorBasedConstraint)][if (DoesRotatorBasedConstraintHaveMin(RotatorBasedConstraintInstance))]Get[RotatorBasedConstraintInstance.RotatorRangeBasedConstraint.MinimumRotatorAttribute.FeatureName/]()[/if][if (not DoesRotatorBasedConstraintHaveMin(RotatorBasedConstraintInstance))]FRotator(MIN_dbl)[/if][/let][/if][if (SingleValueConstraintModel.oclIsTypeOf(TransformationBasedConstraint))][let TransformationBasedConstraintInstance : TransformationBasedConstraint = SingleValueConstraintModel.oclAsType(TransformationBasedConstraint)][if (DoesTransformationBasedConstraintHaveMin(TransformationBasedConstraintInstance))]Get[TransformationBasedConstraintInstance.TransformationRangeBasedConstraint.MinimumTransformationAttribute.FeatureName/]()[/if][if (not DoesTransformationBasedConstraintHaveMin(TransformationBasedConstraintInstance))]FTransform(FRotator(MIN_dbl), FVector(MIN_dbl), FVector(MIN_dbl))[/if][/let][/if]
+[/template]
+
+[template private PrintGetTotalAttributeMax(SingleValueConstraintModel : SingleValueConstraint)]
+[if (SingleValueConstraintModel.oclIsTypeOf(ValueBasedConstraint))][let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintModel.oclAsType(ValueBasedConstraint)][if (DoesValueBasedConstraintHaveMax(ValueBasedConstraintInstance))]GetTotal[ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MaximumValue.MaximumAttribute.FeatureName/]()[/if][if (not DoesValueBasedConstraintHaveMax(ValueBasedConstraintInstance))][if (IsValueBasedAttributeDecimal(ValueBasedConstraintInstance.ConstrainedAttributeInstance))]MAX_flt[/if][if (IsValueBasedAttributeInteger(ValueBasedConstraintInstance.ConstrainedAttributeInstance))]MAX_int32[/if][/if][/let][/if][if (SingleValueConstraintModel.oclIsTypeOf(Vector2DBasedConstraint))][let Vector2DBasedConstraintInstance : Vector2DBasedConstraint = SingleValueConstraintModel.oclAsType(Vector2DBasedConstraint)][if (DoesVector2DBasedConstraintHaveMax(Vector2DBasedConstraintInstance))]Get[Vector2DBasedConstraintInstance.Vector2DRangeBasedConstraint.MaximumVector2DAttribute.FeatureName/]()[/if][if (not DoesVector2DBasedConstraintHaveMax(Vector2DBasedConstraintInstance))]FVector2D(MAX_dbl)[/if][/let][/if][if (SingleValueConstraintModel.oclIsTypeOf(VectorBasedConstraint))][let VectorBasedConstraintInstance : VectorBasedConstraint = SingleValueConstraintModel.oclAsType(VectorBasedConstraint)][if (DoesVectorBasedConstraintHaveMax(VectorBasedConstraintInstance))]Get[VectorBasedConstraintInstance.VectorRangeBasedConstraint.MaximumVectorAttribute.FeatureName/]()[/if][if (not DoesVectorBasedConstraintHaveMax(VectorBasedConstraintInstance))]FVector(MAX_dbl)[/if][/let][/if][if (SingleValueConstraintModel.oclIsTypeOf(RotatorBasedConstraint))][let RotatorBasedConstraintInstance : RotatorBasedConstraint = SingleValueConstraintModel.oclAsType(RotatorBasedConstraint)][if (DoesRotatorBasedConstraintHaveMax(RotatorBasedConstraintInstance))]Get[RotatorBasedConstraintInstance.RotatorRangeBasedConstraint.MaximumRotatorAttribute.FeatureName/]()[/if][if (not DoesRotatorBasedConstraintHaveMax(RotatorBasedConstraintInstance))]FRotator(MAX_dbl)[/if][/let][/if][if (SingleValueConstraintModel.oclIsTypeOf(TransformationBasedConstraint))][let TransformationBasedConstraintInstance : TransformationBasedConstraint = SingleValueConstraintModel.oclAsType(TransformationBasedConstraint)][if (DoesTransformationBasedConstraintHaveMax(TransformationBasedConstraintInstance))]Get[TransformationBasedConstraintInstance.TransformationRangeBasedConstraint.MaximumTransformationAttribute.FeatureName/]()[/if][if (not DoesTransformationBasedConstraintHaveMax(TransformationBasedConstraintInstance))]FTransform(FRotator(MAX_dbl), FVector(MAX_dbl), FVector(MAX_dbl))[/if][/let][/if]
+[/template]
+
+[template private PrintValueBasedAttributeMinName(SingleValueConstraintModel : SingleValueConstraint)]
+[if (SingleValueConstraintModel.oclIsTypeOf(ValueBasedConstraint))][let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintModel.oclAsType(ValueBasedConstraint)][if (DoesValueBasedConstraintHaveMin(ValueBasedConstraintInstance))][ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MinimumValue.MinimumAttribute.FeatureName/][/if][/let][/if]
+[/template]
+
+[template private PrintValueBasedAttributeMaxName(SingleValueConstraintModel : SingleValueConstraint)]
+[if (SingleValueConstraintModel.oclIsTypeOf(ValueBasedConstraint))][let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintModel.oclAsType(ValueBasedConstraint)][if (DoesValueBasedConstraintHaveMax(ValueBasedConstraintInstance))][ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MaximumValue.MaximumAttribute.FeatureName/][/if][/let][/if]
+[/template]
+
+[template private PrintAttributeRegenerationName(ValueBasedConstraintModel : ValueBasedConstraint)]
+[ValueBasedConstraintModel.RegenerationConstraint.RegenerationAttribute.FeatureName/]
+[/template]
+
+[template private PrintFunctionImplementations(AttributeSystemModel : AttributeSystem)]
+[for (ArrayConstraintInstance : ArrayConstraint | AttributeSystemModel.ArrayConstraints)]
+[for (ConstrainedAttributeInstance : GameAttribute | ArrayConstraintInstance.ConstrainedAttributeInstance)]
+
+void [PrintClassName(AttributeSystemModel)/]::Add[ConstrainedAttributeInstance.FeatureName/]([PrintAttributeType(ConstrainedAttributeInstance)/] Value)
+{
+	[ConstrainedAttributeInstance.FeatureName/].Add(Value);
+}
+
+void [PrintClassName(AttributeSystemModel)/]::Remove[ConstrainedAttributeInstance.FeatureName/]([PrintAttributeType(ConstrainedAttributeInstance)/] Value)
+{
+	[ConstrainedAttributeInstance.FeatureName/].Remove(Value);
+}
+
+TArray<[PrintAttributeType(ConstrainedAttributeInstance)/]> [PrintClassName(AttributeSystemModel)/]::Get[ConstrainedAttributeInstance.FeatureName/]() const
+{
+	return [ConstrainedAttributeInstance.FeatureName/];
+}
+[/for]
+[/for]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))][comment Start ValueBasedConstraint Functions /]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint).ConstrainedAttributeInstance]
+[if (IsAttributeVariable(ValueBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[ValueBasedAttributeInstance.FeatureName/]([PrintAttributeType(ValueBasedAttributeInstance)/] Value)
+{
+	[PrintAttributeType(ValueBasedAttributeInstance)/] Old[ValueBasedAttributeInstance.FeatureName/] = GetTotal[ValueBasedAttributeInstance.FeatureName/]();
+	[ValueBasedAttributeInstance.FeatureName/] = ClampValue(Value, [PrintGetTotalAttributeMin(ValueBasedConstraintInstance)/], [PrintGetTotalAttributeMax(ValueBasedConstraintInstance)/]);
+	[PrintAttributeType(ValueBasedAttributeInstance)/] New[ValueBasedAttributeInstance.FeatureName/] = GetTotal[ValueBasedAttributeInstance.FeatureName/]();
+
+	if (Old[ValueBasedAttributeInstance.FeatureName/] != New[ValueBasedAttributeInstance.FeatureName/])
+		On[ValueBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[ValueBasedAttributeInstance.FeatureName/], New[ValueBasedAttributeInstance.FeatureName/]);
+[if (DoesValueBasedConstraintHaveMinMax(ValueBasedConstraintInstance))]
+[if (DoesValueBasedConstraintHaveMin(ValueBasedConstraintInstance))]
+
+	if (New[ValueBasedAttributeInstance.FeatureName/] == GetTotal[PrintValueBasedAttributeMinName(ValueBasedConstraintInstance)/]() && Old[ValueBasedAttributeInstance.FeatureName/] != New[ValueBasedAttributeInstance.FeatureName/])
+		On[ValueBasedAttributeInstance.FeatureName/]HitMin.Broadcast();
+[/if]
+[if (DoesValueBasedConstraintHaveMax(ValueBasedConstraintInstance))]
+
+	if (New[ValueBasedAttributeInstance.FeatureName/] == GetTotal[PrintValueBasedAttributeMaxName(ValueBasedConstraintInstance)/]() && Old[ValueBasedAttributeInstance.FeatureName/] != New[ValueBasedAttributeInstance.FeatureName/])
+		On[ValueBasedAttributeInstance.FeatureName/]HitMax.Broadcast();
+[/if]
+[/if]
+}
+[if (IsValueBasedConstraintBounded(ValueBasedConstraintInstance))]
+
+bool [PrintClassName(AttributeSystemModel)/]::CanAdd[ValueBasedAttributeInstance.FeatureName/]([PrintAttributeType(ValueBasedAttributeInstance)/] Amount) const
+{
+[if (not DoesValueBasedConstraintHaveConversionChain(ValueBasedConstraintInstance))]
+	return ValueInRange(GetTotal[ValueBasedAttributeInstance.FeatureName/]() + Amount, [PrintGetTotalAttributeMin(ValueBasedConstraintInstance)/], [PrintGetTotalAttributeMax(ValueBasedConstraintInstance)/]);
+[/if]
+[if (DoesValueBasedConstraintHaveConversionChain(ValueBasedConstraintInstance))]
+	int64 TotalLimit = 0[PrintConversionChainMaxCalculation(ValueBasedConstraintInstance)/];
+
+	int64 TotalAdditionAmount = static_cast<int64>(Amount) * [PrintConversionUnitToBase(ValueBasedConstraintInstance)/];
+
+	int64 TotalCurrent = 0[PrintConversionChainTotalCalculation(ValueBasedConstraintInstance)/];
+
+	int64 Result = TotalCurrent + TotalAdditionAmount;
+
+	if (Result > TotalLimit || Result < 0)
+		return false;
+	return true;
+[/if]
+}
+[/if]
+
+bool [PrintClassName(AttributeSystemModel)/]::Add[ValueBasedAttributeInstance.FeatureName/]([PrintAttributeType(ValueBasedAttributeInstance)/] Amount[PrintDistortionArgumentDeclaration(ValueBasedConstraintInstance)/])
+{
+[if (DoesValueBasedConstraintHaveSetterDistortion(ValueBasedConstraintInstance))]
+	if (ApplyDistortion)
+		Amount = [PrintSetterDistortionCalculation(ValueBasedConstraintInstance)/];
+[/if]
+[if (IsValueBasedConstraintBounded(ValueBasedConstraintInstance))]
+	if (!CanAdd[ValueBasedAttributeInstance.FeatureName/](Amount))
+		return false;
+[/if]
+[if (DoesValueBasedConstraintHaveNextAttributeInChain(ValueBasedConstraintInstance))]
+[let NextAttributeInChainInstance : ValueBasedAttribute = ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.NextAttributeInChain]
+	[PrintAttributeType(ValueBasedAttributeInstance)/] Remaining[ValueBasedAttributeInstance.FeatureName/]ToAdd = [PrintZero(ValueBasedConstraintInstance)/];
+	if (Amount > [PrintZero(ValueBasedConstraintInstance)/])
+	{
+		Remaining[ValueBasedAttributeInstance.FeatureName/]ToAdd = ClampValue(Amount - (GetTotal[PrintValueBasedAttributeMaxName(ValueBasedConstraintInstance)/]() - GetTotal[ValueBasedAttributeInstance.FeatureName/]()), [PrintMinusOne(ValueBasedConstraintInstance)/], Amount);
+		if (Remaining[ValueBasedAttributeInstance.FeatureName/]ToAdd >= [PrintZero(ValueBasedConstraintInstance)/])
+		{
+[if (ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.ConversionRate = 0.0)]
+			Set[ValueBasedAttributeInstance.FeatureName/](GetTotal[PrintValueBasedAttributeMaxName(ValueBasedConstraintInstance)/]());
+			Add[NextAttributeInChainInstance.FeatureName/](Remaining[ValueBasedAttributeInstance.FeatureName/]ToAdd);
+[/if]
+[if (not (ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.ConversionRate = 0.0))]
+			if (Add[NextAttributeInChainInstance.FeatureName/]([ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.ConversionRate/]))
+			{
+				Set[ValueBasedAttributeInstance.FeatureName/](GetTotal[PrintValueBasedAttributeMinName(ValueBasedConstraintInstance)/]());
+				Add[ValueBasedAttributeInstance.FeatureName/](Remaining[ValueBasedAttributeInstance.FeatureName/]ToAdd);
+			}
+			else
+				Set[ValueBasedAttributeInstance.FeatureName/](GetDynamic[ValueBasedAttributeInstance.FeatureName/]() + Amount);
+[/if]
+		}
+		else
+			Set[ValueBasedAttributeInstance.FeatureName/](GetDynamic[ValueBasedAttributeInstance.FeatureName/]() + Amount);
+	}
+	if (Amount < [PrintZero(ValueBasedConstraintInstance)/])
+	{
+		Remaining[ValueBasedAttributeInstance.FeatureName/]ToAdd = ClampValue(Amount + GetTotal[ValueBasedAttributeInstance.FeatureName/](), Amount, [PrintPlusOne(ValueBasedConstraintInstance)/]);
+		if (Remaining[ValueBasedAttributeInstance.FeatureName/]ToAdd < [PrintZero(ValueBasedConstraintInstance)/])
+		{
+[if (ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.ConversionRate = 0.0)]
+			Add[NextAttributeInChainInstance.FeatureName/](Remaining[ValueBasedAttributeInstance.FeatureName/]ToAdd);
+			Set[ValueBasedAttributeInstance.FeatureName/](GetTotal[PrintValueBasedAttributeMinName(ValueBasedConstraintInstance)/]());
+[/if]
+[if (not (ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.ConversionRate = 0.0))]
+			if (Add[NextAttributeInChainInstance.FeatureName/](-[ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).ConversionDependencyConstraint.ConversionRate/]))
+			{
+				Set[ValueBasedAttributeInstance.FeatureName/](GetTotal[PrintValueBasedAttributeMaxName(ValueBasedConstraintInstance)/]());
+				Add[ValueBasedAttributeInstance.FeatureName/](Remaining[ValueBasedAttributeInstance.FeatureName/]ToAdd);
+			}
+			else
+				Set[ValueBasedAttributeInstance.FeatureName/](GetDynamic[ValueBasedAttributeInstance.FeatureName/]() + Amount);
+[/if]
+		}
+		else
+			Set[ValueBasedAttributeInstance.FeatureName/](GetDynamic[ValueBasedAttributeInstance.FeatureName/]() + Amount);
+	}
+[/let]
+[/if]
+[if (not DoesValueBasedConstraintHaveNextAttributeInChain(ValueBasedConstraintInstance))]
+	Set[ValueBasedAttributeInstance.FeatureName/](GetDynamic[ValueBasedAttributeInstance.FeatureName/]() + Amount);
+[/if]
+	return true;
+}
+[if (DoesValueBasedConstraintHaveBase(ValueBasedConstraintInstance))]
+
+[PrintAttributeType(ValueBasedAttributeInstance)/] [PrintClassName(AttributeSystemModel)/]::GetBase[ValueBasedAttributeInstance.FeatureName/]() const
+{
+	return Base[ValueBasedAttributeInstance.FeatureName/];
+}
+[/if]
+[if (DoesValueBasedConstraintHaveDependency(ValueBasedConstraintInstance))]
+
+[PrintAttributeType(ValueBasedAttributeInstance)/] [PrintClassName(AttributeSystemModel)/]::GetDependent[ValueBasedAttributeInstance.FeatureName/]() const
+{
+	return Dependent[ValueBasedAttributeInstance.FeatureName/];
+}
+[/if]
+[/if][comment End only attributes that are not const can have these functions /]
+
+[PrintAttributeType(ValueBasedAttributeInstance)/] [PrintClassName(AttributeSystemModel)/]::GetDynamic[ValueBasedAttributeInstance.FeatureName/]() const
+{
+	return [ValueBasedAttributeInstance.FeatureName/];
+}
+
+[PrintAttributeType(ValueBasedAttributeInstance)/] [PrintClassName(AttributeSystemModel)/]::GetTotal[ValueBasedAttributeInstance.FeatureName/]() const
+{
+	return [PrintGetTotalValue(ValueBasedConstraintInstance)/];
+}
+[if (DoesValueBasedConstraintHaveMOE(ValueBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[ValueBasedAttributeInstance.FeatureName/]MOERandomGenerator(TSubclassOf<UMOERandomGenerator> MOERandomGeneratorClass)
+{
+	if (MOERandomGeneratorClass)
+	{
+		[ValueBasedAttributeInstance.FeatureName/]MOERandomGeneratorClass = MOERandomGeneratorClass;
+		[ValueBasedAttributeInstance.FeatureName/]MOERandomGenerator = NewObject<UMOERandomGenerator>(this, MOERandomGeneratorClass);
+	}
+}
+
+float [PrintClassName(AttributeSystemModel)/]::GetRandom[ValueBasedAttributeInstance.FeatureName/]() const
+{
+	if ([ValueBasedAttributeInstance.FeatureName/]MOERandomGenerator)
+	{
+		return [ValueBasedAttributeInstance.FeatureName/]MOERandomGenerator->GetRandomWithMOE(GetTotal[ValueBasedAttributeInstance.FeatureName/](), GetTotal[ValueBasedConstraintInstance.MarginOfError.MOEAttribute.FeatureName/]());
+	}
+
+	return FMath::RandRange(GetTotal[ValueBasedAttributeInstance.FeatureName/]() - FMath::Abs(GetTotal[ValueBasedConstraintInstance.MarginOfError.MOEAttribute.FeatureName/]()), GetTotal[ValueBasedAttributeInstance.FeatureName/]() + FMath::Abs(GetTotal[ValueBasedConstraintInstance.MarginOfError.MOEAttribute.FeatureName/]()));
+}
+[/if]
+[if (IsAttributeVariable(ValueBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+[if (DoesValueBasedConstraintHaveRegeneration(ValueBasedConstraintInstance))]
+[let RegenerationAttribute : ValueBasedAttribute = ValueBasedConstraintInstance.RegenerationConstraint.RegenerationAttribute]
+
+bool [PrintClassName(AttributeSystemModel)/]::Is[RegenerationAttribute.FeatureName/]Disabled() const
+{
+	return bIs[RegenerationAttribute.FeatureName/]Disabled;
+}
+
+void [PrintClassName(AttributeSystemModel)/]::Disable[RegenerationAttribute.FeatureName/]()
+{
+	bIs[RegenerationAttribute.FeatureName/]Disabled = true;
+}
+
+void [PrintClassName(AttributeSystemModel)/]::Enable[RegenerationAttribute.FeatureName/]()
+{
+	bIs[RegenerationAttribute.FeatureName/]Disabled = false;
+}
+
+void [PrintClassName(AttributeSystemModel)/]::Toggle[RegenerationAttribute.FeatureName/]()
+{
+	bIs[RegenerationAttribute.FeatureName/]Disabled = !bIs[RegenerationAttribute.FeatureName/]Disabled;
+}
+[/let]
+[/if]
+[/if][comment End only attributes that are not const can have these functions /]
+[/let]
+[/let]
+[/if][comment End ValueBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(BooleanBasedConstraint))][comment Start BooleanBasedConstraint Functions /]
+[let BooleanBasedConstraintInstance : BooleanBasedConstraint = SingleValueConstraintInstance.oclAsType(BooleanBasedConstraint)]
+[for (BooleanBasedAttributeInstance : BooleanBasedAttribute | SingleValueConstraintInstance.oclAsType(BooleanBasedConstraint).ConstrainedAttributeInstance)]
+[if (IsAttributeVariable(BooleanBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[BooleanBasedAttributeInstance.FeatureName/](bool Value)
+{
+	bool Old[BooleanBasedAttributeInstance.FeatureName/] = Get[BooleanBasedAttributeInstance.FeatureName/]();
+	b[BooleanBasedAttributeInstance.FeatureName/] = Value;
+	bool New[BooleanBasedAttributeInstance.FeatureName/] = Get[BooleanBasedAttributeInstance.FeatureName/]();
+
+	if (Old[BooleanBasedAttributeInstance.FeatureName/] != New[BooleanBasedAttributeInstance.FeatureName/])
+		On[BooleanBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[BooleanBasedAttributeInstance.FeatureName/], New[BooleanBasedAttributeInstance.FeatureName/]);
+}
+
+void [PrintClassName(AttributeSystemModel)/]::Toggle[BooleanBasedAttributeInstance.FeatureName/]()
+{
+	Set[BooleanBasedAttributeInstance.FeatureName/](!Get[BooleanBasedAttributeInstance.FeatureName/]());
+}
+[/if][comment End only attributes that are not const can have these functions /]
+
+bool [PrintClassName(AttributeSystemModel)/]::Get[BooleanBasedAttributeInstance.FeatureName/]() const
+{
+	return b[BooleanBasedAttributeInstance.FeatureName/];
+}
+[/for]
+[/let]
+[/if][comment End BooleanBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(LetterBasedConstraint))][comment Start LetterBasedConstraint Functions /]
+[let LetterBasedConstraintInstance : LetterBasedConstraint = SingleValueConstraintInstance.oclAsType(LetterBasedConstraint)]
+[let LetterBasedAttributeInstance : LetterBasedAttribute = LetterBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(LetterBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+
+bool [PrintClassName(AttributeSystemModel)/]::Set[LetterBasedAttributeInstance.FeatureName/]([PrintAttributeType(LetterBasedAttributeInstance)/] Value)
+{
+[if ((not LetterBasedConstraintInstance.LetterLengthConstraint.MinimumLengthAttribute.oclIsUndefined()) or (not LetterBasedConstraintInstance.LetterLengthConstraint.MaximumLengthAttribute.oclIsUndefined()))]
+	if (!ValueInRange([PrintLetterToString(LetterBasedAttributeInstance)/].Len(), [PrintLetterMinLength(LetterBasedConstraintInstance)/], [PrintLetterMaxLength(LetterBasedConstraintInstance)/]))
+		return false;
+[/if]
+[if (LetterBasedConstraintInstance.LetterCustomizationConstraint.FilterType = FilteringType::Exclusion)]
+
+	if (StringContainsExclusion([PrintLetterToString(LetterBasedAttributeInstance)/], Get[LetterBasedConstraintInstance.LetterCustomizationConstraint.FilterStrings.FeatureName/]()))
+		return false;
+[/if]
+[if (LetterBasedConstraintInstance.LetterCustomizationConstraint.FilterType = FilteringType::Inclusion)]
+
+	if (StringRefusesInclusion([PrintLetterToString(LetterBasedAttributeInstance)/], Get[LetterBasedConstraintInstance.LetterCustomizationConstraint.FilterStrings.FeatureName/]()))
+		return false;
+[/if]
+
+	[PrintAttributeType(LetterBasedAttributeInstance)/] Old[LetterBasedAttributeInstance.FeatureName/] = Get[LetterBasedAttributeInstance.FeatureName/]();
+	[LetterBasedAttributeInstance.FeatureName/] = Value;
+	[PrintAttributeType(LetterBasedAttributeInstance)/] New[LetterBasedAttributeInstance.FeatureName/] = Get[LetterBasedAttributeInstance.FeatureName/]();
+
+	if (Old[LetterBasedAttributeInstance.FeatureName/] != New[LetterBasedAttributeInstance.FeatureName/])
+		On[LetterBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[LetterBasedAttributeInstance.FeatureName/], New[LetterBasedAttributeInstance.FeatureName/]);
+
+	return true;
+}
+[/if][comment End only attributes that are not const can have these functions /]
+
+[PrintAttributeType(LetterBasedAttributeInstance)/] [PrintClassName(AttributeSystemModel)/]::Get[LetterBasedAttributeInstance.FeatureName/]() const
+{
+	return [LetterBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End LetterBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(Vector2DBasedConstraint))][comment Start Vector2DBasedConstraint Functions /]
+[let Vector2DBasedConstraintInstance : Vector2DBasedConstraint = SingleValueConstraintInstance.oclAsType(Vector2DBasedConstraint)]
+[let Vector2DBasedAttributeInstance : Vector2DBasedAttribute = Vector2DBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(Vector2DBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[Vector2DBasedAttributeInstance.FeatureName/](FVector2D Value)
+{
+	FVector2D Old[Vector2DBasedAttributeInstance.FeatureName/] = Get[Vector2DBasedAttributeInstance.FeatureName/]();
+	[Vector2DBasedAttributeInstance.FeatureName/] = ClampVector2D(Value, [PrintGetTotalAttributeMin(Vector2DBasedConstraintInstance)/], [PrintGetTotalAttributeMax(Vector2DBasedConstraintInstance)/]);
+	FVector2D New[Vector2DBasedAttributeInstance.FeatureName/] = Get[Vector2DBasedAttributeInstance.FeatureName/]();
+
+	if (Old[Vector2DBasedAttributeInstance.FeatureName/] != New[Vector2DBasedAttributeInstance.FeatureName/])
+		On[Vector2DBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[Vector2DBasedAttributeInstance.FeatureName/], New[Vector2DBasedAttributeInstance.FeatureName/]);
+}
+[let Vector2DRangeBasedConstraintInstance : Vector2DRangeBasedConstraint = Vector2DBasedConstraintInstance.Vector2DRangeBasedConstraint]
+[if (Vector2DRangeBasedConstraintInstance.Limit = AdditionLimit::Bounded)]
+
+bool [PrintClassName(AttributeSystemModel)/]::CanAdd[Vector2DBasedAttributeInstance.FeatureName/](FVector2D Amount) const
+{
+	return Vector2DInRange(Get[Vector2DBasedAttributeInstance.FeatureName/]() + Amount, [PrintGetTotalAttributeMin(Vector2DBasedConstraintInstance)/], [PrintGetTotalAttributeMax(Vector2DBasedConstraintInstance)/]);
+}
+[/if]
+[/let]
+
+bool [PrintClassName(AttributeSystemModel)/]::Add[Vector2DBasedAttributeInstance.FeatureName/](FVector2D Amount)
+{
+[if (IsVector2DBasedConstraintBounded(Vector2DBasedConstraintInstance))]
+	if (!CanAdd[Vector2DBasedAttributeInstance.FeatureName/](Amount))
+		return false;
+[/if]
+	Set[Vector2DBasedAttributeInstance.FeatureName/](Get[Vector2DBasedAttributeInstance.FeatureName/]() + Amount);
+	return true;
+}
+[/if][comment End only attributes that are not const can have these functions /]
+
+FVector2D [PrintClassName(AttributeSystemModel)/]::Get[Vector2DBasedAttributeInstance.FeatureName/]() const
+{
+	return [Vector2DBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End Vector2DBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(VectorBasedConstraint))][comment Start VectorBasedConstraint Functions /]
+[let VectorBasedConstraintInstance : VectorBasedConstraint = SingleValueConstraintInstance.oclAsType(VectorBasedConstraint)]
+[let VectorBasedAttributeInstance : VectorBasedAttribute = VectorBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(VectorBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[VectorBasedAttributeInstance.FeatureName/](FVector Value)
+{
+	FVector Old[VectorBasedAttributeInstance.FeatureName/] = Get[VectorBasedAttributeInstance.FeatureName/]();
+	[VectorBasedAttributeInstance.FeatureName/] = ClampVector(Value, [PrintGetTotalAttributeMin(VectorBasedConstraintInstance)/], [PrintGetTotalAttributeMax(VectorBasedConstraintInstance)/]);
+	FVector New[VectorBasedAttributeInstance.FeatureName/] = Get[VectorBasedAttributeInstance.FeatureName/]();
+
+	if (Old[VectorBasedAttributeInstance.FeatureName/] != New[VectorBasedAttributeInstance.FeatureName/])
+		On[VectorBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[VectorBasedAttributeInstance.FeatureName/], New[VectorBasedAttributeInstance.FeatureName/]);
+}
+[let VectorRangeBasedConstraintInstance : VectorRangeBasedConstraint = VectorBasedConstraintInstance.VectorRangeBasedConstraint]
+[if (VectorRangeBasedConstraintInstance.Limit = AdditionLimit::Bounded)]
+
+bool [PrintClassName(AttributeSystemModel)/]::CanAdd[VectorBasedAttributeInstance.FeatureName/](FVector Amount) const
+{
+	return VectorInRange(Get[VectorBasedAttributeInstance.FeatureName/]() + Amount, [PrintGetTotalAttributeMin(VectorBasedConstraintInstance)/], [PrintGetTotalAttributeMax(VectorBasedConstraintInstance)/]);
+}
+[/if]
+[/let]
+
+bool [PrintClassName(AttributeSystemModel)/]::Add[VectorBasedAttributeInstance.FeatureName/](FVector Amount)
+{
+[if (IsVectorBasedConstraintBounded(VectorBasedConstraintInstance))]
+	if (!CanAdd[VectorBasedAttributeInstance.FeatureName/](Amount))
+		return false;
+[/if]
+	Set[VectorBasedAttributeInstance.FeatureName/](Get[VectorBasedAttributeInstance.FeatureName/]() + Amount);
+	return true;
+}
+[/if][comment End only attributes that are not const can have these functions /]
+
+FVector [PrintClassName(AttributeSystemModel)/]::Get[VectorBasedAttributeInstance.FeatureName/]() const
+{
+	return [VectorBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End VectorBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(RotatorBasedConstraint))][comment Start RotatorBasedConstraint Functions /]
+[let RotatorBasedConstraintInstance : RotatorBasedConstraint = SingleValueConstraintInstance.oclAsType(RotatorBasedConstraint)]
+[let RotatorBasedAttributeInstance : RotatorBasedAttribute = RotatorBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(RotatorBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[RotatorBasedAttributeInstance.FeatureName/](FRotator Value)
+{
+	FRotator Old[RotatorBasedAttributeInstance.FeatureName/] = Get[RotatorBasedAttributeInstance.FeatureName/]();
+	[RotatorBasedAttributeInstance.FeatureName/] = ClampRotator(Value, [PrintGetTotalAttributeMin(RotatorBasedConstraintInstance)/], [PrintGetTotalAttributeMax(RotatorBasedConstraintInstance)/]);
+	FRotator New[RotatorBasedAttributeInstance.FeatureName/] = Get[RotatorBasedAttributeInstance.FeatureName/]();
+
+	if (Old[RotatorBasedAttributeInstance.FeatureName/] != New[RotatorBasedAttributeInstance.FeatureName/])
+		On[RotatorBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[RotatorBasedAttributeInstance.FeatureName/], New[RotatorBasedAttributeInstance.FeatureName/]);
+}
+[let RotatorRangeBasedConstraintInstance : RotatorRangeBasedConstraint = RotatorBasedConstraintInstance.RotatorRangeBasedConstraint]
+[if (RotatorRangeBasedConstraintInstance.Limit = AdditionLimit::Bounded)]
+
+bool [PrintClassName(AttributeSystemModel)/]::CanAdd[RotatorBasedAttributeInstance.FeatureName/](FRotator Amount) const
+{
+	return RotatorInRange(Get[RotatorBasedAttributeInstance.FeatureName/]() + Amount, [PrintGetTotalAttributeMin(RotatorBasedConstraintInstance)/], [PrintGetTotalAttributeMax(RotatorBasedConstraintInstance)/]);
+}
+[/if]
+[/let]
+
+bool [PrintClassName(AttributeSystemModel)/]::Add[RotatorBasedAttributeInstance.FeatureName/](FRotator Amount)
+{
+[if (IsRotatorBasedConstraintBounded(RotatorBasedConstraintInstance))]
+	if (!CanAdd[RotatorBasedAttributeInstance.FeatureName/](Amount))
+		return false;
+[/if]
+	Set[RotatorBasedAttributeInstance.FeatureName/](Get[RotatorBasedAttributeInstance.FeatureName/]() + Amount);
+	return true;
+}
+[/if][comment End only attributes that are not const can have these functions /]
+
+FRotator [PrintClassName(AttributeSystemModel)/]::Get[RotatorBasedAttributeInstance.FeatureName/]() const
+{
+	return [RotatorBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End RotatorBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(TransformationBasedConstraint))][comment Start TransformationBasedConstraint Functions /]
+[let TransformationBasedConstraintInstance : TransformationBasedConstraint = SingleValueConstraintInstance.oclAsType(TransformationBasedConstraint)]
+[let TransformationBasedAttributeInstance : TransformationBasedAttribute = TransformationBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(TransformationBasedConstraintInstance))][comment Start only attributes that are not const can have these functions /]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[TransformationBasedAttributeInstance.FeatureName/]([PrintAttributeType(TransformationBasedAttributeInstance)/] Value)
+{
+	FTransform Old[TransformationBasedAttributeInstance.FeatureName/] = Get[TransformationBasedAttributeInstance.FeatureName/]();
+	[TransformationBasedAttributeInstance.FeatureName/] = ClampTransform(Value, [PrintGetTotalAttributeMin(TransformationBasedConstraintInstance)/], [PrintGetTotalAttributeMax(TransformationBasedConstraintInstance)/]);
+	FTransform New[TransformationBasedAttributeInstance.FeatureName/] = Get[TransformationBasedAttributeInstance.FeatureName/]();
+
+	if (Old[TransformationBasedAttributeInstance.FeatureName/].Equals(New[TransformationBasedAttributeInstance.FeatureName/], 0.000001f))
+		On[TransformationBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[TransformationBasedAttributeInstance.FeatureName/], New[TransformationBasedAttributeInstance.FeatureName/]);
+}
+[let TransformationRangeBasedConstraintInstance : TransformationRangeBasedConstraint = TransformationBasedConstraintInstance.TransformationRangeBasedConstraint]
+[if (TransformationRangeBasedConstraintInstance.Limit = AdditionLimit::Bounded)]
+
+bool [PrintClassName(AttributeSystemModel)/]::CanAdd[TransformationBasedAttributeInstance.FeatureName/]([PrintAttributeType(TransformationBasedAttributeInstance)/] Amount) const
+{
+	return TransformInRange(Get[TransformationBasedAttributeInstance.FeatureName/]() + Amount, [PrintGetTotalAttributeMin(TransformationBasedConstraintInstance)/], [PrintGetTotalAttributeMax(TransformationBasedConstraintInstance)/]);
+}
+[/if]
+[/let]
+
+bool [PrintClassName(AttributeSystemModel)/]::Add[TransformationBasedAttributeInstance.FeatureName/]([PrintAttributeType(TransformationBasedAttributeInstance)/] Amount)
+{
+[if (IsTransformationBasedConstraintBounded(TransformationBasedConstraintInstance))]
+	if (CanAdd[TransformationBasedAttributeInstance.FeatureName/](Amount))
+		return false;
+[/if]
+	Set[TransformationBasedAttributeInstance.FeatureName/](Get[TransformationBasedAttributeInstance.FeatureName/]() + Amount);
+	return true;
+}
+[/if][comment End only attributes that are not const can have these functions /]
+
+[PrintAttributeType(TransformationBasedAttributeInstance)/] [PrintClassName(AttributeSystemModel)/]::Get[TransformationBasedAttributeInstance.FeatureName/]() const
+{
+	return [TransformationBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End TransformationBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ColorBasedConstraint))][comment Start ColorBasedConstraint Functions /]
+[let ColorBasedConstraintInstance : ColorBasedConstraint = SingleValueConstraintInstance.oclAsType(ColorBasedConstraint)]
+[let ColorBasedAttributeInstance : ColorBasedAttribute = ColorBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(ColorBasedConstraintInstance))]
+
+bool [PrintClassName(AttributeSystemModel)/]::Set[ColorBasedAttributeInstance.FeatureName/](FColor Value)
+{
+[if (ColorBasedConstraintInstance.ColorCustomizationConstraint.FilterType = FilteringType::Exclusion)]
+	if (ColorContainsExclusion(Value, Get[ColorBasedConstraintInstance.ColorCustomizationConstraint.FilterColors.FeatureName/]()))
+		return false;
+[/if]
+
+[if (ColorBasedConstraintInstance.ColorCustomizationConstraint.FilterType = FilteringType::Inclusion)]
+	if (ColorRefusesInclusion(Value, Get[ColorBasedConstraintInstance.ColorCustomizationConstraint.FilterColors.FeatureName/]()))
+		return false;
+[/if]
+
+	FColor Old[ColorBasedAttributeInstance.FeatureName/] = Get[ColorBasedAttributeInstance.FeatureName/]();
+	[ColorBasedAttributeInstance.FeatureName/] = Value;
+	FColor New[ColorBasedAttributeInstance.FeatureName/] = Get[ColorBasedAttributeInstance.FeatureName/]();
+
+	if (Old[ColorBasedAttributeInstance.FeatureName/] != New[ColorBasedAttributeInstance.FeatureName/])
+		On[ColorBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[ColorBasedAttributeInstance.FeatureName/], New[ColorBasedAttributeInstance.FeatureName/]);
+
+	return true;
+}
+[/if]
+
+FColor [PrintClassName(AttributeSystemModel)/]::Get[ColorBasedAttributeInstance.FeatureName/]() const
+{
+	return [ColorBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End ColorBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(TextureBasedConstraint))][comment Start TextureBasedConstraint Functions /]
+[let TextureBasedConstraintInstance : TextureBasedConstraint = SingleValueConstraintInstance.oclAsType(TextureBasedConstraint)]
+[let TextureBasedAttributeInstance : TextureBasedAttribute = TextureBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(TextureBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[TextureBasedAttributeInstance.FeatureName/](UTexture2D* Value)
+{
+	UTexture2D* Old[TextureBasedAttributeInstance.FeatureName/] = Get[TextureBasedAttributeInstance.FeatureName/]();
+	[TextureBasedAttributeInstance.FeatureName/] = Value;
+	UTexture2D* New[TextureBasedAttributeInstance.FeatureName/] = Get[TextureBasedAttributeInstance.FeatureName/]();
+
+	if (Old[TextureBasedAttributeInstance.FeatureName/] != New[TextureBasedAttributeInstance.FeatureName/])
+		On[TextureBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[TextureBasedAttributeInstance.FeatureName/], New[TextureBasedAttributeInstance.FeatureName/]);
+}
+[/if]
+
+UTexture2D* [PrintClassName(AttributeSystemModel)/]::Get[TextureBasedAttributeInstance.FeatureName/]() const
+{
+	return [TextureBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End TextureBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ModelBasedConstraint))][comment Start ModelBasedConstraint Functions /]
+[let ModelBasedConstraintInstance : ModelBasedConstraint = SingleValueConstraintInstance.oclAsType(ModelBasedConstraint)]
+[let ModelBasedAttributeInstance : ModelBasedAttribute = ModelBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(ModelBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[ModelBasedAttributeInstance.FeatureName/](UStaticMesh* Value)
+{
+	UStaticMesh* Old[ModelBasedAttributeInstance.FeatureName/] = Get[ModelBasedAttributeInstance.FeatureName/]();
+	[ModelBasedAttributeInstance.FeatureName/] = Value;
+	UStaticMesh* New[ModelBasedAttributeInstance.FeatureName/] = Get[ModelBasedAttributeInstance.FeatureName/]();
+
+	if (Old[ModelBasedAttributeInstance.FeatureName/] != New[ModelBasedAttributeInstance.FeatureName/])
+		On[ModelBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[ModelBasedAttributeInstance.FeatureName/], New[ModelBasedAttributeInstance.FeatureName/]);
+}
+[/if]
+
+UStaticMesh* [PrintClassName(AttributeSystemModel)/]::Get[ModelBasedAttributeInstance.FeatureName/]() const
+{
+	return [ModelBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End ModelBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ParticleBasedConstraint))][comment Start ParticleBasedConstraint Functions /]
+[let ParticleBasedConstraintInstance : ParticleBasedConstraint = SingleValueConstraintInstance.oclAsType(ParticleBasedConstraint)]
+[let ParticleBasedAttributeInstance : ParticleBasedAttribute = ParticleBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(ParticleBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[ParticleBasedAttributeInstance.FeatureName/](UNiagaraSystem* Value)
+{
+	UNiagaraSystem* Old[ParticleBasedAttributeInstance.FeatureName/] = Get[ParticleBasedAttributeInstance.FeatureName/]();
+	[ParticleBasedAttributeInstance.FeatureName/] = Value;
+	UNiagaraSystem* New[ParticleBasedAttributeInstance.FeatureName/] = Get[ParticleBasedAttributeInstance.FeatureName/]();
+
+	if (Old[ParticleBasedAttributeInstance.FeatureName/] != New[ParticleBasedAttributeInstance.FeatureName/])
+		On[ParticleBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[ParticleBasedAttributeInstance.FeatureName/], New[ParticleBasedAttributeInstance.FeatureName/]);
+}
+[/if]
+
+UNiagaraSystem* [PrintClassName(AttributeSystemModel)/]::Get[ParticleBasedAttributeInstance.FeatureName/]() const
+{
+	return [ParticleBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End ParticleBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(AudioBasedConstraint))][comment Start AudioBasedConstraint Functions /]
+[let AudioBasedConstraintInstance : AudioBasedConstraint = SingleValueConstraintInstance.oclAsType(AudioBasedConstraint)]
+[let AudioBasedAttributeInstance : AudioBasedAttribute = AudioBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(AudioBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[AudioBasedAttributeInstance.FeatureName/](USoundBase* Value)
+{
+	USoundBase* Old[AudioBasedAttributeInstance.FeatureName/] = Get[AudioBasedAttributeInstance.FeatureName/]();
+	[AudioBasedAttributeInstance.FeatureName/] = Value;
+	USoundBase* New[AudioBasedAttributeInstance.FeatureName/] = Get[AudioBasedAttributeInstance.FeatureName/]();
+
+	if (Old[AudioBasedAttributeInstance.FeatureName/] != New[AudioBasedAttributeInstance.FeatureName/])
+		On[AudioBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[AudioBasedAttributeInstance.FeatureName/], New[AudioBasedAttributeInstance.FeatureName/]);
+}
+[/if]
+
+USoundBase* [PrintClassName(AttributeSystemModel)/]::Get[AudioBasedAttributeInstance.FeatureName/]() const
+{
+	return [AudioBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End AudioBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(MaterialBasedConstraint))][comment Start MaterialBasedConstraint Functions /]
+[let MaterialBasedConstraintInstance : MaterialBasedConstraint = SingleValueConstraintInstance.oclAsType(MaterialBasedConstraint)]
+[let MaterialBasedAttributeInstance : MaterialBasedAttribute = MaterialBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(MaterialBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[MaterialBasedAttributeInstance.FeatureName/](UMaterialInterface* Value)
+{
+	UMaterialInterface* Old[MaterialBasedAttributeInstance.FeatureName/] = Get[MaterialBasedAttributeInstance.FeatureName/]();
+	[MaterialBasedAttributeInstance.FeatureName/] = Value;
+	UMaterialInterface* New[MaterialBasedAttributeInstance.FeatureName/] = Get[MaterialBasedAttributeInstance.FeatureName/]();
+
+	if (Old[MaterialBasedAttributeInstance.FeatureName/] != New[MaterialBasedAttributeInstance.FeatureName/])
+		On[MaterialBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[MaterialBasedAttributeInstance.FeatureName/], New[MaterialBasedAttributeInstance.FeatureName/]);
+}
+[/if]
+
+UMaterialInterface* [PrintClassName(AttributeSystemModel)/]::Get[MaterialBasedAttributeInstance.FeatureName/]() const
+{
+	return [MaterialBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End MaterialBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))][comment Start EnumBasedConstraint Functions /]
+[let EnumBasedConstraintInstance : EnumBasedConstraint = SingleValueConstraintInstance.oclAsType(EnumBasedConstraint)]
+[for (EnumBasedAttributeInstance : EnumBasedAttribute | EnumBasedConstraintInstance.ConstrainedAttributeInstance)]
+[if (EnumBasedAttributeInstance.EnumType.oclIsTypeOf(SimpleEnumStructure))]
+[if (IsAttributeVariable(EnumBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[EnumBasedAttributeInstance.FeatureName/]([PrintAttributeType(EnumBasedAttributeInstance)/] Value)
+{
+	[PrintAttributeType(EnumBasedAttributeInstance)/] Old[EnumBasedAttributeInstance.FeatureName/] = Get[EnumBasedAttributeInstance.FeatureName/]();
+	[EnumBasedAttributeInstance.FeatureName/] = Value;
+	[PrintAttributeType(EnumBasedAttributeInstance)/] New[EnumBasedAttributeInstance.FeatureName/] = Get[EnumBasedAttributeInstance.FeatureName/]();
+
+	if (Old[EnumBasedAttributeInstance.FeatureName/] != New[EnumBasedAttributeInstance.FeatureName/])
+		On[EnumBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[EnumBasedAttributeInstance.FeatureName/], New[EnumBasedAttributeInstance.FeatureName/]);
+}
+[/if]
+
+[PrintAttributeType(EnumBasedAttributeInstance)/] [PrintClassName(AttributeSystemModel)/]::Get[EnumBasedAttributeInstance.FeatureName/]() const
+{
+	return [EnumBasedAttributeInstance.FeatureName/];
+}
+[/if]
+[if (EnumBasedAttributeInstance.EnumType.oclIsTypeOf(BitmaskedEnumStructure))]
+[if (IsAttributeVariable(EnumBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Add[EnumBasedAttributeInstance.FeatureName/]Key([PrintAttributeType(EnumBasedAttributeInstance)/] Key)
+{
+	int32 Old[EnumBasedAttributeInstance.FeatureName/] = Get[EnumBasedAttributeInstance.FeatureName/]();
+	[EnumBasedAttributeInstance.FeatureName/] |= static_cast<int32>(Key);
+	int32 New[EnumBasedAttributeInstance.FeatureName/] = Get[EnumBasedAttributeInstance.FeatureName/]();
+
+	if (Old[EnumBasedAttributeInstance.FeatureName/] != New[EnumBasedAttributeInstance.FeatureName/])
+		On[EnumBasedAttributeInstance.FeatureName/]Changed.Broadcast(static_cast<E[EnumBasedAttributeInstance.EnumType.FeatureName/]::Type>(Old[EnumBasedAttributeInstance.FeatureName/]), static_cast<E[EnumBasedAttributeInstance.EnumType.FeatureName/]::Type>(New[EnumBasedAttributeInstance.FeatureName/]));
+}
+
+void [PrintClassName(AttributeSystemModel)/]::Remove[EnumBasedAttributeInstance.FeatureName/]Key([PrintAttributeType(EnumBasedAttributeInstance)/] Key)
+{
+	int32 Old[EnumBasedAttributeInstance.FeatureName/] = Get[EnumBasedAttributeInstance.FeatureName/]();
+	[EnumBasedAttributeInstance.FeatureName/] &= ~static_cast<int32>(Key);
+	int32 New[EnumBasedAttributeInstance.FeatureName/] = Get[EnumBasedAttributeInstance.FeatureName/]();
+
+	if (Old[EnumBasedAttributeInstance.FeatureName/] != New[EnumBasedAttributeInstance.FeatureName/])
+		On[EnumBasedAttributeInstance.FeatureName/]Changed.Broadcast(static_cast<E[EnumBasedAttributeInstance.EnumType.FeatureName/]::Type>(Old[EnumBasedAttributeInstance.FeatureName/]), static_cast<E[EnumBasedAttributeInstance.EnumType.FeatureName/]::Type>(New[EnumBasedAttributeInstance.FeatureName/]));
+}
+[/if]
+
+[PrintAttributeType(EnumBasedAttributeInstance)/] [PrintClassName(AttributeSystemModel)/]::Get[EnumBasedAttributeInstance.FeatureName/]() const
+{
+	return static_cast<E[EnumBasedAttributeInstance.EnumType.FeatureName/]::Type>([EnumBasedAttributeInstance.FeatureName/]);
+}
+
+bool [PrintClassName(AttributeSystemModel)/]::[EnumBasedAttributeInstance.FeatureName/]HasKey([PrintAttributeType(EnumBasedAttributeInstance)/] Key) const
+{
+	return Get[EnumBasedAttributeInstance.FeatureName/]() & static_cast<int32>(Key);
+}
+[/if]
+[/for]
+[/let]
+[/if][comment End EnumBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(StructureBasedConstraint))][comment Start StructureBasedConstraint Functions /]
+[let StructureBasedConstraintInstance : StructureBasedConstraint = SingleValueConstraintInstance.oclAsType(StructureBasedConstraint)]
+[for (StructureBasedAttributeInstance : StructureBasedAttribute | StructureBasedConstraintInstance.ConstrainedAttributeInstance)]
+[if (IsAttributeVariable(StructureBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[StructureBasedAttributeInstance.FeatureName/]([PrintAttributeType(StructureBasedAttributeInstance)/] Value)
+{
+	[PrintAttributeType(StructureBasedAttributeInstance)/] Old[StructureBasedAttributeInstance.FeatureName/] = Get[StructureBasedAttributeInstance.FeatureName/]();
+	[StructureBasedAttributeInstance.FeatureName/] = Value;
+	[PrintAttributeType(StructureBasedAttributeInstance)/] New[StructureBasedAttributeInstance.FeatureName/] = Get[StructureBasedAttributeInstance.FeatureName/]();
+
+	if (Old[StructureBasedAttributeInstance.FeatureName/] != New[StructureBasedAttributeInstance.FeatureName/])
+		On[StructureBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[StructureBasedAttributeInstance.FeatureName/], New[StructureBasedAttributeInstance.FeatureName/]);
+}
+[/if]
+
+[PrintAttributeType(StructureBasedAttributeInstance)/] [PrintClassName(AttributeSystemModel)/]::Get[StructureBasedAttributeInstance.FeatureName/]() const
+{
+	return [StructureBasedAttributeInstance.FeatureName/];
+}
+[/for]
+[/let]
+[/if][comment End StructureBasedConstraint Functions /]
+[/for]
+[/template]
+
+[template private RegisterDelegates(AttributeSystemModel : AttributeSystem)]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[if (DoesValueBasedConstraintHaveDependency(ValueBasedConstraintInstance))]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = ValueBasedConstraintInstance.ConstrainedAttributeInstance]
+[for (DependentAttribute : ValueBasedAttribute | ValueBasedConstraintInstance.DirectDependencyConstraint.DependentAttributes)]
+	On[DependentAttribute.FeatureName/]Changed.AddDynamic(this, &[PrintClassName(AttributeSystemModel)/]::Update[ValueBasedAttributeInstance.FeatureName/]Dependencies[if (DependentAttribute.oclIsTypeOf(IntegerBasedAttribute))]Int[/if][if (DependentAttribute.oclIsTypeOf(DecimalBasedAttribute))]Float[/if]);
+[/for]
+[/let]
+[/if]
+[/let]
+[/if]
+[/for]
+
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[if (DoesValueBasedConstraintHaveMinMax(ValueBasedConstraintInstance))]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = ValueBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (ShouldRemapToMin(ValueBasedConstraintInstance))]
+	On[PrintValueBasedAttributeMinName(ValueBasedConstraintInstance)/]Changed.AddDynamic(this, &[PrintClassName(AttributeSystemModel)/]::Remap[ValueBasedAttributeInstance.FeatureName/]ForMin);
+[/if]
+[if (ShouldRemapToMax(ValueBasedConstraintInstance))]
+	On[PrintValueBasedAttributeMaxName(ValueBasedConstraintInstance)/]Changed.AddDynamic(this, &[PrintClassName(AttributeSystemModel)/]::Remap[ValueBasedAttributeInstance.FeatureName/]ForMax);
+[/if]
+[if (ShouldReclampValue(ValueBasedConstraintInstance))]
+[if (DoesValueBasedConstraintHaveMin(ValueBasedConstraintInstance))]
+[for (ValueBasedConstraintInstance2 : ValueBasedConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if ((ValueBasedConstraintInstance2.ConstrainedAttributeInstance = ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MinimumValue.MinimumAttribute) and (IsAttributeVariable(ValueBasedConstraintInstance2)))]
+	On[PrintValueBasedAttributeMinName(ValueBasedConstraintInstance)/]Changed.AddDynamic(this, &[PrintClassName(AttributeSystemModel)/]::Reclamp[ValueBasedAttributeInstance.FeatureName/][if (ValueBasedConstraintInstance.ConstrainedAttributeInstance.oclIsTypeOf(IntegerBasedAttribute))]Int[/if][if (ValueBasedConstraintInstance.ConstrainedAttributeInstance.oclIsTypeOf(DecimalBasedAttribute))]Float[/if]);
+[/if]
+[/for]
+[/if]
+[if (DoesValueBasedConstraintHaveMax(ValueBasedConstraintInstance))]
+[for (ValueBasedConstraintInstance2 : ValueBasedConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if ((ValueBasedConstraintInstance2.ConstrainedAttributeInstance = ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MaximumValue.MaximumAttribute) and (IsAttributeVariable(ValueBasedConstraintInstance2)))]
+	On[PrintValueBasedAttributeMaxName(ValueBasedConstraintInstance)/]Changed.AddDynamic(this, &[PrintClassName(AttributeSystemModel)/]::Reclamp[ValueBasedAttributeInstance.FeatureName/][if (ValueBasedConstraintInstance.ConstrainedAttributeInstance.oclIsTypeOf(IntegerBasedAttribute))]Int[/if][if (ValueBasedConstraintInstance.ConstrainedAttributeInstance.oclIsTypeOf(DecimalBasedAttribute))]Float[/if]);
+[/if]
+[/for]
+[/if]
+[/if]
+[/let]
+[/if]
+[/let]
+[/if]
+[/for]
+[/template]
+
+[template private PrintRegenerateFunctionCalls(AttributeSystemModel : AttributeSystem)]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = ValueBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (DoesValueBasedConstraintHaveRegeneration(ValueBasedConstraintInstance))]
+	Regenerate[ValueBasedAttributeInstance.FeatureName/](DeltaTime);
+[/if]
+[/let]
+[/let]
+[/if]
+[/for]
+[/template]
+
+[template private PrintInitializeAndRemapAndRegenerateFunctions(AttributeSystemModel : AttributeSystem)]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = ValueBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (ShouldInitializeToMinMax(ValueBasedConstraintInstance) or DoesValueBasedConstraintHaveMOE(ValueBasedConstraintInstance) or ShouldRemapToMinMax(ValueBasedConstraintInstance) or ShouldReclampValue(ValueBasedConstraintInstance) or DoesValueBasedConstraintHaveRegeneration(ValueBasedConstraintInstance))]
+[if (ShouldInitializeToMinMax(ValueBasedConstraintInstance) or DoesValueBasedConstraintHaveMOE(ValueBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Initialize[ValueBasedAttributeInstance.FeatureName/]()
+{
+[if (ShouldInitializeToMin(ValueBasedConstraintInstance))]
+	Set[ValueBasedAttributeInstance.FeatureName/](GetTotal[PrintValueBasedAttributeMinName(ValueBasedConstraintInstance)/]());
+[/if]
+[if (ShouldInitializeToMax(ValueBasedConstraintInstance))]
+	Set[ValueBasedAttributeInstance.FeatureName/](GetTotal[PrintValueBasedAttributeMaxName(ValueBasedConstraintInstance)/]());
+[/if]
+[if (DoesValueBasedConstraintHaveMOE(ValueBasedConstraintInstance))]
+	Set[ValueBasedAttributeInstance.FeatureName/]MOERandomGenerator([ValueBasedAttributeInstance.FeatureName/]MOERandomGeneratorClass);
+[/if]
+}
+[/if]
+[if (ShouldRemapToMinMax(ValueBasedConstraintInstance))]
+[if (ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MinimumValue.RemapValue)]
+
+void [PrintClassName(AttributeSystemModel)/]::Remap[ValueBasedAttributeInstance.FeatureName/]ForMin(float OldMin[ValueBasedAttributeInstance.FeatureName/], float NewMin[ValueBasedAttributeInstance.FeatureName/])
+{
+	Set[ValueBasedAttributeInstance.FeatureName/](RemapValue(GetTotal[ValueBasedAttributeInstance.FeatureName/](), OldMin[ValueBasedAttributeInstance.FeatureName/], GetTotal[PrintValueBasedAttributeMaxName(ValueBasedConstraintInstance)/](), NewMin[ValueBasedAttributeInstance.FeatureName/], GetTotal[PrintValueBasedAttributeMaxName(ValueBasedConstraintInstance)/]()));
+}
+[/if]
+[if (ValueBasedConstraintInstance.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).MaximumValue.RemapValue)]
+
+void [PrintClassName(AttributeSystemModel)/]::Remap[ValueBasedAttributeInstance.FeatureName/]ForMax(float OldMax[ValueBasedAttributeInstance.FeatureName/], float NewMax[ValueBasedAttributeInstance.FeatureName/])
+{
+	Set[ValueBasedAttributeInstance.FeatureName/](RemapValue(GetTotal[ValueBasedAttributeInstance.FeatureName/](), GetTotal[PrintValueBasedAttributeMinName(ValueBasedConstraintInstance)/](), OldMax[ValueBasedAttributeInstance.FeatureName/], GetTotal[PrintValueBasedAttributeMinName(ValueBasedConstraintInstance)/](), NewMax[ValueBasedAttributeInstance.FeatureName/]));
+}
+[/if]
+[/if]
+[if (ShouldReclampValue(ValueBasedConstraintInstance))]
+void [PrintClassName(AttributeSystemModel)/]::Reclamp[ValueBasedAttributeInstance.FeatureName/]Int(int32 OldValue, int32 NewValue)
+{
+	Set[ValueBasedAttributeInstance.FeatureName/](GetTotal[ValueBasedAttributeInstance.FeatureName/]());
+}
+
+void [PrintClassName(AttributeSystemModel)/]::Reclamp[ValueBasedAttributeInstance.FeatureName/]Float(float OldValue, float NewValue)
+{
+	Set[ValueBasedAttributeInstance.FeatureName/](GetTotal[ValueBasedAttributeInstance.FeatureName/]());
+}
+[/if]
+[if (DoesValueBasedConstraintHaveRegeneration(ValueBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Regenerate[ValueBasedAttributeInstance.FeatureName/](float DeltaTime)
+{
+	if (!bIs[PrintAttributeRegenerationName(ValueBasedConstraintInstance)/]Disabled)
+		Add[ValueBasedAttributeInstance.FeatureName/](GetTotal[PrintAttributeRegenerationName(ValueBasedConstraintInstance)/]() * DeltaTime[PrintDistortionArgument(ValueBasedConstraintInstance)/]);
+}
+[/if]
+[/if]
+[/let]
+[/let]
+[/if]
+[/for]
+[/template]
+
+[template private PrintCalculateAndUpdateFunctions(AttributeSystemModel : AttributeSystem)]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[if (DoesValueBasedConstraintHaveDependency(ValueBasedConstraintInstance))]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = ValueBasedConstraintInstance.ConstrainedAttributeInstance]
+
+[PrintAttributeType(ValueBasedAttributeInstance)/] [PrintClassName(AttributeSystemModel)/]::Calculate[ValueBasedAttributeInstance.FeatureName/]Dependencies() const
+{
+	return [ValueBasedConstraintInstance.DirectDependencyConstraint.DependencyFormula/];
+}
+
+void [PrintClassName(AttributeSystemModel)/]::Update[ValueBasedAttributeInstance.FeatureName/]Dependencies()
+{
+	[PrintAttributeType(ValueBasedAttributeInstance)/] Old[ValueBasedAttributeInstance.FeatureName/] = GetTotal[ValueBasedAttributeInstance.FeatureName/]();
+	Dependent[ValueBasedAttributeInstance.FeatureName/] = Calculate[ValueBasedAttributeInstance.FeatureName/]Dependencies();
+	[PrintAttributeType(ValueBasedAttributeInstance)/] New[ValueBasedAttributeInstance.FeatureName/] = GetTotal[ValueBasedAttributeInstance.FeatureName/]();
+	
+	if (Old[ValueBasedAttributeInstance.FeatureName/] != New[ValueBasedAttributeInstance.FeatureName/])
+		On[ValueBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[ValueBasedAttributeInstance.FeatureName/], New[ValueBasedAttributeInstance.FeatureName/]);
+}
+
+void [PrintClassName(AttributeSystemModel)/]::Update[ValueBasedAttributeInstance.FeatureName/]DependenciesInt(int32 OldValue, int32 NewValue)
+{
+	Update[ValueBasedAttributeInstance.FeatureName/]Dependencies();
+}
+
+void [PrintClassName(AttributeSystemModel)/]::Update[ValueBasedAttributeInstance.FeatureName/]DependenciesFloat(float OldValue, float NewValue)
+{
+	Update[ValueBasedAttributeInstance.FeatureName/]Dependencies();
+}
+[/let]
+[/if]
+[/let]
+[/if]
+[/for]
+[/template]
+
+[template private PrintUpdateFunctionCalls(AttributeSystemModel : AttributeSystem)]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[if (DoesValueBasedConstraintHaveDependency(ValueBasedConstraintInstance))]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = ValueBasedConstraintInstance.ConstrainedAttributeInstance]
+	Update[ValueBasedAttributeInstance.FeatureName/]Dependencies();
+[/let]
+[/if]
+[/let]
+[/if]
+[/for]
+[/template]
+
+[template private PrintInitializeFunctionCalls(AttributeSystemModel : AttributeSystem)]
+[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
+[if (SingleValueConstraintInstance.oclIsTypeOf(ValueBasedConstraint))]
+[let ValueBasedConstraintInstance : ValueBasedConstraint = SingleValueConstraintInstance.oclAsType(ValueBasedConstraint)]
+[let ValueBasedAttributeInstance : ValueBasedAttribute = ValueBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (ShouldInitializeToMinMax(ValueBasedConstraintInstance) or DoesValueBasedConstraintHaveMOE(ValueBasedConstraintInstance) or ShouldRemapToMinMax(ValueBasedConstraintInstance))]
+[if (ShouldInitializeToMinMax(ValueBasedConstraintInstance) or DoesValueBasedConstraintHaveMOE(ValueBasedConstraintInstance))]
+	Initialize[ValueBasedAttributeInstance.FeatureName/]();
+[/if]
+[/if]
+[/let]
+[/let]
+[/if]
+[/for]
+[/template]
+
+[query public IsValueBasedConstraintInteger(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = ValueBasedConstraintModel.oclIsTypeOf(IntegerBasedAttribute) /]
+
+[template private PrintZero(ValueBasedConstraintModel : ValueBasedConstraint)]
+[if (IsValueBasedConstraintInteger(ValueBasedConstraintModel))]0[/if][if (not IsValueBasedConstraintInteger(ValueBasedConstraintModel))]0.0f[/if]
+[/template]
+
+[template private PrintMinusOne(ValueBasedConstraintModel : ValueBasedConstraint)]
+[if (IsValueBasedConstraintInteger(ValueBasedConstraintModel))]-1[/if][if (not IsValueBasedConstraintInteger(ValueBasedConstraintModel))]-1.0f[/if]
+[/template]
+
+[template private PrintPlusOne(ValueBasedConstraintModel : ValueBasedConstraint)]
+[if (IsValueBasedConstraintInteger(ValueBasedConstraintModel))]1[/if][if (not IsValueBasedConstraintInteger(ValueBasedConstraintModel))]1.0f[/if]
+[/template]
+
+
+
+
+
+
+
+
+
+
+
+
+

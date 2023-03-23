@@ -1,0 +1,31 @@
+[comment encoding = windows-1252 /]
+[module HelperService('http://www.example.org/UGSML')/]
+
+[query public IncreamentBitmaskCounter(anOclAny: OclAny) : Integer
+	= invoke('UGSMLTransformationEngine.Services.HelperService', 'IncreamentBitmaskCounter()', Sequence{})
+/]
+
+[query public ResetBitmaskCounter(anOclAny: OclAny) : OclVoid
+	= invoke('UGSMLTransformationEngine.Services.HelperService', 'ResetBitmaskCounter()', Sequence{})
+/]
+
+[query public SetNumberOfRemainingParameters(arg0 : Integer) : OclVoid
+	= invoke('UGSMLTransformationEngine.Services.HelperService', 'SetNumberOfRemainingParameters(java.lang.Integer)', Sequence{arg0})
+/]
+
+[query public DecreaseNumberofRemainingParameters(anOclAny: OclAny) : Integer
+	= invoke('UGSMLTransformationEngine.Services.HelperService', 'DecreaseNumberofRemainingParameters()', Sequence{})
+/]
+
+[query public SetHasAnyEnumeration(anOclAny: OclAny) : OclVoid
+	= invoke('UGSMLTransformationEngine.Services.HelperService', 'SetHasAnyEnumeration()', Sequence{})
+/]
+
+[query public GetHasAnyEnumeration(anOclAny: OclAny) : Boolean
+	= invoke('UGSMLTransformationEngine.Services.HelperService', 'GetHasAnyEnumeration()', Sequence{})
+/]
+
+[query public CopyPluginImage(anOclAny: OclAny) : OclVoid
+	= invoke('UGSMLTransformationEngine.Services.HelperService', 'CopyPluginImage()', Sequence{})
+/]
+

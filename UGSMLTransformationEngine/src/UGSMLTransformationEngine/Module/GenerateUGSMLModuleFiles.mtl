@@ -1,0 +1,10 @@
+[comment encoding = UTF-8 /]
+[module GenerateUGSMLModuleFiles('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::Module::GenerateUGSMLModuleHeaderFile/]
+[import UGSMLTransformationEngine::Module::GenerateUGSMLModuleCppFile/]
+
+[template public GenerateUGSMLModuleFiles(GameModel : Game)]
+[GenerateUGSMLModuleHeaderFile(GameModel)/]
+[GenerateUGSMLModuleCppFile(GameModel)/]
+[/template]

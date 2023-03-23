@@ -1,0 +1,10 @@
+[comment encoding = UTF-8 /]
+[module GenerateMOERandomGeneratorFiles('http://www.example.org/UGSML')]
+
+[import UGSMLTransformationEngine::AttributeSystem::MOERandomGenerator::GenerateMOERandomGeneratorHeaderFile /]
+[import UGSMLTransformationEngine::AttributeSystem::MOERandomGenerator::GenerateMOERandomGeneratorCppFile /]
+
+[template public GenerateMOERandomGeneratorFile(Model : OclAny)]
+[GenerateMOERandomGeneratorHeaderFile()/]
+[GenerateMOERandomGeneratorCppFile()/]
+[/template]

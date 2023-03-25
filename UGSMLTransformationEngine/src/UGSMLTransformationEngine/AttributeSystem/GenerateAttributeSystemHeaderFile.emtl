@@ -4,13 +4,13 @@
     <input>
       <takesTypesFrom href="http://www.example.org/UGSML#/"/>
     </input>
-    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PrintCopyrightText.emtl#/0"/>
-    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0"/>
+    <imports href="../Main/PrintCopyrightText.emtl#/0"/>
+    <imports href="../Main/PluginDirectories.emtl#/0"/>
     <ownedModuleElement xsi:type="mtl:Template" name="GenerateAttributeSystemHeaderFile" visibility="Public">
       <body xsi:type="mtl:FileBlock" openMode="OverWrite">
         <body xsi:type="mtl:TemplateInvocation">
           <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-          <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PrintCopyrightText.emtl#/0/PrintCopyrightText"/>
+          <definition href="../Main/PrintCopyrightText.emtl#/0/PrintCopyrightText"/>
           <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/8">
             <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//AttributeSystem"/>
           </argument>
@@ -577,7 +577,7 @@
               <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
               <source xsi:type="mtl:TemplateInvocation">
                 <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-                <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0/GetPublicDirectory"/>
+                <definition href="../Main/PluginDirectories.emtl#/0/GetPublicDirectory"/>
                 <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/6">
                   <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//AttributeSystem"/>
                 </argument>
@@ -9590,7 +9590,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PrintCopyrightText.emtl#/0/PrintCopyrightText"/>
+          <references href="../Main/PrintCopyrightText.emtl#/0/PrintCopyrightText"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="Model">
@@ -9602,7 +9602,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0/GetPublicDirectory"/>
+          <references href="../Main/PluginDirectories.emtl#/0/GetPublicDirectory"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="Model">

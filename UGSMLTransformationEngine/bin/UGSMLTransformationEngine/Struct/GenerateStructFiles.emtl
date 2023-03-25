@@ -6,7 +6,7 @@
     </input>
     <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0"/>
     <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PrintCopyrightText.emtl#/0"/>
-    <imports href="../Services/HelperService.emtl#/0"/>
+    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0"/>
     <ownedModuleElement xsi:type="mtl:Template" name="GenerateStructFiles" visibility="Public">
       <body xsi:type="mtl:ForBlock">
         <body xsi:type="mtl:ForBlock">

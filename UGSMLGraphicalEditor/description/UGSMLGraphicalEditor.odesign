@@ -6,7 +6,7 @@
       <defaultLayer name="MainLayer">
         <containerMappings name="GameContainer" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.0/@ownedTools[name='OnGameContainerDoubleClicked']" domainClass="UGSML::Game">
           <subContainerMappings name="GameStructureContainer" semanticCandidatesExpression="feature:eAllContents" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.1/@ownedTools[name='OnStructureContainerDoubleClicked']" domainClass="UGSML::GameStructureContainer" childrenPresentation="VerticalStack">
-            <subContainerMappings name="SimpleEnumStructureContainer" semanticCandidatesExpression="feature:eAllContents" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnSimpleEnumStructureDoubleClicked']" domainClass="UGSML::SimpleEnumStructure" childrenPresentation="List">
+            <subContainerMappings name="SimpleEnumStructureContainer" deletionDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnGameStructureDeleted']" semanticCandidatesExpression="feature:eAllContents" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnSimpleEnumStructureDoubleClicked']" domainClass="UGSML::SimpleEnumStructure" childrenPresentation="List">
               <subNodeMappings name="EnumStateNode" deletionDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnSimpleEnumStateDeleted']" semanticCandidatesExpression="feature:eAllContents" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnSimpleEnumStateDoubleClicked']" domainClass="UGSML::EnumState">
                 <style xsi:type="style:SquareDescription" labelSize="11" labelExpression="aql:self.FeatureName" iconPath="/UGSMLGraphicalEditor/Icons/Attributes/Single/EnumSingleIcon.png" labelAlignment="LEFT">
                   <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -21,7 +21,7 @@
                 <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
               </style>
             </subContainerMappings>
-            <subContainerMappings name="BitmaskedEnumStructureContainer" semanticCandidatesExpression="feature:eAllContents" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnBitmaskedEnumStructureDoubleClicked']" domainClass="UGSML::BitmaskedEnumStructure" childrenPresentation="List">
+            <subContainerMappings name="BitmaskedEnumStructureContainer" deletionDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnGameStructureDeleted']" semanticCandidatesExpression="feature:eAllContents" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnBitmaskedEnumStructureDoubleClicked']" domainClass="UGSML::BitmaskedEnumStructure" childrenPresentation="List">
               <subNodeMappings name="EnumStateNode" deletionDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnBitmaskedEnumStateDeleted']" semanticCandidatesExpression="feature:eAllContents" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnBitmaskedEnumStateDoubleClicked']" domainClass="UGSML::EnumState">
                 <style xsi:type="style:SquareDescription" labelSize="11" labelExpression="aql:self.FeatureName" iconPath="/UGSMLGraphicalEditor/Icons/Attributes/Single/EnumSingleIcon.png" labelAlignment="LEFT">
                   <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -36,7 +36,7 @@
                 <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.2"/>
               </style>
             </subContainerMappings>
-            <subContainerMappings name="DataBasedStructureContainer" semanticCandidatesExpression="feature:eAllContents" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnDataBasedStructureDoubleClicked']" domainClass="UGSML::DataBasedStructure" childrenPresentation="List">
+            <subContainerMappings name="DataBasedStructureContainer" deletionDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnGameStructureDeleted']" semanticCandidatesExpression="feature:eAllContents" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnDataBasedStructureDoubleClicked']" domainClass="UGSML::DataBasedStructure" childrenPresentation="List">
               <subNodeMappings name="DecimalBasedAttributeNode" deletionDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnDataBasedStructureAttributeDeleted']" semanticCandidatesExpression="feature:eAllContents" doubleClickDescription="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.3/@ownedTools[name='OnDecimalAttriubteDoubleClicked']" domainClass="UGSML::DecimalBasedAttribute">
                 <style xsi:type="style:SquareDescription" labelSize="11" labelExpression="aql:self.FeatureName" iconPath="/UGSMLGraphicalEditor/Icons/Attributes/Single/DecimalSingleIcon.png" labelAlignment="LEFT">
                   <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -950,6 +950,48 @@
                     </groups>
                   </subModelOperations>
                 </cases>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="OnGameStructureDeleted">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self">
+                <subModelOperations xsi:type="tool_1:Let" variableName="CanDeleteGameStructure" valueExpression="aql:true">
+                  <subModelOperations xsi:type="tool_1:For" expression="aql:element.eContainer().eContainer().GameFeatureContainers" iteratorName="GameFeatureContainerInstance">
+                    <subModelOperations xsi:type="tool_1:For" expression="aql:GameFeatureContainerInstance.GameAttributes" iteratorName="GameAttributeInstance">
+                      <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:GameAttributeInstance.oclIsTypeOf(UGSML::EnumBasedAttribute)">
+                        <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:GameAttributeInstance.EnumType = element">
+                          <subModelOperations xsi:type="tool_1:Let" variableName="CanDeleteGameStructure" valueExpression="aql:false"/>
+                        </subModelOperations>
+                      </subModelOperations>
+                      <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:GameAttributeInstance.oclIsTypeOf(UGSML::StructureBasedAttribute)">
+                        <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:GameAttributeInstance.DataType = element">
+                          <subModelOperations xsi:type="tool_1:Let" variableName="CanDeleteGameStructure" valueExpression="aql:false"/>
+                        </subModelOperations>
+                      </subModelOperations>
+                    </subModelOperations>
+                  </subModelOperations>
+                  <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:CanDeleteGameStructure = true">
+                    <subModelOperations xsi:type="tool_1:RemoveElement"/>
+                  </subModelOperations>
+                  <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:CanDeleteGameStructure = false">
+                    <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element">
+                      <subModelOperations xsi:type="properties:DialogModelOperation" titleExpression="Referenced Game Structure">
+                        <buttons labelExpression="Close" default="true" closeDialogOnClick="true"/>
+                        <page name="Default Page" semanticCandidateExpression="var:self" groups="//@ownedViewpoints[name='UGSMLViewpoint']/@ownedRepresentations[name='MainDiagram']/@additionalLayers[name='ActionLayer']/@toolSections.2/@ownedTools[name='OnGameStructureDeleted']/@initialOperation/@firstModelOperations/@subModelOperations.0/@subModelOperations.2/@subModelOperations.0/@subModelOperations.0/@groups.0"/>
+                        <groups name="ReferencedGameStructureGroup" labelExpression="aql:self.FeatureName + ' is referenced in an attribute container. Please remove all references and try again.'" semanticCandidateExpression="var:self">
+                          <style fontSizeExpression="9" toggleStyle="NONE">
+                            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+                            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
+                          </style>
+                        </groups>
+                      </subModelOperations>
+                    </subModelOperations>
+                  </subModelOperations>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>

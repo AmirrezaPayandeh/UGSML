@@ -9,9 +9,9 @@
     <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Module/GenerateUGSMLModuleFiles.emtl#/0"/>
     <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/MOERandomGenerator/GenerateMOERandomGeneratorFiles.emtl#/0"/>
     <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Enumuration/GenerateEnumurationFile.emtl#/0"/>
-    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Struct/GenerateStructFiles.emtl#/0"/>
+    <imports href="../Struct/GenerateStructFiles.emtl#/0"/>
     <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/GenerateUGSMLDependencies.emtl#/0"/>
-    <imports href="../AttributeSystem/GenerateAttributeSystemFiles.emtl#/0"/>
+    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/GenerateAttributeSystemFiles.emtl#/0"/>
     <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/GeneratePluginImage.emtl#/0"/>
     <ownedModuleElement xsi:type="mtl:Template" name="Main" visibility="Public" main="true">
       <body xsi:type="mtl:IfBlock">
@@ -70,7 +70,7 @@
         <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;&#x9;"/>
         <body xsi:type="mtl:TemplateInvocation">
           <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-          <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Struct/GenerateStructFiles.emtl#/0/GenerateStructFiles"/>
+          <definition href="../Struct/GenerateStructFiles.emtl#/0/GenerateStructFiles"/>
           <argument xsi:type="ocl.ecore:PropertyCallExp">
             <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
             <source xsi:type="ocl.ecore:VariableExp" name="RootModel" referredVariable="/0/Main/RootModel">
@@ -94,7 +94,7 @@
         <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;&#x9;"/>
         <body xsi:type="mtl:TemplateInvocation">
           <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-          <definition href="../AttributeSystem/GenerateAttributeSystemFiles.emtl#/0/GenerateAttributeSystemFiles"/>
+          <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/GenerateAttributeSystemFiles.emtl#/0/GenerateAttributeSystemFiles"/>
           <argument xsi:type="ocl.ecore:PropertyCallExp">
             <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
             <source xsi:type="ocl.ecore:VariableExp" name="RootModel" referredVariable="/0/Main/RootModel">
@@ -228,7 +228,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Struct/GenerateStructFiles.emtl#/0/GenerateStructFiles"/>
+          <references href="../Struct/GenerateStructFiles.emtl#/0/GenerateStructFiles"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="GameModel">
@@ -252,7 +252,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="../AttributeSystem/GenerateAttributeSystemFiles.emtl#/0/GenerateAttributeSystemFiles"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/GenerateAttributeSystemFiles.emtl#/0/GenerateAttributeSystemFiles"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="GameModel">

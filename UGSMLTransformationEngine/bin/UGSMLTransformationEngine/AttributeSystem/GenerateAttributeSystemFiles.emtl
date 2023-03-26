@@ -4,13 +4,13 @@
     <input>
       <takesTypesFrom href="http://www.example.org/UGSML#/"/>
     </input>
-    <imports href="GenerateAttributeSystemHeaderFile.emtl#/0"/>
-    <imports href="GenerateAttributeSystemCppFile.emtl#/0"/>
+    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/GenerateAttributeSystemHeaderFile.emtl#/0"/>
+    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/GenerateAttributeSystemCppFile.emtl#/0"/>
     <ownedModuleElement xsi:type="mtl:Template" name="GenerateAttributeSystemFiles" visibility="Public">
       <body xsi:type="mtl:ForBlock">
         <body xsi:type="mtl:TemplateInvocation">
           <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-          <definition href="GenerateAttributeSystemHeaderFile.emtl#/0/GenerateAttributeSystemHeaderFile"/>
+          <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/GenerateAttributeSystemHeaderFile.emtl#/0/GenerateAttributeSystemHeaderFile"/>
           <argument xsi:type="ocl.ecore:VariableExp" name="AttributeSystemInstance" referredVariable="/0/GenerateAttributeSystemFiles/%/AttributeSystemInstance">
             <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//AttributeSystem"/>
           </argument>
@@ -18,7 +18,7 @@
         <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
         <body xsi:type="mtl:TemplateInvocation">
           <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-          <definition href="GenerateAttributeSystemCppFile.emtl#/0/GenerateAttributeSystemCppFile"/>
+          <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/GenerateAttributeSystemCppFile.emtl#/0/GenerateAttributeSystemCppFile"/>
           <argument xsi:type="ocl.ecore:VariableExp" name="AttributeSystemInstance" referredVariable="/0/GenerateAttributeSystemFiles/%/AttributeSystemInstance">
             <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//AttributeSystem"/>
           </argument>
@@ -74,7 +74,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="GenerateAttributeSystemHeaderFile.emtl#/0/GenerateAttributeSystemHeaderFile"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/GenerateAttributeSystemHeaderFile.emtl#/0/GenerateAttributeSystemHeaderFile"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="AttributeSystemModel">
@@ -86,7 +86,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="GenerateAttributeSystemCppFile.emtl#/0/GenerateAttributeSystemCppFile"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/GenerateAttributeSystemCppFile.emtl#/0/GenerateAttributeSystemCppFile"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="AttributeSystemModel">

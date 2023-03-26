@@ -4,12 +4,12 @@
     <input>
       <takesTypesFrom href="http://www.example.org/UGSML#/"/>
     </input>
-    <imports href="GenerateUGSMLModuleHeaderFile.emtl#/0"/>
-    <imports href="GenerateUGSMLModuleCppFile.emtl#/0"/>
+    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Module/GenerateUGSMLModuleHeaderFile.emtl#/0"/>
+    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Module/GenerateUGSMLModuleCppFile.emtl#/0"/>
     <ownedModuleElement xsi:type="mtl:Template" name="GenerateUGSMLModuleFiles" visibility="Public">
       <body xsi:type="mtl:TemplateInvocation">
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-        <definition href="GenerateUGSMLModuleHeaderFile.emtl#/0/GenerateUGSMLModuleHeaderFile"/>
+        <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Module/GenerateUGSMLModuleHeaderFile.emtl#/0/GenerateUGSMLModuleHeaderFile"/>
         <argument xsi:type="ocl.ecore:VariableExp" name="GameModel" referredVariable="/0/GenerateUGSMLModuleFiles/GameModel">
           <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
         </argument>
@@ -17,7 +17,7 @@
       <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
       <body xsi:type="mtl:TemplateInvocation">
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-        <definition href="GenerateUGSMLModuleCppFile.emtl#/0/GenerateUGSMLModuleCppFile"/>
+        <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Module/GenerateUGSMLModuleCppFile.emtl#/0/GenerateUGSMLModuleCppFile"/>
         <argument xsi:type="ocl.ecore:VariableExp" name="GameModel" referredVariable="/0/GenerateUGSMLModuleFiles/GameModel">
           <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
         </argument>
@@ -62,7 +62,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="GenerateUGSMLModuleHeaderFile.emtl#/0/GenerateUGSMLModuleHeaderFile"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Module/GenerateUGSMLModuleHeaderFile.emtl#/0/GenerateUGSMLModuleHeaderFile"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="GameModel">
@@ -74,7 +74,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="GenerateUGSMLModuleCppFile.emtl#/0/GenerateUGSMLModuleCppFile"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Module/GenerateUGSMLModuleCppFile.emtl#/0/GenerateUGSMLModuleCppFile"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="GameModel">

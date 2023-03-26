@@ -5,7 +5,7 @@
       <takesTypesFrom href="http://www.example.org/UGSML#/"/>
     </input>
     <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0"/>
-    <imports href="../Services/HelperService.emtl#/0"/>
+    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0"/>
     <ownedModuleElement xsi:type="mtl:Template" name="GeneratePluginImage" visibility="Public">
       <body xsi:type="mtl:TemplateInvocation" definition="/0/BuildResourcesDirectory">
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
@@ -16,7 +16,7 @@
       <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
       <body xsi:type="mtl:QueryInvocation">
         <eType xsi:type="ocl.ecore:VoidType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclVoid"/>
-        <definition href="../Services/HelperService.emtl#/0/CopyPluginImage"/>
+        <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0/CopyPluginImage"/>
         <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/7">
           <eType xsi:type="ocl.ecore:AnyType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
         </argument>
@@ -113,7 +113,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="../Services/HelperService.emtl#/0/CopyPluginImage"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0/CopyPluginImage"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:VoidType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclVoid"/>
         <eParameters name="anOclAny">

@@ -4,7 +4,7 @@
     <input>
       <takesTypesFrom href="http://www.example.org/UGSML#/"/>
     </input>
-    <imports href="PluginDirectories.emtl#/0"/>
+    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0"/>
     <ownedModuleElement xsi:type="mtl:Template" name="GeneratePluginFile" visibility="Public">
       <body xsi:type="mtl:FileBlock" openMode="OverWrite">
         <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="{&#xA;&#x9;&quot;FileVersion&quot;: 3,&#xA;&#x9;&quot;Version&quot;: "/>
@@ -44,7 +44,7 @@
           <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
           <source xsi:type="mtl:TemplateInvocation">
             <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-            <definition href="PluginDirectories.emtl#/0/GetPluginDirectory"/>
+            <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0/GetPluginDirectory"/>
             <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/6">
               <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
             </argument>
@@ -104,7 +104,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="PluginDirectories.emtl#/0/GetPluginDirectory"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0/GetPluginDirectory"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="Model">

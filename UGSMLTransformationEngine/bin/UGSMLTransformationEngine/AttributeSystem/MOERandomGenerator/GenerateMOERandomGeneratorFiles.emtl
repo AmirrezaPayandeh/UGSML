@@ -4,12 +4,12 @@
     <input>
       <takesTypesFrom href="http://www.example.org/UGSML#/"/>
     </input>
-    <imports href="GenerateMOERandomGeneratorHeaderFile.emtl#/0"/>
+    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/MOERandomGenerator/GenerateMOERandomGeneratorHeaderFile.emtl#/0"/>
     <imports href="GenerateMOERandomGeneratorCppFile.emtl#/0"/>
     <ownedModuleElement xsi:type="mtl:Template" name="GenerateMOERandomGeneratorFile" visibility="Public">
       <body xsi:type="mtl:TemplateInvocation">
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-        <definition href="GenerateMOERandomGeneratorHeaderFile.emtl#/0/GenerateMOERandomGeneratorHeaderFile"/>
+        <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/MOERandomGenerator/GenerateMOERandomGeneratorHeaderFile.emtl#/0/GenerateMOERandomGeneratorHeaderFile"/>
         <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/6">
           <eType xsi:type="ocl.ecore:AnyType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
         </argument>
@@ -62,7 +62,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="GenerateMOERandomGeneratorHeaderFile.emtl#/0/GenerateMOERandomGeneratorHeaderFile"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/AttributeSystem/MOERandomGenerator/GenerateMOERandomGeneratorHeaderFile.emtl#/0/GenerateMOERandomGeneratorHeaderFile"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="Model">

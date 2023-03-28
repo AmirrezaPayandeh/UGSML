@@ -21,6 +21,7 @@ import org.eclipse.sirius.sample.UGSML.UGSMLPackage;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.sirius.sample.UGSML.impl.ColorBasedAttributeImpl#getFeatureName <em>Feature Name</em>}</li>
+ *   <li>{@link org.eclipse.sirius.sample.UGSML.impl.ColorBasedAttributeImpl#isDataStructureArray <em>Data Structure Array</em>}</li>
  *   <li>{@link org.eclipse.sirius.sample.UGSML.impl.ColorBasedAttributeImpl#getR <em>R</em>}</li>
  *   <li>{@link org.eclipse.sirius.sample.UGSML.impl.ColorBasedAttributeImpl#getG <em>G</em>}</li>
  *   <li>{@link org.eclipse.sirius.sample.UGSML.impl.ColorBasedAttributeImpl#getB <em>B</em>}</li>
@@ -49,6 +50,26 @@ public class ColorBasedAttributeImpl extends MinimalEObjectImpl.Container implem
 	 * @ordered
 	 */
 	protected String featureName = FEATURE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isDataStructureArray() <em>Data Structure Array</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDataStructureArray()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DATA_STRUCTURE_ARRAY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDataStructureArray() <em>Data Structure Array</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDataStructureArray()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean dataStructureArray = DATA_STRUCTURE_ARRAY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getR() <em>R</em>}' attribute.
@@ -176,6 +197,29 @@ public class ColorBasedAttributeImpl extends MinimalEObjectImpl.Container implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isDataStructureArray() {
+		return dataStructureArray;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataStructureArray(boolean newDataStructureArray) {
+		boolean oldDataStructureArray = dataStructureArray;
+		dataStructureArray = newDataStructureArray;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					UGSMLPackage.COLOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY, oldDataStructureArray,
+					dataStructureArray));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public int getR() {
 		return r;
 	}
@@ -265,6 +309,8 @@ public class ColorBasedAttributeImpl extends MinimalEObjectImpl.Container implem
 		switch (featureID) {
 		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__FEATURE_NAME:
 			return getFeatureName();
+		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY:
+			return isDataStructureArray();
 		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__R:
 			return getR();
 		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__G:
@@ -287,6 +333,9 @@ public class ColorBasedAttributeImpl extends MinimalEObjectImpl.Container implem
 		switch (featureID) {
 		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__FEATURE_NAME:
 			setFeatureName((String) newValue);
+			return;
+		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY:
+			setDataStructureArray((Boolean) newValue);
 			return;
 		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__R:
 			setR((Integer) newValue);
@@ -315,6 +364,9 @@ public class ColorBasedAttributeImpl extends MinimalEObjectImpl.Container implem
 		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__FEATURE_NAME:
 			setFeatureName(FEATURE_NAME_EDEFAULT);
 			return;
+		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY:
+			setDataStructureArray(DATA_STRUCTURE_ARRAY_EDEFAULT);
+			return;
 		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__R:
 			setR(R_EDEFAULT);
 			return;
@@ -341,6 +393,8 @@ public class ColorBasedAttributeImpl extends MinimalEObjectImpl.Container implem
 		switch (featureID) {
 		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__FEATURE_NAME:
 			return FEATURE_NAME_EDEFAULT == null ? featureName != null : !FEATURE_NAME_EDEFAULT.equals(featureName);
+		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY:
+			return dataStructureArray != DATA_STRUCTURE_ARRAY_EDEFAULT;
 		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__R:
 			return r != R_EDEFAULT;
 		case UGSMLPackage.COLOR_BASED_ATTRIBUTE__G:
@@ -366,6 +420,8 @@ public class ColorBasedAttributeImpl extends MinimalEObjectImpl.Container implem
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (FeatureName: ");
 		result.append(featureName);
+		result.append(", DataStructureArray: ");
+		result.append(dataStructureArray);
 		result.append(", R: ");
 		result.append(r);
 		result.append(", G: ");

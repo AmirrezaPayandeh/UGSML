@@ -30,7 +30,10 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="FeatureName"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GameAttribute" abstract="true" interface="true"
-      eSuperTypes="#//GameFeature"/>
+      eSuperTypes="#//GameFeature">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DataStructureArray" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EnumerationBasedStructure" abstract="true"
       interface="true" eSuperTypes="#//GameStructure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="EnumStates" lowerBound="1"
@@ -505,4 +508,9 @@
         lowerBound="1" eType="#//MaterialBasedAttribute"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MaterialBasedAttribute" eSuperTypes="#//GameAttribute"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AnimationBasedAttribute" eSuperTypes="#//GameAttribute"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AnimationBasedConstraint" eSuperTypes="#//SingleValueConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ConstrainedAttributeInstance"
+        lowerBound="1" eType="#//AnimationBasedAttribute"/>
+  </eClassifiers>
 </ecore:EPackage>

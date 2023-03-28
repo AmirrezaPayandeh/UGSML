@@ -181,4 +181,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="MaterialBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
   <eClassifiers xsi:type="ecore:EClass" name="EnumBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
   <eClassifiers xsi:type="ecore:EClass" name="StructureBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AnimationBasedConstraint" eSuperTypes="#//SingleValueConstraint"/>
 </ecore:EPackage>

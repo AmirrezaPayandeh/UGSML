@@ -202,6 +202,10 @@ public class UGSMLFactoryImpl extends EFactoryImpl implements UGSMLFactory {
 			return createMaterialBasedConstraint();
 		case UGSMLPackage.MATERIAL_BASED_ATTRIBUTE:
 			return createMaterialBasedAttribute();
+		case UGSMLPackage.ANIMATION_BASED_ATTRIBUTE:
+			return createAnimationBasedAttribute();
+		case UGSMLPackage.ANIMATION_BASED_CONSTRAINT:
+			return createAnimationBasedConstraint();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -981,6 +985,26 @@ public class UGSMLFactoryImpl extends EFactoryImpl implements UGSMLFactory {
 	public MaterialBasedAttribute createMaterialBasedAttribute() {
 		MaterialBasedAttributeImpl materialBasedAttribute = new MaterialBasedAttributeImpl();
 		return materialBasedAttribute;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AnimationBasedAttribute createAnimationBasedAttribute() {
+		AnimationBasedAttributeImpl animationBasedAttribute = new AnimationBasedAttributeImpl();
+		return animationBasedAttribute;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AnimationBasedConstraint createAnimationBasedConstraint() {
+		AnimationBasedConstraintImpl animationBasedConstraint = new AnimationBasedConstraintImpl();
+		return animationBasedConstraint;
 	}
 
 	/**

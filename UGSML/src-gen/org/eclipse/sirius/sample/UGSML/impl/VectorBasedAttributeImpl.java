@@ -26,6 +26,7 @@ import org.eclipse.sirius.sample.UGSML.VectorBasedAttribute;
  * </p>
  * <ul>
  *   <li>{@link org.eclipse.sirius.sample.UGSML.impl.VectorBasedAttributeImpl#getFeatureName <em>Feature Name</em>}</li>
+ *   <li>{@link org.eclipse.sirius.sample.UGSML.impl.VectorBasedAttributeImpl#isDataStructureArray <em>Data Structure Array</em>}</li>
  *   <li>{@link org.eclipse.sirius.sample.UGSML.impl.VectorBasedAttributeImpl#getX <em>X</em>}</li>
  *   <li>{@link org.eclipse.sirius.sample.UGSML.impl.VectorBasedAttributeImpl#getY <em>Y</em>}</li>
  *   <li>{@link org.eclipse.sirius.sample.UGSML.impl.VectorBasedAttributeImpl#getZ <em>Z</em>}</li>
@@ -55,6 +56,26 @@ public class VectorBasedAttributeImpl extends MinimalEObjectImpl.Container imple
 	 * @ordered
 	 */
 	protected String featureName = FEATURE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isDataStructureArray() <em>Data Structure Array</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDataStructureArray()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DATA_STRUCTURE_ARRAY_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDataStructureArray() <em>Data Structure Array</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDataStructureArray()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean dataStructureArray = DATA_STRUCTURE_ARRAY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getX() <em>X</em>}' attribute.
@@ -155,6 +176,29 @@ public class VectorBasedAttributeImpl extends MinimalEObjectImpl.Container imple
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, UGSMLPackage.VECTOR_BASED_ATTRIBUTE__FEATURE_NAME,
 					oldFeatureName, featureName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isDataStructureArray() {
+		return dataStructureArray;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDataStructureArray(boolean newDataStructureArray) {
+		boolean oldDataStructureArray = dataStructureArray;
+		dataStructureArray = newDataStructureArray;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					UGSMLPackage.VECTOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY, oldDataStructureArray,
+					dataStructureArray));
 	}
 
 	/**
@@ -384,6 +428,8 @@ public class VectorBasedAttributeImpl extends MinimalEObjectImpl.Container imple
 		switch (featureID) {
 		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__FEATURE_NAME:
 			return getFeatureName();
+		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY:
+			return isDataStructureArray();
 		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__X:
 			return getX();
 		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__Y:
@@ -408,6 +454,9 @@ public class VectorBasedAttributeImpl extends MinimalEObjectImpl.Container imple
 		switch (featureID) {
 		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__FEATURE_NAME:
 			setFeatureName((String) newValue);
+			return;
+		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY:
+			setDataStructureArray((Boolean) newValue);
 			return;
 		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__X:
 			setX((Float) newValue);
@@ -439,6 +488,9 @@ public class VectorBasedAttributeImpl extends MinimalEObjectImpl.Container imple
 		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__FEATURE_NAME:
 			setFeatureName(FEATURE_NAME_EDEFAULT);
 			return;
+		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY:
+			setDataStructureArray(DATA_STRUCTURE_ARRAY_EDEFAULT);
+			return;
 		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__X:
 			setX(X_EDEFAULT);
 			return;
@@ -468,6 +520,8 @@ public class VectorBasedAttributeImpl extends MinimalEObjectImpl.Container imple
 		switch (featureID) {
 		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__FEATURE_NAME:
 			return FEATURE_NAME_EDEFAULT == null ? featureName != null : !FEATURE_NAME_EDEFAULT.equals(featureName);
+		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY:
+			return dataStructureArray != DATA_STRUCTURE_ARRAY_EDEFAULT;
 		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__X:
 			return x != X_EDEFAULT;
 		case UGSMLPackage.VECTOR_BASED_ATTRIBUTE__Y:
@@ -495,6 +549,8 @@ public class VectorBasedAttributeImpl extends MinimalEObjectImpl.Container imple
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (FeatureName: ");
 		result.append(featureName);
+		result.append(", DataStructureArray: ");
+		result.append(dataStructureArray);
 		result.append(", X: ");
 		result.append(x);
 		result.append(", Y: ");

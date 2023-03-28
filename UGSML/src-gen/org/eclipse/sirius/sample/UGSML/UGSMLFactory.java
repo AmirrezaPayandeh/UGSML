@@ -679,6 +679,24 @@ public interface UGSMLFactory extends EFactory {
 	MaterialBasedAttribute createMaterialBasedAttribute();
 
 	/**
+	 * Returns a new object of class '<em>Animation Based Attribute</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Animation Based Attribute</em>'.
+	 * @generated
+	 */
+	AnimationBasedAttribute createAnimationBasedAttribute();
+
+	/**
+	 * Returns a new object of class '<em>Animation Based Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Animation Based Constraint</em>'.
+	 * @generated
+	 */
+	AnimationBasedConstraint createAnimationBasedConstraint();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

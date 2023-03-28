@@ -572,6 +572,16 @@ public class UGSMLAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseAnimationBasedAttribute(AnimationBasedAttribute object) {
+			return createAnimationBasedAttributeAdapter();
+		}
+
+		@Override
+		public Adapter caseAnimationBasedConstraint(AnimationBasedConstraint object) {
+			return createAnimationBasedConstraintAdapter();
+		}
+
+		@Override
 		public Adapter defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -2001,6 +2011,34 @@ public class UGSMLAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMaterialBasedAttributeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.sirius.sample.UGSML.AnimationBasedAttribute <em>Animation Based Attribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.sirius.sample.UGSML.AnimationBasedAttribute
+	 * @generated
+	 */
+	public Adapter createAnimationBasedAttributeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.sirius.sample.UGSML.AnimationBasedConstraint <em>Animation Based Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.sirius.sample.UGSML.AnimationBasedConstraint
+	 * @generated
+	 */
+	public Adapter createAnimationBasedConstraintAdapter() {
 		return null;
 	}
 

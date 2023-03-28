@@ -307,13 +307,22 @@ public interface UGSMLPackage extends EPackage {
 	int GAME_ATTRIBUTE__FEATURE_NAME = GAME_FEATURE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_FEATURE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Game Attribute</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GAME_ATTRIBUTE_FEATURE_COUNT = GAME_FEATURE_FEATURE_COUNT + 0;
+	int GAME_ATTRIBUTE_FEATURE_COUNT = GAME_FEATURE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Game Attribute</em>' class.
@@ -510,6 +519,15 @@ public interface UGSMLPackage extends EPackage {
 	int BOOLEAN_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOLEAN_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -556,6 +574,15 @@ public interface UGSMLPackage extends EPackage {
 	int VALUE_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The number of structural features of the '<em>Value Based Attribute</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -593,6 +620,15 @@ public interface UGSMLPackage extends EPackage {
 	int LETTER_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LETTER_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The number of structural features of the '<em>Letter Based Attribute</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -628,6 +664,15 @@ public interface UGSMLPackage extends EPackage {
 	 * @ordered
 	 */
 	int NAME_BASED_ATTRIBUTE__FEATURE_NAME = LETTER_BASED_ATTRIBUTE__FEATURE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAME_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = LETTER_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
 
 	/**
 	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
@@ -676,6 +721,15 @@ public interface UGSMLPackage extends EPackage {
 	int STRING_BASED_ATTRIBUTE__FEATURE_NAME = LETTER_BASED_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = LETTER_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -722,6 +776,15 @@ public interface UGSMLPackage extends EPackage {
 	int TEXT_BASED_ATTRIBUTE__FEATURE_NAME = LETTER_BASED_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXT_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = LETTER_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -766,6 +829,15 @@ public interface UGSMLPackage extends EPackage {
 	 * @ordered
 	 */
 	int VECTOR2_DBASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VECTOR2_DBASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
 
 	/**
 	 * The feature id for the '<em><b>X</b></em>' attribute.
@@ -821,6 +893,15 @@ public interface UGSMLPackage extends EPackage {
 	 * @ordered
 	 */
 	int VECTOR_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VECTOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
 
 	/**
 	 * The feature id for the '<em><b>X</b></em>' attribute.
@@ -905,6 +986,15 @@ public interface UGSMLPackage extends EPackage {
 	int ROTATOR_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROTATOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The feature id for the '<em><b>Roll</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -978,6 +1068,15 @@ public interface UGSMLPackage extends EPackage {
 	int TRANSFORMATION_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSFORMATION_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The feature id for the '<em><b>Translation</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1040,6 +1139,15 @@ public interface UGSMLPackage extends EPackage {
 	 * @ordered
 	 */
 	int COLOR_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
 
 	/**
 	 * The feature id for the '<em><b>R</b></em>' attribute.
@@ -1113,6 +1221,15 @@ public interface UGSMLPackage extends EPackage {
 	 * @ordered
 	 */
 	int TEXTURE_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXTURE_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
 
 	/**
 	 * The number of structural features of the '<em>Texture Based Attribute</em>' class.
@@ -2433,6 +2550,15 @@ public interface UGSMLPackage extends EPackage {
 	int MODEL_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODEL_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The number of structural features of the '<em>Model Based Attribute</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2468,6 +2594,15 @@ public interface UGSMLPackage extends EPackage {
 	 * @ordered
 	 */
 	int PARTICLE_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARTICLE_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
 
 	/**
 	 * The number of structural features of the '<em>Particle Based Attribute</em>' class.
@@ -2710,6 +2845,15 @@ public interface UGSMLPackage extends EPackage {
 	int AUDIO_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIO_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The number of structural features of the '<em>Audio Based Attribute</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2745,6 +2889,15 @@ public interface UGSMLPackage extends EPackage {
 	 * @ordered
 	 */
 	int CHARACTER_BASED_ATTRIBUTE__FEATURE_NAME = LETTER_BASED_ATTRIBUTE__FEATURE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHARACTER_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = LETTER_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
 
 	/**
 	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
@@ -2793,6 +2946,15 @@ public interface UGSMLPackage extends EPackage {
 	int INTEGER_BASED_ATTRIBUTE__FEATURE_NAME = VALUE_BASED_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTEGER_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = VALUE_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2837,6 +2999,15 @@ public interface UGSMLPackage extends EPackage {
 	 * @ordered
 	 */
 	int DECIMAL_BASED_ATTRIBUTE__FEATURE_NAME = VALUE_BASED_ATTRIBUTE__FEATURE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECIMAL_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = VALUE_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
 
 	/**
 	 * The feature id for the '<em><b>Default Value</b></em>' attribute.
@@ -4305,6 +4476,15 @@ public interface UGSMLPackage extends EPackage {
 	int ENUM_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENUM_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The feature id for the '<em><b>Enum Type</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4349,6 +4529,15 @@ public interface UGSMLPackage extends EPackage {
 	 * @ordered
 	 */
 	int STRUCTURE_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRUCTURE_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
 
 	/**
 	 * The feature id for the '<em><b>Data Type</b></em>' reference.
@@ -4581,6 +4770,15 @@ public interface UGSMLPackage extends EPackage {
 	int MATERIAL_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MATERIAL_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
 	 * The number of structural features of the '<em>Material Based Attribute</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4599,6 +4797,98 @@ public interface UGSMLPackage extends EPackage {
 	int MATERIAL_BASED_ATTRIBUTE_OPERATION_COUNT = GAME_ATTRIBUTE_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.sirius.sample.UGSML.impl.AnimationBasedAttributeImpl <em>Animation Based Attribute</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.sirius.sample.UGSML.impl.AnimationBasedAttributeImpl
+	 * @see org.eclipse.sirius.sample.UGSML.impl.UGSMLPackageImpl#getAnimationBasedAttribute()
+	 * @generated
+	 */
+	int ANIMATION_BASED_ATTRIBUTE = 101;
+
+	/**
+	 * The feature id for the '<em><b>Feature Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANIMATION_BASED_ATTRIBUTE__FEATURE_NAME = GAME_ATTRIBUTE__FEATURE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Data Structure Array</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANIMATION_BASED_ATTRIBUTE__DATA_STRUCTURE_ARRAY = GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY;
+
+	/**
+	 * The number of structural features of the '<em>Animation Based Attribute</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANIMATION_BASED_ATTRIBUTE_FEATURE_COUNT = GAME_ATTRIBUTE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Animation Based Attribute</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANIMATION_BASED_ATTRIBUTE_OPERATION_COUNT = GAME_ATTRIBUTE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.sirius.sample.UGSML.impl.AnimationBasedConstraintImpl <em>Animation Based Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.sirius.sample.UGSML.impl.AnimationBasedConstraintImpl
+	 * @see org.eclipse.sirius.sample.UGSML.impl.UGSMLPackageImpl#getAnimationBasedConstraint()
+	 * @generated
+	 */
+	int ANIMATION_BASED_CONSTRAINT = 102;
+
+	/**
+	 * The feature id for the '<em><b>Variability</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANIMATION_BASED_CONSTRAINT__VARIABILITY = SINGLE_VALUE_CONSTRAINT__VARIABILITY;
+
+	/**
+	 * The feature id for the '<em><b>Constrained Attribute Instance</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANIMATION_BASED_CONSTRAINT__CONSTRAINED_ATTRIBUTE_INSTANCE = SINGLE_VALUE_CONSTRAINT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Animation Based Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANIMATION_BASED_CONSTRAINT_FEATURE_COUNT = SINGLE_VALUE_CONSTRAINT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Animation Based Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANIMATION_BASED_CONSTRAINT_OPERATION_COUNT = SINGLE_VALUE_CONSTRAINT_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.sirius.sample.UGSML.AdditionLimit <em>Addition Limit</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4606,7 +4896,7 @@ public interface UGSMLPackage extends EPackage {
 	 * @see org.eclipse.sirius.sample.UGSML.impl.UGSMLPackageImpl#getAdditionLimit()
 	 * @generated
 	 */
-	int ADDITION_LIMIT = 101;
+	int ADDITION_LIMIT = 103;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.sirius.sample.UGSML.VariabilityType <em>Variability Type</em>}' enum.
@@ -4616,7 +4906,7 @@ public interface UGSMLPackage extends EPackage {
 	 * @see org.eclipse.sirius.sample.UGSML.impl.UGSMLPackageImpl#getVariabilityType()
 	 * @generated
 	 */
-	int VARIABILITY_TYPE = 102;
+	int VARIABILITY_TYPE = 104;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.sirius.sample.UGSML.FilteringType <em>Filtering Type</em>}' enum.
@@ -4626,7 +4916,7 @@ public interface UGSMLPackage extends EPackage {
 	 * @see org.eclipse.sirius.sample.UGSML.impl.UGSMLPackageImpl#getFilteringType()
 	 * @generated
 	 */
-	int FILTERING_TYPE = 103;
+	int FILTERING_TYPE = 105;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.sirius.sample.UGSML.ArithmeticOperations <em>Arithmetic Operations</em>}' enum.
@@ -4636,7 +4926,7 @@ public interface UGSMLPackage extends EPackage {
 	 * @see org.eclipse.sirius.sample.UGSML.impl.UGSMLPackageImpl#getArithmeticOperations()
 	 * @generated
 	 */
-	int ARITHMETIC_OPERATIONS = 104;
+	int ARITHMETIC_OPERATIONS = 106;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.sirius.sample.UGSML.InitializationMode <em>Initialization Mode</em>}' enum.
@@ -4646,7 +4936,7 @@ public interface UGSMLPackage extends EPackage {
 	 * @see org.eclipse.sirius.sample.UGSML.impl.UGSMLPackageImpl#getInitializationMode()
 	 * @generated
 	 */
-	int INITIALIZATION_MODE = 105;
+	int INITIALIZATION_MODE = 107;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.sirius.sample.UGSML.Root <em>Root</em>}'.
@@ -4806,6 +5096,17 @@ public interface UGSMLPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getGameAttribute();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.sirius.sample.UGSML.GameAttribute#isDataStructureArray <em>Data Structure Array</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Data Structure Array</em>'.
+	 * @see org.eclipse.sirius.sample.UGSML.GameAttribute#isDataStructureArray()
+	 * @see #getGameAttribute()
+	 * @generated
+	 */
+	EAttribute getGameAttribute_DataStructureArray();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.sirius.sample.UGSML.EnumerationBasedStructure <em>Enumeration Based Structure</em>}'.
@@ -7045,6 +7346,37 @@ public interface UGSMLPackage extends EPackage {
 	EClass getMaterialBasedAttribute();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.sirius.sample.UGSML.AnimationBasedAttribute <em>Animation Based Attribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Animation Based Attribute</em>'.
+	 * @see org.eclipse.sirius.sample.UGSML.AnimationBasedAttribute
+	 * @generated
+	 */
+	EClass getAnimationBasedAttribute();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.sirius.sample.UGSML.AnimationBasedConstraint <em>Animation Based Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Animation Based Constraint</em>'.
+	 * @see org.eclipse.sirius.sample.UGSML.AnimationBasedConstraint
+	 * @generated
+	 */
+	EClass getAnimationBasedConstraint();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.sirius.sample.UGSML.AnimationBasedConstraint#getConstrainedAttributeInstance <em>Constrained Attribute Instance</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Constrained Attribute Instance</em>'.
+	 * @see org.eclipse.sirius.sample.UGSML.AnimationBasedConstraint#getConstrainedAttributeInstance()
+	 * @see #getAnimationBasedConstraint()
+	 * @generated
+	 */
+	EReference getAnimationBasedConstraint_ConstrainedAttributeInstance();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.sirius.sample.UGSML.AdditionLimit <em>Addition Limit</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7248,6 +7580,14 @@ public interface UGSMLPackage extends EPackage {
 		 * @generated
 		 */
 		EClass GAME_ATTRIBUTE = eINSTANCE.getGameAttribute();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Structure Array</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY = eINSTANCE.getGameAttribute_DataStructureArray();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.sirius.sample.UGSML.EnumerationBasedStructure <em>Enumeration Based Structure</em>}' class.
@@ -9194,6 +9534,35 @@ public interface UGSMLPackage extends EPackage {
 		 * @generated
 		 */
 		EClass MATERIAL_BASED_ATTRIBUTE = eINSTANCE.getMaterialBasedAttribute();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.sirius.sample.UGSML.impl.AnimationBasedAttributeImpl <em>Animation Based Attribute</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.sirius.sample.UGSML.impl.AnimationBasedAttributeImpl
+		 * @see org.eclipse.sirius.sample.UGSML.impl.UGSMLPackageImpl#getAnimationBasedAttribute()
+		 * @generated
+		 */
+		EClass ANIMATION_BASED_ATTRIBUTE = eINSTANCE.getAnimationBasedAttribute();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.sirius.sample.UGSML.impl.AnimationBasedConstraintImpl <em>Animation Based Constraint</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.sirius.sample.UGSML.impl.AnimationBasedConstraintImpl
+		 * @see org.eclipse.sirius.sample.UGSML.impl.UGSMLPackageImpl#getAnimationBasedConstraint()
+		 * @generated
+		 */
+		EClass ANIMATION_BASED_CONSTRAINT = eINSTANCE.getAnimationBasedConstraint();
+
+		/**
+		 * The meta object literal for the '<em><b>Constrained Attribute Instance</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANIMATION_BASED_CONSTRAINT__CONSTRAINED_ATTRIBUTE_INSTANCE = eINSTANCE
+				.getAnimationBasedConstraint_ConstrainedAttributeInstance();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.sirius.sample.UGSML.AdditionLimit <em>Addition Limit</em>}' enum.

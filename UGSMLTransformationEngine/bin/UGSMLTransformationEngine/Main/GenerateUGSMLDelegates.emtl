@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mtl="http://www.eclipse.org/acceleo/mtl/3.0" xmlns:ocl.ecore="http://www.eclipse.org/ocl/1.1.0/Ecore">
+  <mtl:Module name="GenerateUGSMLDelegates" nsURI="UGSMLTransformationEngine::Main::GenerateUGSMLDelegates" startHeaderPosition="29" endHeaderPosition="152">
+    <input>
+      <takesTypesFrom href="http://www.example.org/UGSML#/"/>
+    </input>
+    <imports href="PluginDirectories.emtl#/0"/>
+    <imports href="PrintCopyrightText.emtl#/0"/>
+    <ownedModuleElement xsi:type="mtl:Template" name="GenerateUGSMLDelegates" visibility="Public">
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="mtl:TemplateInvocation">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <definition href="PrintCopyrightText.emtl#/0/PrintCopyrightText"/>
+          <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/8">
+            <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+          </argument>
+        </body>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;&#xA;#pragma once&#xA;&#xA;#include &quot;CoreMinimal.h&quot;&#xA;#include &quot;UGSMLDependencies.h&quot;&#xA;&#xA;#include &quot;UGSMLDelegates.generated.h&quot;&#xA;&#xA;UCLASS()&#xA;class UGSML_API UUGSMLDelegates : public UObject&#xA;{&#xA;&#x9;GENERATED_BODY()&#xA;};&#xA;&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMinMaxSignature);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FFloatVariableStatusSignature, float, OldValue, float, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FIntVariableStatusSignature, int32, OldValue, int32, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FBoolVariableStatusSignature, bool, OldValue, bool, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FNameVariableStatusSignature, FName, OldValue, FName, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FStringVariableStatusSignature, FString, OldValue, FString, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTextVariableStatusSignature, FText, OldValue, FText, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FVector2DVariableStatusSignature, FVector2D, OldValue, FVector2D, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FVectorVariableStatusSignature, FVector, OldValue, FVector, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FRotatorVariableStatusSignature, FRotator, OldValue, FRotator, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTransformationVariableStatusSignature, FTransform, OldValue, FTransform, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FColorVariableStatusSignature, FColor, OldValue, FColor, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTextureVariableStatusSignature, UTexture2D*, OldValue, UTexture2D*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FModelVariableStatusSignature, UStaticMesh*, OldValue, UStaticMesh*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FParticleVariableStatusSignature, UNiagaraSystem*, OldValue, UNiagaraSystem*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAudioVariableStatusSignature, USoundBase*, OldValue, USoundBase*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMaterialVariableStatusSignature, UMaterialInterface*, OldValue, UMaterialInterface*, NewValue);&#xA;"/>
+        <body xsi:type="mtl:ForBlock">
+          <body xsi:type="mtl:ForBlock">
+            <body xsi:type="mtl:IfBlock">
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.example.org/UGSML#//GameFeature/FeatureName"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="VariableStatusSignature, E"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.example.org/UGSML#//GameFeature/FeatureName"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=", OldValue, E"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.example.org/UGSML#//GameFeature/FeatureName"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=", NewValue);&#xA;"/>
+              <ifExpr xsi:type="ocl.ecore:OperationCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <argument xsi:type="ocl.ecore:TypeExp" eType="/14/SimpleEnumStructure">
+                  <referredType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//SimpleEnumStructure"/>
+                </argument>
+                <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny_Class/oclIsTypeOf"/>
+              </ifExpr>
+            </body>
+            <body xsi:type="mtl:IfBlock">
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.example.org/UGSML#//GameFeature/FeatureName"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="VariableStatusSignature, E"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.example.org/UGSML#//GameFeature/FeatureName"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="::Type, OldValue, E"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.example.org/UGSML#//GameFeature/FeatureName"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="::Type, NewValue);&#xA;"/>
+              <ifExpr xsi:type="ocl.ecore:OperationCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <argument xsi:type="ocl.ecore:TypeExp" eType="/14/BitmaskedEnumStructure">
+                  <referredType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//BitmaskedEnumStructure"/>
+                </argument>
+                <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny_Class/oclIsTypeOf"/>
+              </ifExpr>
+            </body>
+            <body xsi:type="mtl:IfBlock">
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.example.org/UGSML#//GameFeature/FeatureName"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="VariableStatusSignature, F"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.example.org/UGSML#//GameFeature/FeatureName"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=", OldValue, F"/>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://www.example.org/UGSML#//GameFeature/FeatureName"/>
+              </body>
+              <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=", NewValue);&#xA;"/>
+              <ifExpr xsi:type="ocl.ecore:OperationCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="GameStructureInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+                  <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+                </source>
+                <argument xsi:type="ocl.ecore:TypeExp" eType="/14/DataBasedStructure">
+                  <referredType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//DataBasedStructure"/>
+                </argument>
+                <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny_Class/oclIsTypeOf"/>
+              </ifExpr>
+            </body>
+            <loopVariable name="GameStructureInstance">
+              <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+            </loopVariable>
+            <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/9/OrderedSet(GameStructure)">
+              <source xsi:type="ocl.ecore:VariableExp" name="GameStructureContainerInstance" referredVariable="/0/GenerateUGSMLDelegates/%/%.2/GameStructureContainerInstance">
+                <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructureContainer"/>
+              </source>
+              <referredProperty xsi:type="ecore:EReference" href="http://www.example.org/UGSML#//GameStructureContainer/GameStructures"/>
+            </iterSet>
+          </body>
+          <loopVariable name="GameStructureContainerInstance">
+            <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructureContainer"/>
+          </loopVariable>
+          <iterSet xsi:type="ocl.ecore:PropertyCallExp" eType="/9/OrderedSet(GameFeatureContainer)">
+            <source xsi:type="ocl.ecore:VariableExp" name="GameModel" referredVariable="/0/GenerateUGSMLDelegates/GameModel">
+              <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+            </source>
+            <referredProperty xsi:type="ecore:EReference" href="http://www.example.org/UGSML#//Game/GameFeatureContainers"/>
+          </iterSet>
+        </body>
+        <fileUrl xsi:type="ocl.ecore:OperationCallExp" referredOperation="/1/oclstdlib_String_Class/+">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          <source xsi:type="mtl:TemplateInvocation">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            <definition href="PluginDirectories.emtl#/0/GetPublicDirectory"/>
+            <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/6">
+              <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+            </argument>
+          </source>
+          <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UGSMLDelegates.h">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          </argument>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <parameter name="GameModel">
+        <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+      </parameter>
+    </ownedModuleElement>
+  </mtl:Module>
+  <ecore:EPackage name="additions">
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_String_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eAnnotations>
+      <eOperations name="+">
+        <eAnnotations source="MTL non-standard"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="other">
+          <eType xsi:type="ocl.ecore:AnyType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Integer_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Real_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Real"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ecore_EObject_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eAnnotations>
+      <eOperations name="GenerateUGSMLDelegates">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/GenerateUGSMLDelegates"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="GameModel">
+          <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="GetPublicDirectory">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL">
+          <references href="PluginDirectories.emtl#/0/GetPublicDirectory"/>
+        </eAnnotations>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="Model">
+          <eType xsi:type="ocl.ecore:AnyType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="PrintCopyrightText">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL">
+          <references href="PrintCopyrightText.emtl#/0/PrintCopyrightText"/>
+        </eAnnotations>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="Model">
+          <eType xsi:type="ocl.ecore:AnyType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OclAny_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Collection(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Collection(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Sequence(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Sequence(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OrderedSet(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="UGSML_Game_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.example.org/UGSML#//Game"/>
+      </eAnnotations>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+  </ocl.ecore:Variable>
+  <ecore:EPackage name="collections">
+    <eClassifiers xsi:type="ocl.ecore:OrderedSetType" name="OrderedSet(GameFeatureContainer)" instanceClassName="java.util.LinkedHashSet">
+      <elementType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameFeatureContainer"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:OrderedSetType" name="OrderedSet(GameStructure)" instanceClassName="java.util.LinkedHashSet">
+      <elementType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructureContainer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructureContainer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ecore:EPackage name="types">
+    <eClassifiers xsi:type="ocl.ecore:TypeType" name="SimpleEnumStructure">
+      <referredType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//SimpleEnumStructure"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:TypeType" name="BitmaskedEnumStructure">
+      <referredType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//BitmaskedEnumStructure"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:TypeType" name="DataBasedStructure">
+      <referredType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//DataBasedStructure"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructureContainer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ecore:EAnnotation source="positions">
+    <eAnnotations source="positions.0" references="/0/GenerateUGSMLDelegates">
+      <details key="start" value="218"/>
+      <details key="end" value="3589"/>
+      <details key="line" value="7"/>
+    </eAnnotations>
+    <eAnnotations source="positions.1" references="/0/GenerateUGSMLDelegates/%">
+      <details key="start" value="277"/>
+      <details key="end" value="3577"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+    <eAnnotations source="positions.2" references="/0/GenerateUGSMLDelegates/%/%">
+      <details key="start" value="345"/>
+      <details key="end" value="365"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.3" references="/0/GenerateUGSMLDelegates/%/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.4" references="/0/GenerateUGSMLDelegates/%/%.1">
+      <details key="start" value="367"/>
+      <details key="end" value="2528"/>
+      <details key="line" value="10"/>
+    </eAnnotations>
+    <eAnnotations source="positions.5" references="/0/GenerateUGSMLDelegates/%/%.2">
+      <details key="start" value="2528"/>
+      <details key="end" value="3569"/>
+      <details key="line" value="41"/>
+    </eAnnotations>
+    <eAnnotations source="positions.6" references="/0/GenerateUGSMLDelegates/%/%.2/%">
+      <details key="start" value="2626"/>
+      <details key="end" value="3562"/>
+      <details key="line" value="42"/>
+    </eAnnotations>
+    <eAnnotations source="positions.7" references="/0/GenerateUGSMLDelegates/%/%.2/%/%">
+      <details key="start" value="2720"/>
+      <details key="end" value="2993"/>
+      <details key="line" value="43"/>
+    </eAnnotations>
+    <eAnnotations source="positions.8" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%">
+      <details key="start" value="2782"/>
+      <details key="end" value="2828"/>
+      <details key="line" value="44"/>
+    </eAnnotations>
+    <eAnnotations source="positions.9" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.1">
+      <details key="start" value="2829"/>
+      <details key="end" value="2862"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.10" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.1/GameStructureInstance">
+      <details key="start" value="2829"/>
+      <details key="end" value="2850"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.11" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.2">
+      <details key="start" value="2864"/>
+      <details key="end" value="2890"/>
+      <details key="line" value="44"/>
+    </eAnnotations>
+    <eAnnotations source="positions.12" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.3">
+      <details key="start" value="2891"/>
+      <details key="end" value="2924"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.13" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.3/GameStructureInstance">
+      <details key="start" value="2891"/>
+      <details key="end" value="2912"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.14" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.4">
+      <details key="start" value="2926"/>
+      <details key="end" value="2939"/>
+      <details key="line" value="44"/>
+    </eAnnotations>
+    <eAnnotations source="positions.15" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.5">
+      <details key="start" value="2940"/>
+      <details key="end" value="2973"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.16" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.5/GameStructureInstance">
+      <details key="start" value="2940"/>
+      <details key="end" value="2961"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.17" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.6">
+      <details key="start" value="2975"/>
+      <details key="end" value="2988"/>
+      <details key="line" value="44"/>
+    </eAnnotations>
+    <eAnnotations source="positions.18" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.7">
+      <details key="start" value="2724"/>
+      <details key="end" value="2780"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.19" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.7/GameStructureInstance">
+      <details key="start" value="2725"/>
+      <details key="end" value="2746"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.20" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.7/%">
+      <details key="start" value="2759"/>
+      <details key="end" value="2778"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.21" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1">
+      <details key="start" value="2994"/>
+      <details key="end" value="3282"/>
+      <details key="line" value="46"/>
+    </eAnnotations>
+    <eAnnotations source="positions.22" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%">
+      <details key="start" value="3059"/>
+      <details key="end" value="3105"/>
+      <details key="line" value="47"/>
+    </eAnnotations>
+    <eAnnotations source="positions.23" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.1">
+      <details key="start" value="3106"/>
+      <details key="end" value="3139"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.24" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.1/GameStructureInstance">
+      <details key="start" value="3106"/>
+      <details key="end" value="3127"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.25" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.2">
+      <details key="start" value="3141"/>
+      <details key="end" value="3167"/>
+      <details key="line" value="47"/>
+    </eAnnotations>
+    <eAnnotations source="positions.26" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.3">
+      <details key="start" value="3168"/>
+      <details key="end" value="3201"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.27" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.3/GameStructureInstance">
+      <details key="start" value="3168"/>
+      <details key="end" value="3189"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.28" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.4">
+      <details key="start" value="3203"/>
+      <details key="end" value="3222"/>
+      <details key="line" value="47"/>
+    </eAnnotations>
+    <eAnnotations source="positions.29" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.5">
+      <details key="start" value="3223"/>
+      <details key="end" value="3256"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.30" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.5/GameStructureInstance">
+      <details key="start" value="3223"/>
+      <details key="end" value="3244"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.31" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.6">
+      <details key="start" value="3258"/>
+      <details key="end" value="3277"/>
+      <details key="line" value="47"/>
+    </eAnnotations>
+    <eAnnotations source="positions.32" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.7">
+      <details key="start" value="2998"/>
+      <details key="end" value="3057"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.33" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.7/GameStructureInstance">
+      <details key="start" value="2999"/>
+      <details key="end" value="3020"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.34" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.7/%">
+      <details key="start" value="3033"/>
+      <details key="end" value="3055"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.35" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2">
+      <details key="start" value="3283"/>
+      <details key="end" value="3555"/>
+      <details key="line" value="49"/>
+    </eAnnotations>
+    <eAnnotations source="positions.36" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%">
+      <details key="start" value="3344"/>
+      <details key="end" value="3390"/>
+      <details key="line" value="50"/>
+    </eAnnotations>
+    <eAnnotations source="positions.37" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.1">
+      <details key="start" value="3391"/>
+      <details key="end" value="3424"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.38" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.1/GameStructureInstance">
+      <details key="start" value="3391"/>
+      <details key="end" value="3412"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.39" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.2">
+      <details key="start" value="3426"/>
+      <details key="end" value="3452"/>
+      <details key="line" value="50"/>
+    </eAnnotations>
+    <eAnnotations source="positions.40" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.3">
+      <details key="start" value="3453"/>
+      <details key="end" value="3486"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.41" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.3/GameStructureInstance">
+      <details key="start" value="3453"/>
+      <details key="end" value="3474"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.42" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.4">
+      <details key="start" value="3488"/>
+      <details key="end" value="3501"/>
+      <details key="line" value="50"/>
+    </eAnnotations>
+    <eAnnotations source="positions.43" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.5">
+      <details key="start" value="3502"/>
+      <details key="end" value="3535"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.44" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.5/GameStructureInstance">
+      <details key="start" value="3502"/>
+      <details key="end" value="3523"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.45" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.6">
+      <details key="start" value="3537"/>
+      <details key="end" value="3550"/>
+      <details key="line" value="50"/>
+    </eAnnotations>
+    <eAnnotations source="positions.46" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.7">
+      <details key="start" value="3287"/>
+      <details key="end" value="3342"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.47" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.7/GameStructureInstance">
+      <details key="start" value="3288"/>
+      <details key="end" value="3309"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.48" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.7/%">
+      <details key="start" value="3322"/>
+      <details key="end" value="3340"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.49" references="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
+      <details key="start" value="2632"/>
+      <details key="end" value="2669"/>
+      <details key="line" value="42"/>
+    </eAnnotations>
+    <eAnnotations source="positions.50" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.3">
+      <details key="start" value="2672"/>
+      <details key="end" value="2717"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.51" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.3/GameStructureContainerInstance">
+      <details key="start" value="2672"/>
+      <details key="end" value="2702"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.52" references="/0/GenerateUGSMLDelegates/%/%.2/GameStructureContainerInstance">
+      <details key="start" value="2534"/>
+      <details key="end" value="2589"/>
+      <details key="line" value="41"/>
+    </eAnnotations>
+    <eAnnotations source="positions.53" references="/0/GenerateUGSMLDelegates/%/%.2/%.1">
+      <details key="start" value="2592"/>
+      <details key="end" value="2623"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.54" references="/0/GenerateUGSMLDelegates/%/%.2/%.1/GameModel">
+      <details key="start" value="2592"/>
+      <details key="end" value="2601"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.55" references="/0/GenerateUGSMLDelegates/%/%.3">
+      <details key="start" value="284"/>
+      <details key="end" value="325"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.56" references="/0/GenerateUGSMLDelegates/%/%.3/%">
+      <details key="start" value="284"/>
+      <details key="end" value="304"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.57" references="/0/GenerateUGSMLDelegates/%/%.3/%/self">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.58" references="/0/GenerateUGSMLDelegates/%/%.3/%.1">
+      <details key="start" value="307"/>
+      <details key="end" value="325"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.59" references="/0/GenerateUGSMLDelegates/%/%.4">
+      <details key="start" value="334"/>
+      <details key="end" value="341"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.60" references="/0/GenerateUGSMLDelegates/GameModel">
+      <details key="start" value="258"/>
+      <details key="end" value="274"/>
+      <details key="line" value="7"/>
+    </eAnnotations>
+  </ecore:EAnnotation>
+</xmi:XMI>

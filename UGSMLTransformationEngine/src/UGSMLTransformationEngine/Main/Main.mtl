@@ -9,6 +9,7 @@
 [import UGSMLTransformationEngine::Enumuration::GenerateEnumurationFile/]
 [import UGSMLTransformationEngine::Struct::GenerateStructFiles /]
 [import UGSMLTransformationEngine::Main::GenerateUGSMLDependencies /]
+[import UGSMLTransformationEngine::Main::GenerateUGSMLDelegates /]
 [import UGSMLTransformationEngine::AttributeSystem::GenerateAttributeSystemFiles /]
 [import UGSMLTransformationEngine::Main::GeneratePluginImage /]
 
@@ -22,6 +23,7 @@
 	[GenerateEnumurationFile(RootModel.Game)/]
 	[GenerateStructFiles(RootModel.Game)/]
 	[GenerateUGSMLDependencies(RootModel.Game)/]
+	[GenerateUGSMLDelegates(RootModel.Game)/]
 	[GenerateAttributeSystemFiles(RootModel.Game)/]
 	[GeneratePluginImage()/]
 [/if]

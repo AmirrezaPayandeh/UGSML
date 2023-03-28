@@ -125,4 +125,5 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="DataType" lowerBound="1"
         eType="#//DataBasedStructure"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AnimationBasedAttribute" eSuperTypes="#//GameAttribute"/>
 </ecore:EPackage>

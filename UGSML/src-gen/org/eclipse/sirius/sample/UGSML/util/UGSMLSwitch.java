@@ -1225,6 +1225,30 @@ public class UGSMLSwitch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case UGSMLPackage.ANIMATION_BASED_ATTRIBUTE: {
+			AnimationBasedAttribute animationBasedAttribute = (AnimationBasedAttribute) theEObject;
+			T result = caseAnimationBasedAttribute(animationBasedAttribute);
+			if (result == null)
+				result = caseGameAttribute(animationBasedAttribute);
+			if (result == null)
+				result = caseGameFeature(animationBasedAttribute);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case UGSMLPackage.ANIMATION_BASED_CONSTRAINT: {
+			AnimationBasedConstraint animationBasedConstraint = (AnimationBasedConstraint) theEObject;
+			T result = caseAnimationBasedConstraint(animationBasedConstraint);
+			if (result == null)
+				result = caseSingleValueConstraint(animationBasedConstraint);
+			if (result == null)
+				result = caseAttributeSystemConstraint(animationBasedConstraint);
+			if (result == null)
+				result = caseGameSystemConstraint(animationBasedConstraint);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		default:
 			return defaultCase(theEObject);
 		}
@@ -2742,6 +2766,36 @@ public class UGSMLSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseMaterialBasedAttribute(MaterialBasedAttribute object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Animation Based Attribute</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Animation Based Attribute</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAnimationBasedAttribute(AnimationBasedAttribute object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Animation Based Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Animation Based Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAnimationBasedConstraint(AnimationBasedConstraint object) {
 		return null;
 	}
 

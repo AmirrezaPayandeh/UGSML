@@ -494,9 +494,16 @@ bool [PrintClassName(AttributeSystemModel)/]::Set[LetterBasedAttributeInstance.F
 	[PrintAttributeType(LetterBasedAttributeInstance)/] Old[LetterBasedAttributeInstance.FeatureName/] = Get[LetterBasedAttributeInstance.FeatureName/]();
 	[LetterBasedAttributeInstance.FeatureName/] = Value;
 	[PrintAttributeType(LetterBasedAttributeInstance)/] New[LetterBasedAttributeInstance.FeatureName/] = Get[LetterBasedAttributeInstance.FeatureName/]();
+[if (LetterBasedAttributeInstance.oclIsTypeOf(TextBasedAttribute))]
+
+	if (Old[LetterBasedAttributeInstance.FeatureName/].ToString() != New[LetterBasedAttributeInstance.FeatureName/].ToString())
+		On[LetterBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[LetterBasedAttributeInstance.FeatureName/], New[LetterBasedAttributeInstance.FeatureName/]);
+[/if]
+[if (not LetterBasedAttributeInstance.oclIsTypeOf(TextBasedAttribute))]
 
 	if (Old[LetterBasedAttributeInstance.FeatureName/] != New[LetterBasedAttributeInstance.FeatureName/])
 		On[LetterBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[LetterBasedAttributeInstance.FeatureName/], New[LetterBasedAttributeInstance.FeatureName/]);
+[/if]
 
 	return true;
 }

@@ -219,6 +219,12 @@
             xsi:type="UGSML:StructureBasedAttribute"
             FeatureName="Second"
             DataType="//@Game/@GameFeatureContainers.1/@GameStructures.3"/>
+        <StructureAttributes
+            xsi:type="UGSML:TransformationBasedAttribute">
+          <Translation/>
+          <Rotation/>
+          <Scale3D/>
+        </StructureAttributes>
       </GameStructures>
       <GameStructures
           xsi:type="UGSML:DataBasedStructure"

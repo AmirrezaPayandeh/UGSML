@@ -52,7 +52,9 @@
     <genClasses ecoreClass="UGSML.ecore#//GameFeature">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//GameFeature/FeatureName"/>
     </genClasses>
-    <genClasses ecoreClass="UGSML.ecore#//GameAttribute"/>
+    <genClasses ecoreClass="UGSML.ecore#//GameAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UGSML.ecore#//GameAttribute/DataStructureArray"/>
+    </genClasses>
     <genClasses ecoreClass="UGSML.ecore#//EnumerationBasedStructure">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UGSML.ecore#//EnumerationBasedStructure/EnumStates"/>
     </genClasses>
@@ -328,5 +330,9 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//MaterialBasedConstraint/ConstrainedAttributeInstance"/>
     </genClasses>
     <genClasses ecoreClass="UGSML.ecore#//MaterialBasedAttribute"/>
+    <genClasses ecoreClass="UGSML.ecore#//AnimationBasedAttribute"/>
+    <genClasses ecoreClass="UGSML.ecore#//AnimationBasedConstraint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UGSML.ecore#//AnimationBasedConstraint/ConstrainedAttributeInstance"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

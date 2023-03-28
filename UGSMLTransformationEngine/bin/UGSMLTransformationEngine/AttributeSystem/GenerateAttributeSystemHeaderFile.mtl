@@ -13,49 +13,13 @@
 #include "CoreMinimal.h"
 [if (AttributeSystemModel.ParentAttributeSystem->notEmpty())]#include "AttributeSystem/[AttributeSystemModel.ParentAttributeSystem.SystemName/].h"[/if]
 #include "Components/ActorComponent.h"
-#include "UGSMLDependencies.h"
+#include "UGSMLDelegates.h"
 #include "Module/UGSMLModule.h"
 #include "[AttributeSystemModel.SystemName/].generated.h"
 
 // Forward Declarations
 class UMOERandomGenerator;
 class UNiagaraSystem;
-
-// Delegate signatures
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(F[AttributeSystemModel.SystemName/]MinMaxSignature);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]FloatVariableStatusSignature, float, OldValue, float, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]IntVariableStatusSignature, int32, OldValue, int32, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]BoolVariableStatusSignature, bool, OldValue, bool, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]NameVariableStatusSignature, FName, OldValue, FName, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]StringVariableStatusSignature, FString, OldValue, FString, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]TextVariableStatusSignature, FText, OldValue, FText, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]Vector2DVariableStatusSignature, FVector2D, OldValue, FVector2D, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]VectorVariableStatusSignature, FVector, OldValue, FVector, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]RotatorVariableStatusSignature, FRotator, OldValue, FRotator, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]TransformationVariableStatusSignature, FTransform, OldValue, FTransform, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]ColorVariableStatusSignature, FColor, OldValue, FColor, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]TextureVariableStatusSignature, UTexture2D*, OldValue, UTexture2D*, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]ModelVariableStatusSignature, UStaticMesh*, OldValue, UStaticMesh*, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]ParticleVariableStatusSignature, UNiagaraSystem*, OldValue, UNiagaraSystem*, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]AudioVariableStatusSignature, USoundBase*, OldValue, USoundBase*, NewValue);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/]MaterialVariableStatusSignature, UMaterialInterface*, OldValue, UMaterialInterface*, NewValue);
-[for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]
-[if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))]
-[for (EnumBasedAttributeInstance : EnumBasedAttribute | SingleValueConstraintInstance.oclAsType(EnumBasedConstraint).ConstrainedAttributeInstance)]
-[if (EnumBasedAttributeInstance.EnumType.oclIsTypeOf(SimpleEnumStructure))]
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/][EnumBasedAttributeInstance.EnumType.FeatureName/]VariableStatusSignature, E[EnumBasedAttributeInstance.EnumType.FeatureName/], OldValue, E[EnumBasedAttributeInstance.EnumType.FeatureName/], NewValue);
-[/if]
-[if (EnumBasedAttributeInstance.EnumType.oclIsTypeOf(BitmaskedEnumStructure))]
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/][EnumBasedAttributeInstance.EnumType.FeatureName/]VariableStatusSignature, E[EnumBasedAttributeInstance.EnumType.FeatureName/]::Type, OldValue, E[EnumBasedAttributeInstance.EnumType.FeatureName/]::Type, NewValue);
-[/if]
-[/for]
-[/if]
-[if (SingleValueConstraintInstance.oclIsTypeOf(StructureBasedConstraint))]
-[for (StructureBasedAttributeInstance : StructureBasedAttribute | SingleValueConstraintInstance.oclAsType(StructureBasedConstraint).ConstrainedAttributeInstance)]
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(F[AttributeSystemModel.SystemName/][StructureBasedAttributeInstance.DataType.FeatureName/]VariableStatusSignature, F[StructureBasedAttributeInstance.DataType.FeatureName/], OldValue, F[StructureBasedAttributeInstance.DataType.FeatureName/], NewValue);
-[/for]
-[/if]
-[/for]
 
 UCLASS(ClassGroup=(GameSystems), meta=(BlueprintSpawnableComponent))
 class UGSML_API [PrintClassName(AttributeSystemModel)/] : public [if (AttributeSystemModel.ParentAttributeSystem->notEmpty())]U[AttributeSystemModel.ParentAttributeSystem.SystemName/][/if][if (AttributeSystemModel.ParentAttributeSystem->isEmpty())]UActorComponent[/if]
@@ -144,19 +108,19 @@ protected:
 	// [ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]")
 [if (ValueBasedConstraintInstance.ConstrainedAttributeInstance.oclIsTypeOf(DecimalBasedAttribute))]
-	F[AttributeSystemModel.SystemName/]FloatVariableStatusSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]Changed;
+	FFloatVariableStatusSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]Changed;
 [/if]
 [if (ValueBasedConstraintInstance.ConstrainedAttributeInstance.oclIsTypeOf(IntegerBasedAttribute))]
-	F[AttributeSystemModel.SystemName/]IntVariableStatusSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]Changed;
+	FIntVariableStatusSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]Changed;
 [/if]
 [let ValueRangeBasedConstraintInstance : ValueRangeBasedConstraint = ValueBasedConstraintInstance.BaseOrRangeConstraint]
 [if (not ValueRangeBasedConstraintInstance.MaximumValue.oclIsUndefined())]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]MinMaxSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]HitMax;
+	FMinMaxSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]HitMax;
 [/if]
 [if (not ValueRangeBasedConstraintInstance.MinimumValue.oclIsUndefined())]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]MinMaxSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]HitMin;
+	FMinMaxSignature On[ValueBasedConstraintInstance.ConstrainedAttributeInstance.FeatureName/]HitMin;
 [/if]
 [/let]
 [/let]
@@ -166,7 +130,7 @@ protected:
 
 	// [BooleanBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "Attribute System|[BooleanBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]BoolVariableStatusSignature On[BooleanBasedAttributeInstance.FeatureName/]Changed;
+	FBoolVariableStatusSignature On[BooleanBasedAttributeInstance.FeatureName/]Changed;
 [/for]
 [/if][comment End Boolean /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(LetterBasedConstraint))][comment Start Letters /]
@@ -174,25 +138,25 @@ protected:
 
 	// [CharacterBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[CharacterBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]StringVariableStatusSignature On[CharacterBasedAttributeInstance.FeatureName/]Changed;
+	FStringVariableStatusSignature On[CharacterBasedAttributeInstance.FeatureName/]Changed;
 [/let]
 [let StringBasedAttributeInstance : StringBasedAttribute = SingleValueConstraintInstance.oclAsType(LetterBasedConstraint).ConstrainedAttributeInstance]
 
 	// [StringBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[StringBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]StringVariableStatusSignature On[StringBasedAttributeInstance.FeatureName/]Changed;
+	FStringVariableStatusSignature On[StringBasedAttributeInstance.FeatureName/]Changed;
 [/let]
 [let NameBasedAttributeInstance : NameBasedAttribute = SingleValueConstraintInstance.oclAsType(LetterBasedConstraint).ConstrainedAttributeInstance]
 
 	// [NameBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[NameBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]NameVariableStatusSignature On[NameBasedAttributeInstance.FeatureName/]Changed;
+	FNameVariableStatusSignature On[NameBasedAttributeInstance.FeatureName/]Changed;
 [/let]
 [let TextBasedAttributeInstance : TextBasedAttribute = SingleValueConstraintInstance.oclAsType(LetterBasedConstraint).ConstrainedAttributeInstance]
 
 	// [TextBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[TextBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]TextVariableStatusSignature On[TextBasedAttributeInstance.FeatureName/]Changed;
+	FTextVariableStatusSignature On[TextBasedAttributeInstance.FeatureName/]Changed;
 [/let]
 [/if][comment End Letters /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(Vector2DBasedConstraint))][comment Start Vector2D /]
@@ -200,7 +164,7 @@ protected:
 
 	// [Vector2DBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[Vector2DBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]Vector2DVariableStatusSignature On[Vector2DBasedAttributeInstance.FeatureName/]Changed;
+	FVector2DVariableStatusSignature On[Vector2DBasedAttributeInstance.FeatureName/]Changed;
 [/let]
 [/if][comment End Vector2D /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(VectorBasedConstraint))][comment Start Vector /]
@@ -208,7 +172,7 @@ protected:
 
 	// [VectorBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[VectorBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]VectorVariableStatusSignature On[VectorBasedAttributeInstance.FeatureName/]Changed;
+	FVectorVariableStatusSignature On[VectorBasedAttributeInstance.FeatureName/]Changed;
 [/let]
 [/if][comment End Vector /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(RotatorBasedConstraint))][comment Start Rotator /]
@@ -216,7 +180,7 @@ protected:
 
 	// [RotatorBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[RotatorBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]RotatorVariableStatusSignature On[RotatorBasedAttributeInstance.FeatureName/]Changed;
+	FRotatorVariableStatusSignature On[RotatorBasedAttributeInstance.FeatureName/]Changed;
 [/let]
 [/if][comment End Rotator /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(TransformationBasedConstraint))][comment Start Transformation /]
@@ -224,7 +188,7 @@ protected:
 
 	// [TransformationBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[TransformationBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]TransformationVariableStatusSignature On[TransformationBasedAttributeInstance.FeatureName/]Changed;
+	FTransformationVariableStatusSignature On[TransformationBasedAttributeInstance.FeatureName/]Changed;
 [/let]
 [/if][comment Start Transformation /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(ColorBasedConstraint))][comment Start Color /]
@@ -232,7 +196,7 @@ protected:
 
 	// [ColorBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ColorBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]ColorVariableStatusSignature On[ColorBasedAttributeInstance.FeatureName/]Changed;
+	FColorVariableStatusSignature On[ColorBasedAttributeInstance.FeatureName/]Changed;
 [/let]
 [/if][comment End Color /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(TextureBasedConstraint))][comment Start Texture /]
@@ -240,7 +204,7 @@ protected:
 
 	// [TextureBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[TextureBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]TextureVariableStatusSignature On[TextureBasedAttributeInstance.FeatureName/]Changed;
+	FTextureVariableStatusSignature On[TextureBasedAttributeInstance.FeatureName/]Changed;
 [/for]
 [/if][comment End Texture /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(ModelBasedConstraint))][comment Start Model /]
@@ -248,7 +212,7 @@ protected:
 
 	// [ModelBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ModelBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]ModelVariableStatusSignature On[ModelBasedAttributeInstance.FeatureName/]Changed;
+	FModelVariableStatusSignature On[ModelBasedAttributeInstance.FeatureName/]Changed;
 [/for]
 [/if][comment End Model /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(ParticleBasedConstraint))][comment Start Particle /]
@@ -256,7 +220,7 @@ protected:
 
 	// [ParticleBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[ParticleBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]ParticleVariableStatusSignature On[ParticleBasedAttributeInstance.FeatureName/]Changed;
+	FParticleVariableStatusSignature On[ParticleBasedAttributeInstance.FeatureName/]Changed;
 [/for]
 [/if][comment End Particle /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(AudioBasedConstraint))][comment Start Audio /]
@@ -264,7 +228,7 @@ protected:
 
 	// [AudioBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[AudioBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]AudioVariableStatusSignature On[AudioBasedAttributeInstance.FeatureName/]Changed;
+	FAudioVariableStatusSignature On[AudioBasedAttributeInstance.FeatureName/]Changed;
 [/for]
 [/if][comment End Audio /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(MaterialBasedConstraint))][comment Start Material /]
@@ -272,7 +236,7 @@ protected:
 
 	// [MaterialBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[MaterialBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/]MaterialVariableStatusSignature On[MaterialBasedAttributeInstance.FeatureName/]Changed;
+	FMaterialVariableStatusSignature On[MaterialBasedAttributeInstance.FeatureName/]Changed;
 [/for]
 [/if][comment End Material /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))][comment Start Enumeration /]
@@ -280,7 +244,7 @@ protected:
 
 	// [EnumBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[EnumBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/][EnumBasedAttributeInstance.EnumType.FeatureName/]VariableStatusSignature On[EnumBasedAttributeInstance.FeatureName/]Changed;
+	F[EnumBasedAttributeInstance.EnumType.FeatureName/]VariableStatusSignature On[EnumBasedAttributeInstance.FeatureName/]Changed;
 [/for]
 [/if][comment End Enumeration /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(StructureBasedConstraint))][comment Start Structure /]
@@ -288,7 +252,7 @@ protected:
 
 	// [StructureBasedAttributeInstance.FeatureName/]
 	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[StructureBasedAttributeInstance.FeatureName/]")
-	F[AttributeSystemModel.SystemName/][StructureBasedAttributeInstance.DataType.FeatureName/]VariableStatusSignature On[StructureBasedAttributeInstance.FeatureName/]Changed;
+	F[StructureBasedAttributeInstance.DataType.FeatureName/]VariableStatusSignature On[StructureBasedAttributeInstance.FeatureName/]Changed;
 [/for]
 [/if][comment End Structure /]
 [/if][comment End if the single value constraint is variable (not a constant) /]
@@ -609,16 +573,16 @@ protected:
 [/template]
 
 [template private PrintSystemAttributes(AttributeSystemModel : AttributeSystem)]
-[for (ArrayConstraintInstance : ArrayConstraint | AttributeSystemModel.ArrayConstraints)]
 	/// Arrays
+[for (ArrayConstraintInstance : ArrayConstraint | AttributeSystemModel.ArrayConstraints)]
 [for (GameAttributeInstance : GameAttribute | ArrayConstraintInstance.ConstrainedAttributeInstance)]
 
 	// [GameAttributeInstance.FeatureName/]
 	UPROPERTY(EditAnywhere, Category = "[AttributeSystemModel.SystemName/]|[GameAttributeInstance.FeatureName/]")
 	TArray<[PrintAttributeType(GameAttributeInstance)/]> [GameAttributeInstance.FeatureName/];
 [/for]
-	/// ~Arrays
 [/for]
+	/// ~Arrays
 
 	/// Single Attributes
 [for (SingleValueConstraintInstance : SingleValueConstraint | AttributeSystemModel.SingleValueConstraints)]

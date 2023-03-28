@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.sirius.sample.UGSML.AdditionLimit;
+import org.eclipse.sirius.sample.UGSML.AnimationBasedAttribute;
+import org.eclipse.sirius.sample.UGSML.AnimationBasedConstraint;
 import org.eclipse.sirius.sample.UGSML.ArithmeticOperations;
 import org.eclipse.sirius.sample.UGSML.ArrayConstraint;
 import org.eclipse.sirius.sample.UGSML.AttributeConstraintRule;
@@ -838,6 +840,20 @@ public class UGSMLPackageImpl extends EPackageImpl implements UGSMLPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass animationBasedAttributeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass animationBasedConstraintEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum additionLimitEEnum = null;
 
 	/**
@@ -1065,6 +1081,15 @@ public class UGSMLPackageImpl extends EPackageImpl implements UGSMLPackage {
 	 */
 	public EClass getGameAttribute() {
 		return gameAttributeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGameAttribute_DataStructureArray() {
+		return (EAttribute) gameAttributeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2980,6 +3005,33 @@ public class UGSMLPackageImpl extends EPackageImpl implements UGSMLPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAnimationBasedAttribute() {
+		return animationBasedAttributeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAnimationBasedConstraint() {
+		return animationBasedConstraintEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAnimationBasedConstraint_ConstrainedAttributeInstance() {
+		return (EReference) animationBasedConstraintEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getAdditionLimit() {
 		return additionLimitEEnum;
 	}
@@ -3069,6 +3121,7 @@ public class UGSMLPackageImpl extends EPackageImpl implements UGSMLPackage {
 		createEAttribute(gameFeatureEClass, GAME_FEATURE__FEATURE_NAME);
 
 		gameAttributeEClass = createEClass(GAME_ATTRIBUTE);
+		createEAttribute(gameAttributeEClass, GAME_ATTRIBUTE__DATA_STRUCTURE_ARRAY);
 
 		enumerationBasedStructureEClass = createEClass(ENUMERATION_BASED_STRUCTURE);
 		createEReference(enumerationBasedStructureEClass, ENUMERATION_BASED_STRUCTURE__ENUM_STATES);
@@ -3387,6 +3440,11 @@ public class UGSMLPackageImpl extends EPackageImpl implements UGSMLPackage {
 
 		materialBasedAttributeEClass = createEClass(MATERIAL_BASED_ATTRIBUTE);
 
+		animationBasedAttributeEClass = createEClass(ANIMATION_BASED_ATTRIBUTE);
+
+		animationBasedConstraintEClass = createEClass(ANIMATION_BASED_CONSTRAINT);
+		createEReference(animationBasedConstraintEClass, ANIMATION_BASED_CONSTRAINT__CONSTRAINED_ATTRIBUTE_INSTANCE);
+
 		// Create enums
 		additionLimitEEnum = createEEnum(ADDITION_LIMIT);
 		variabilityTypeEEnum = createEEnum(VARIABILITY_TYPE);
@@ -3521,6 +3579,8 @@ public class UGSMLPackageImpl extends EPackageImpl implements UGSMLPackage {
 		setterDistortionConstraintEClass.getESuperTypes().add(this.getDistortionConstraint());
 		materialBasedConstraintEClass.getESuperTypes().add(this.getSingleValueConstraint());
 		materialBasedAttributeEClass.getESuperTypes().add(this.getGameAttribute());
+		animationBasedAttributeEClass.getESuperTypes().add(this.getGameAttribute());
+		animationBasedConstraintEClass.getESuperTypes().add(this.getSingleValueConstraint());
 
 		// Initialize classes, features, and operations; add parameters
 		initEClass(rootEClass, Root.class, "Root", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3563,6 +3623,9 @@ public class UGSMLPackageImpl extends EPackageImpl implements UGSMLPackage {
 
 		initEClass(gameAttributeEClass, GameAttribute.class, "GameAttribute", IS_ABSTRACT, IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGameAttribute_DataStructureArray(), ecorePackage.getEBoolean(), "DataStructureArray", "false",
+				1, 1, GameAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(enumerationBasedStructureEClass, EnumerationBasedStructure.class, "EnumerationBasedStructure",
 				IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4221,6 +4284,16 @@ public class UGSMLPackageImpl extends EPackageImpl implements UGSMLPackage {
 
 		initEClass(materialBasedAttributeEClass, MaterialBasedAttribute.class, "MaterialBasedAttribute", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(animationBasedAttributeEClass, AnimationBasedAttribute.class, "AnimationBasedAttribute",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(animationBasedConstraintEClass, AnimationBasedConstraint.class, "AnimationBasedConstraint",
+				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAnimationBasedConstraint_ConstrainedAttributeInstance(), this.getAnimationBasedAttribute(),
+				null, "ConstrainedAttributeInstance", null, 1, 1, AnimationBasedConstraint.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
+				IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(additionLimitEEnum, AdditionLimit.class, "AdditionLimit");

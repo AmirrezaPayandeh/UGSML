@@ -4,14 +4,14 @@
     <input>
       <takesTypesFrom href="http://www.example.org/UGSML#/"/>
     </input>
-    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0"/>
-    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PrintCopyrightText.emtl#/0"/>
-    <imports href="../Services/HelperService.emtl#/0"/>
+    <imports href="../Main/PluginDirectories.emtl#/0"/>
+    <imports href="../Main/PrintCopyrightText.emtl#/0"/>
+    <imports href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0"/>
     <ownedModuleElement xsi:type="mtl:Template" name="GenerateEnumurationFile" visibility="Public">
       <body xsi:type="mtl:FileBlock" openMode="OverWrite">
         <body xsi:type="mtl:TemplateInvocation">
           <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-          <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PrintCopyrightText.emtl#/0/PrintCopyrightText"/>
+          <definition href="../Main/PrintCopyrightText.emtl#/0/PrintCopyrightText"/>
           <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/8">
             <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
           </argument>
@@ -22,7 +22,7 @@
             <body xsi:type="mtl:IfBlock">
               <body xsi:type="mtl:QueryInvocation">
                 <eType xsi:type="ocl.ecore:VoidType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclVoid"/>
-                <definition href="../Services/HelperService.emtl#/0/SetHasAnyEnumeration"/>
+                <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0/SetHasAnyEnumeration"/>
                 <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/16">
                   <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//GameStructure"/>
                 </argument>
@@ -78,7 +78,7 @@
           <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="#include &quot;UGSMLEnumurations.generated.h&quot;&#xA;"/>
           <ifExpr xsi:type="mtl:QueryInvocation">
             <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
-            <definition href="../Services/HelperService.emtl#/0/GetHasAnyEnumeration"/>
+            <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0/GetHasAnyEnumeration"/>
             <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/21">
               <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
             </argument>
@@ -186,7 +186,7 @@
               <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol=" = 1 &lt;&lt; "/>
               <body xsi:type="mtl:QueryInvocation">
                 <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
-                <definition href="../Services/HelperService.emtl#/0/IncreamentBitmaskCounter"/>
+                <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0/IncreamentBitmaskCounter"/>
                 <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/43">
                   <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//EnumState"/>
                 </argument>
@@ -226,7 +226,7 @@
             <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;&#x9;"/>
             <body xsi:type="mtl:QueryInvocation">
               <eType xsi:type="ocl.ecore:VoidType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclVoid"/>
-              <definition href="../Services/HelperService.emtl#/0/ResetBitmaskCounter"/>
+              <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0/ResetBitmaskCounter"/>
               <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/47">
                 <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//BitmaskedEnumStructure"/>
               </argument>
@@ -256,7 +256,7 @@
           <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
           <source xsi:type="mtl:TemplateInvocation">
             <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
-            <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0/GetPublicDirectory"/>
+            <definition href="../Main/PluginDirectories.emtl#/0/GetPublicDirectory"/>
             <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/6">
               <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
             </argument>
@@ -316,7 +316,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PluginDirectories.emtl#/0/GetPublicDirectory"/>
+          <references href="../Main/PluginDirectories.emtl#/0/GetPublicDirectory"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="Model">
@@ -328,7 +328,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/PrintCopyrightText.emtl#/0/PrintCopyrightText"/>
+          <references href="../Main/PrintCopyrightText.emtl#/0/PrintCopyrightText"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
         <eParameters name="Model">
@@ -340,7 +340,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="../Services/HelperService.emtl#/0/IncreamentBitmaskCounter"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0/IncreamentBitmaskCounter"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
         <eParameters name="anOclAny">
@@ -352,7 +352,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="../Services/HelperService.emtl#/0/ResetBitmaskCounter"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0/ResetBitmaskCounter"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:VoidType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclVoid"/>
         <eParameters name="anOclAny">
@@ -364,7 +364,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="../Services/HelperService.emtl#/0/SetHasAnyEnumeration"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0/SetHasAnyEnumeration"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:VoidType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclVoid"/>
         <eParameters name="anOclAny">
@@ -376,7 +376,7 @@
           <contents xsi:type="ocl.ecore:Constraint"/>
         </eAnnotations>
         <eAnnotations source="MTL">
-          <references href="../Services/HelperService.emtl#/0/GetHasAnyEnumeration"/>
+          <references href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Services/HelperService.emtl#/0/GetHasAnyEnumeration"/>
         </eAnnotations>
         <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
         <eParameters name="anOclAny">

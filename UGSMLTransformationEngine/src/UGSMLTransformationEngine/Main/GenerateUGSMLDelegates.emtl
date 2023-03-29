@@ -15,7 +15,7 @@
             <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Game"/>
           </argument>
         </body>
-        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;&#xA;#pragma once&#xA;&#xA;#include &quot;CoreMinimal.h&quot;&#xA;#include &quot;UGSMLDependencies.h&quot;&#xA;&#xA;#include &quot;UGSMLDelegates.generated.h&quot;&#xA;&#xA;UCLASS()&#xA;class UGSML_API UUGSMLDelegates : public UObject&#xA;{&#xA;&#x9;GENERATED_BODY()&#xA;};&#xA;&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMinMaxSignature);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FFloatVariableStatusSignature, float, OldValue, float, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FIntVariableStatusSignature, int32, OldValue, int32, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FBoolVariableStatusSignature, bool, OldValue, bool, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FNameVariableStatusSignature, FName, OldValue, FName, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FStringVariableStatusSignature, FString, OldValue, FString, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTextVariableStatusSignature, FText, OldValue, FText, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FVector2DVariableStatusSignature, FVector2D, OldValue, FVector2D, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FVectorVariableStatusSignature, FVector, OldValue, FVector, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FRotatorVariableStatusSignature, FRotator, OldValue, FRotator, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTransformationVariableStatusSignature, FTransform, OldValue, FTransform, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FColorVariableStatusSignature, FColor, OldValue, FColor, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTextureVariableStatusSignature, UTexture2D*, OldValue, UTexture2D*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FModelVariableStatusSignature, UStaticMesh*, OldValue, UStaticMesh*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FParticleVariableStatusSignature, UNiagaraSystem*, OldValue, UNiagaraSystem*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAudioVariableStatusSignature, USoundBase*, OldValue, USoundBase*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMaterialVariableStatusSignature, UMaterialInterface*, OldValue, UMaterialInterface*, NewValue);&#xA;"/>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;&#xA;#pragma once&#xA;&#xA;#include &quot;CoreMinimal.h&quot;&#xA;#include &quot;UGSMLDependencies.h&quot;&#xA;&#xA;#include &quot;UGSMLDelegates.generated.h&quot;&#xA;&#xA;UCLASS()&#xA;class UGSML_API UUGSMLDelegates : public UObject&#xA;{&#xA;&#x9;GENERATED_BODY()&#xA;};&#xA;&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE(FMinMaxSignature);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FFloatVariableStatusSignature, float, OldValue, float, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FIntVariableStatusSignature, int32, OldValue, int32, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FBoolVariableStatusSignature, bool, OldValue, bool, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FNameVariableStatusSignature, FName, OldValue, FName, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FStringVariableStatusSignature, FString, OldValue, FString, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTextVariableStatusSignature, FText, OldValue, FText, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FVector2DVariableStatusSignature, FVector2D, OldValue, FVector2D, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FVectorVariableStatusSignature, FVector, OldValue, FVector, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FRotatorVariableStatusSignature, FRotator, OldValue, FRotator, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTransformationVariableStatusSignature, FTransform, OldValue, FTransform, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FColorVariableStatusSignature, FColor, OldValue, FColor, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FTextureVariableStatusSignature, UTexture2D*, OldValue, UTexture2D*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FModelVariableStatusSignature, UStaticMesh*, OldValue, UStaticMesh*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FParticleVariableStatusSignature, UNiagaraSystem*, OldValue, UNiagaraSystem*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAudioVariableStatusSignature, USoundBase*, OldValue, USoundBase*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMaterialVariableStatusSignature, UMaterialInterface*, OldValue, UMaterialInterface*, NewValue);&#xA;DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAnimationVariableStatusSignature, UAnimMontage*, OldValue, UAnimMontage*, NewValue);&#xA;"/>
         <body xsi:type="mtl:ForBlock">
           <body xsi:type="mtl:ForBlock">
             <body xsi:type="mtl:IfBlock">
@@ -365,12 +365,12 @@
   <ecore:EAnnotation source="positions">
     <eAnnotations source="positions.0" references="/0/GenerateUGSMLDelegates">
       <details key="start" value="218"/>
-      <details key="end" value="3589"/>
+      <details key="end" value="3720"/>
       <details key="line" value="7"/>
     </eAnnotations>
     <eAnnotations source="positions.1" references="/0/GenerateUGSMLDelegates/%">
       <details key="start" value="277"/>
-      <details key="end" value="3577"/>
+      <details key="end" value="3708"/>
       <details key="line" value="8"/>
     </eAnnotations>
     <eAnnotations source="positions.2" references="/0/GenerateUGSMLDelegates/%/%">
@@ -385,257 +385,257 @@
     </eAnnotations>
     <eAnnotations source="positions.4" references="/0/GenerateUGSMLDelegates/%/%.1">
       <details key="start" value="367"/>
-      <details key="end" value="2528"/>
+      <details key="end" value="2659"/>
       <details key="line" value="10"/>
     </eAnnotations>
     <eAnnotations source="positions.5" references="/0/GenerateUGSMLDelegates/%/%.2">
-      <details key="start" value="2528"/>
-      <details key="end" value="3569"/>
-      <details key="line" value="41"/>
-    </eAnnotations>
-    <eAnnotations source="positions.6" references="/0/GenerateUGSMLDelegates/%/%.2/%">
-      <details key="start" value="2626"/>
-      <details key="end" value="3562"/>
+      <details key="start" value="2659"/>
+      <details key="end" value="3700"/>
       <details key="line" value="42"/>
     </eAnnotations>
-    <eAnnotations source="positions.7" references="/0/GenerateUGSMLDelegates/%/%.2/%/%">
-      <details key="start" value="2720"/>
-      <details key="end" value="2993"/>
+    <eAnnotations source="positions.6" references="/0/GenerateUGSMLDelegates/%/%.2/%">
+      <details key="start" value="2757"/>
+      <details key="end" value="3693"/>
       <details key="line" value="43"/>
     </eAnnotations>
-    <eAnnotations source="positions.8" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%">
-      <details key="start" value="2782"/>
-      <details key="end" value="2828"/>
+    <eAnnotations source="positions.7" references="/0/GenerateUGSMLDelegates/%/%.2/%/%">
+      <details key="start" value="2851"/>
+      <details key="end" value="3124"/>
       <details key="line" value="44"/>
     </eAnnotations>
+    <eAnnotations source="positions.8" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%">
+      <details key="start" value="2913"/>
+      <details key="end" value="2959"/>
+      <details key="line" value="45"/>
+    </eAnnotations>
     <eAnnotations source="positions.9" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.1">
-      <details key="start" value="2829"/>
-      <details key="end" value="2862"/>
+      <details key="start" value="2960"/>
+      <details key="end" value="2993"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.10" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.1/GameStructureInstance">
-      <details key="start" value="2829"/>
-      <details key="end" value="2850"/>
+      <details key="start" value="2960"/>
+      <details key="end" value="2981"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.11" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.2">
-      <details key="start" value="2864"/>
-      <details key="end" value="2890"/>
-      <details key="line" value="44"/>
+      <details key="start" value="2995"/>
+      <details key="end" value="3021"/>
+      <details key="line" value="45"/>
     </eAnnotations>
     <eAnnotations source="positions.12" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.3">
-      <details key="start" value="2891"/>
-      <details key="end" value="2924"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.13" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.3/GameStructureInstance">
-      <details key="start" value="2891"/>
-      <details key="end" value="2912"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.14" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.4">
-      <details key="start" value="2926"/>
-      <details key="end" value="2939"/>
-      <details key="line" value="44"/>
-    </eAnnotations>
-    <eAnnotations source="positions.15" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.5">
-      <details key="start" value="2940"/>
-      <details key="end" value="2973"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.16" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.5/GameStructureInstance">
-      <details key="start" value="2940"/>
-      <details key="end" value="2961"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.17" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.6">
-      <details key="start" value="2975"/>
-      <details key="end" value="2988"/>
-      <details key="line" value="44"/>
-    </eAnnotations>
-    <eAnnotations source="positions.18" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.7">
-      <details key="start" value="2724"/>
-      <details key="end" value="2780"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.19" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.7/GameStructureInstance">
-      <details key="start" value="2725"/>
-      <details key="end" value="2746"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.20" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.7/%">
-      <details key="start" value="2759"/>
-      <details key="end" value="2778"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.21" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1">
-      <details key="start" value="2994"/>
-      <details key="end" value="3282"/>
-      <details key="line" value="46"/>
-    </eAnnotations>
-    <eAnnotations source="positions.22" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%">
-      <details key="start" value="3059"/>
-      <details key="end" value="3105"/>
-      <details key="line" value="47"/>
-    </eAnnotations>
-    <eAnnotations source="positions.23" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.1">
-      <details key="start" value="3106"/>
-      <details key="end" value="3139"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.24" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.1/GameStructureInstance">
-      <details key="start" value="3106"/>
-      <details key="end" value="3127"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.25" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.2">
-      <details key="start" value="3141"/>
-      <details key="end" value="3167"/>
-      <details key="line" value="47"/>
-    </eAnnotations>
-    <eAnnotations source="positions.26" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.3">
-      <details key="start" value="3168"/>
-      <details key="end" value="3201"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.27" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.3/GameStructureInstance">
-      <details key="start" value="3168"/>
-      <details key="end" value="3189"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.28" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.4">
-      <details key="start" value="3203"/>
-      <details key="end" value="3222"/>
-      <details key="line" value="47"/>
-    </eAnnotations>
-    <eAnnotations source="positions.29" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.5">
-      <details key="start" value="3223"/>
-      <details key="end" value="3256"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.30" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.5/GameStructureInstance">
-      <details key="start" value="3223"/>
-      <details key="end" value="3244"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.31" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.6">
-      <details key="start" value="3258"/>
-      <details key="end" value="3277"/>
-      <details key="line" value="47"/>
-    </eAnnotations>
-    <eAnnotations source="positions.32" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.7">
-      <details key="start" value="2998"/>
-      <details key="end" value="3057"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.33" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.7/GameStructureInstance">
-      <details key="start" value="2999"/>
-      <details key="end" value="3020"/>
-      <details key="line" value="0"/>
-    </eAnnotations>
-    <eAnnotations source="positions.34" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.7/%">
-      <details key="start" value="3033"/>
+      <details key="start" value="3022"/>
       <details key="end" value="3055"/>
       <details key="line" value="0"/>
     </eAnnotations>
-    <eAnnotations source="positions.35" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2">
-      <details key="start" value="3283"/>
-      <details key="end" value="3555"/>
-      <details key="line" value="49"/>
+    <eAnnotations source="positions.13" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.3/GameStructureInstance">
+      <details key="start" value="3022"/>
+      <details key="end" value="3043"/>
+      <details key="line" value="0"/>
     </eAnnotations>
-    <eAnnotations source="positions.36" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%">
-      <details key="start" value="3344"/>
-      <details key="end" value="3390"/>
+    <eAnnotations source="positions.14" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.4">
+      <details key="start" value="3057"/>
+      <details key="end" value="3070"/>
+      <details key="line" value="45"/>
+    </eAnnotations>
+    <eAnnotations source="positions.15" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.5">
+      <details key="start" value="3071"/>
+      <details key="end" value="3104"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.16" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.5/GameStructureInstance">
+      <details key="start" value="3071"/>
+      <details key="end" value="3092"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.17" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.6">
+      <details key="start" value="3106"/>
+      <details key="end" value="3119"/>
+      <details key="line" value="45"/>
+    </eAnnotations>
+    <eAnnotations source="positions.18" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.7">
+      <details key="start" value="2855"/>
+      <details key="end" value="2911"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.19" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.7/GameStructureInstance">
+      <details key="start" value="2856"/>
+      <details key="end" value="2877"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.20" references="/0/GenerateUGSMLDelegates/%/%.2/%/%/%.7/%">
+      <details key="start" value="2890"/>
+      <details key="end" value="2909"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.21" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1">
+      <details key="start" value="3125"/>
+      <details key="end" value="3413"/>
+      <details key="line" value="47"/>
+    </eAnnotations>
+    <eAnnotations source="positions.22" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%">
+      <details key="start" value="3190"/>
+      <details key="end" value="3236"/>
+      <details key="line" value="48"/>
+    </eAnnotations>
+    <eAnnotations source="positions.23" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.1">
+      <details key="start" value="3237"/>
+      <details key="end" value="3270"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.24" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.1/GameStructureInstance">
+      <details key="start" value="3237"/>
+      <details key="end" value="3258"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.25" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.2">
+      <details key="start" value="3272"/>
+      <details key="end" value="3298"/>
+      <details key="line" value="48"/>
+    </eAnnotations>
+    <eAnnotations source="positions.26" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.3">
+      <details key="start" value="3299"/>
+      <details key="end" value="3332"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.27" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.3/GameStructureInstance">
+      <details key="start" value="3299"/>
+      <details key="end" value="3320"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.28" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.4">
+      <details key="start" value="3334"/>
+      <details key="end" value="3353"/>
+      <details key="line" value="48"/>
+    </eAnnotations>
+    <eAnnotations source="positions.29" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.5">
+      <details key="start" value="3354"/>
+      <details key="end" value="3387"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.30" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.5/GameStructureInstance">
+      <details key="start" value="3354"/>
+      <details key="end" value="3375"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.31" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.6">
+      <details key="start" value="3389"/>
+      <details key="end" value="3408"/>
+      <details key="line" value="48"/>
+    </eAnnotations>
+    <eAnnotations source="positions.32" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.7">
+      <details key="start" value="3129"/>
+      <details key="end" value="3188"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.33" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.7/GameStructureInstance">
+      <details key="start" value="3130"/>
+      <details key="end" value="3151"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.34" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.1/%.7/%">
+      <details key="start" value="3164"/>
+      <details key="end" value="3186"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.35" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2">
+      <details key="start" value="3414"/>
+      <details key="end" value="3686"/>
       <details key="line" value="50"/>
     </eAnnotations>
+    <eAnnotations source="positions.36" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%">
+      <details key="start" value="3475"/>
+      <details key="end" value="3521"/>
+      <details key="line" value="51"/>
+    </eAnnotations>
     <eAnnotations source="positions.37" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.1">
-      <details key="start" value="3391"/>
-      <details key="end" value="3424"/>
+      <details key="start" value="3522"/>
+      <details key="end" value="3555"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.38" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.1/GameStructureInstance">
-      <details key="start" value="3391"/>
-      <details key="end" value="3412"/>
+      <details key="start" value="3522"/>
+      <details key="end" value="3543"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.39" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.2">
-      <details key="start" value="3426"/>
-      <details key="end" value="3452"/>
-      <details key="line" value="50"/>
+      <details key="start" value="3557"/>
+      <details key="end" value="3583"/>
+      <details key="line" value="51"/>
     </eAnnotations>
     <eAnnotations source="positions.40" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.3">
-      <details key="start" value="3453"/>
-      <details key="end" value="3486"/>
+      <details key="start" value="3584"/>
+      <details key="end" value="3617"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.41" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.3/GameStructureInstance">
-      <details key="start" value="3453"/>
-      <details key="end" value="3474"/>
+      <details key="start" value="3584"/>
+      <details key="end" value="3605"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.42" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.4">
-      <details key="start" value="3488"/>
-      <details key="end" value="3501"/>
-      <details key="line" value="50"/>
+      <details key="start" value="3619"/>
+      <details key="end" value="3632"/>
+      <details key="line" value="51"/>
     </eAnnotations>
     <eAnnotations source="positions.43" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.5">
-      <details key="start" value="3502"/>
-      <details key="end" value="3535"/>
+      <details key="start" value="3633"/>
+      <details key="end" value="3666"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.44" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.5/GameStructureInstance">
-      <details key="start" value="3502"/>
-      <details key="end" value="3523"/>
+      <details key="start" value="3633"/>
+      <details key="end" value="3654"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.45" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.6">
-      <details key="start" value="3537"/>
-      <details key="end" value="3550"/>
-      <details key="line" value="50"/>
+      <details key="start" value="3668"/>
+      <details key="end" value="3681"/>
+      <details key="line" value="51"/>
     </eAnnotations>
     <eAnnotations source="positions.46" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.7">
-      <details key="start" value="3287"/>
-      <details key="end" value="3342"/>
+      <details key="start" value="3418"/>
+      <details key="end" value="3473"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.47" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.7/GameStructureInstance">
-      <details key="start" value="3288"/>
-      <details key="end" value="3309"/>
+      <details key="start" value="3419"/>
+      <details key="end" value="3440"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.48" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.2/%.7/%">
-      <details key="start" value="3322"/>
-      <details key="end" value="3340"/>
+      <details key="start" value="3453"/>
+      <details key="end" value="3471"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.49" references="/0/GenerateUGSMLDelegates/%/%.2/%/GameStructureInstance">
-      <details key="start" value="2632"/>
-      <details key="end" value="2669"/>
-      <details key="line" value="42"/>
+      <details key="start" value="2763"/>
+      <details key="end" value="2800"/>
+      <details key="line" value="43"/>
     </eAnnotations>
     <eAnnotations source="positions.50" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.3">
-      <details key="start" value="2672"/>
-      <details key="end" value="2717"/>
+      <details key="start" value="2803"/>
+      <details key="end" value="2848"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.51" references="/0/GenerateUGSMLDelegates/%/%.2/%/%.3/GameStructureContainerInstance">
-      <details key="start" value="2672"/>
-      <details key="end" value="2702"/>
+      <details key="start" value="2803"/>
+      <details key="end" value="2833"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.52" references="/0/GenerateUGSMLDelegates/%/%.2/GameStructureContainerInstance">
-      <details key="start" value="2534"/>
-      <details key="end" value="2589"/>
-      <details key="line" value="41"/>
+      <details key="start" value="2665"/>
+      <details key="end" value="2720"/>
+      <details key="line" value="42"/>
     </eAnnotations>
     <eAnnotations source="positions.53" references="/0/GenerateUGSMLDelegates/%/%.2/%.1">
-      <details key="start" value="2592"/>
-      <details key="end" value="2623"/>
+      <details key="start" value="2723"/>
+      <details key="end" value="2754"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.54" references="/0/GenerateUGSMLDelegates/%/%.2/%.1/GameModel">
-      <details key="start" value="2592"/>
-      <details key="end" value="2601"/>
+      <details key="start" value="2723"/>
+      <details key="end" value="2732"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.55" references="/0/GenerateUGSMLDelegates/%/%.3">

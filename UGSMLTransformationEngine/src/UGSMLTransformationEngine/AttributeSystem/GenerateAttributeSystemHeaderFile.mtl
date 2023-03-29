@@ -5,24 +5,24 @@
 [import UGSMLTransformationEngine::Main::PluginDirectories /]
 
 [template public GenerateAttributeSystemHeaderFile(AttributeSystemModel : AttributeSystem)]
-[file (GetPublicDirectory() + 'AttributeSystem/' + AttributeSystemModel.SystemName + '.h', false, 'UTF-8')]
+[file (GetPublicDirectory() + 'AttributeSystem/' + AttributeSystemModel.SystemName + 'Component.h', false, 'UTF-8')]
 [PrintCopyrightText()/]
 
 #pragma once
 
 #include "CoreMinimal.h"
-[if (AttributeSystemModel.ParentAttributeSystem->notEmpty())]#include "AttributeSystem/[AttributeSystemModel.ParentAttributeSystem.SystemName/].h"[/if]
+[if (AttributeSystemModel.ParentAttributeSystem->notEmpty())]#include "AttributeSystem/[AttributeSystemModel.ParentAttributeSystem.SystemName/]Component.h"[/if]
 #include "Components/ActorComponent.h"
 #include "UGSMLDelegates.h"
 #include "Module/UGSMLModule.h"
-#include "[AttributeSystemModel.SystemName/].generated.h"
+#include "[AttributeSystemModel.SystemName/]Component.generated.h"
 
 // Forward Declarations
 class UMOERandomGenerator;
 class UNiagaraSystem;
 
 UCLASS(ClassGroup=(GameSystems), meta=(BlueprintSpawnableComponent))
-class UGSML_API [PrintClassName(AttributeSystemModel)/] : public [if (AttributeSystemModel.ParentAttributeSystem->notEmpty())]U[AttributeSystemModel.ParentAttributeSystem.SystemName/][/if][if (AttributeSystemModel.ParentAttributeSystem->isEmpty())]UActorComponent[/if]
+class UGSML_API [PrintClassName(AttributeSystemModel)/] : public [if (AttributeSystemModel.ParentAttributeSystem->notEmpty())][PrintClassName(AttributeSystemModel.ParentAttributeSystem)/][/if][if (AttributeSystemModel.ParentAttributeSystem->isEmpty())]UActorComponent[/if]
 {
 	GENERATED_BODY()
 
@@ -239,6 +239,14 @@ protected:
 	FMaterialVariableStatusSignature On[MaterialBasedAttributeInstance.FeatureName/]Changed;
 [/for]
 [/if][comment End Material /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(AnimationBasedConstraint))][comment Start Animation /]
+[for (AnimationBasedAttributeInstance : AnimationBasedAttribute | SingleValueConstraintInstance.oclAsType(AnimationBasedConstraint).ConstrainedAttributeInstance)]
+
+	// [AnimationBasedAttributeInstance.FeatureName/]
+	UPROPERTY(BlueprintAssignable, Category = "[AttributeSystemModel.SystemName/]|[AnimationBasedAttributeInstance.FeatureName/]")
+	FAnimationVariableStatusSignature On[AnimationBasedAttributeInstance.FeatureName/]Changed;
+[/for]
+[/if][comment End Animation /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))][comment Start Enumeration /]
 [for (EnumBasedAttributeInstance : EnumBasedAttribute | SingleValueConstraintInstance.oclAsType(EnumBasedConstraint).ConstrainedAttributeInstance)]
 
@@ -525,6 +533,20 @@ protected:
 [/let]
 [/let]
 [/if][comment End MaterialBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(AnimationBasedConstraint))][comment Start AnimationBasedConstraint Functions /]
+[let AnimationBasedConstraintInstance : AnimationBasedConstraint = SingleValueConstraintInstance.oclAsType(AnimationBasedConstraint)]
+[let AnimationBasedAttributeInstance : AnimationBasedAttribute = AnimationBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [AnimationBasedAttributeInstance.FeatureName/]
+[if (IsAttributeVariable(AnimationBasedConstraintInstance))]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[AnimationBasedAttributeInstance.FeatureName/]")
+	void Set[AnimationBasedAttributeInstance.FeatureName/](UAnimMontage* Value);
+[/if]
+	UFUNCTION(BlueprintCallable, Category = "[AttributeSystemModel.SystemName/]|[AnimationBasedAttributeInstance.FeatureName/]")
+	UAnimMontage* Get[AnimationBasedAttributeInstance.FeatureName/]() const;
+[/let]
+[/let]
+[/if][comment End AnimationBasedConstraint Functions /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))][comment Start EnumBasedConstraint Functions /]
 [let EnumBasedConstraintInstance : EnumBasedConstraint = SingleValueConstraintInstance.oclAsType(EnumBasedConstraint)]
 [for (EnumBasedAttributeInstance : EnumBasedAttribute | EnumBasedConstraintInstance.ConstrainedAttributeInstance)]
@@ -729,6 +751,16 @@ protected:
 [/let]
 [/let]
 [/if][comment End Print MaterialBasedAttribute Variables /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(AnimationBasedConstraint))][comment Start Print AnimationBasedAttribute Variables /]
+[let AnimationBasedConstraintInstance : AnimationBasedConstraint = SingleValueConstraintInstance.oclAsType(AnimationBasedConstraint)]
+[let AnimationBasedAttributeInstance : AnimationBasedAttribute = AnimationBasedConstraintInstance.ConstrainedAttributeInstance]
+
+	// [AnimationBasedAttributeInstance.FeatureName/]
+	UPROPERTY(EditAnywhere)
+	[PrintAttributeType(AnimationBasedAttributeInstance)/] [AnimationBasedAttributeInstance.FeatureName/][PrintAttributeDefaultValue(AnimationBasedAttributeInstance)/];
+[/let]
+[/let]
+[/if][comment End Print AnimationBasedAttribute Variables /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))][comment Start Print EnumBasedAttribute Variables /]
 [let EnumBasedConstraintInstance : EnumBasedConstraint = SingleValueConstraintInstance.oclAsType(EnumBasedConstraint)]
 [for (EnumBasedAttributeInstance : EnumBasedAttribute | EnumBasedConstraintInstance.ConstrainedAttributeInstance)]
@@ -755,7 +787,7 @@ protected:
 [/template]
 
 [template public PrintAttributeType(GameAttributeModel : GameAttribute)]
-[if (GameAttributeModel.oclIsTypeOf(DecimalBasedAttribute))]float[/if][if (GameAttributeModel.oclIsTypeOf(IntegerBasedAttribute))]int32[/if][if (GameAttributeModel.oclIsTypeOf(BooleanBasedAttribute))]bool[/if][if (GameAttributeModel.oclIsTypeOf(CharacterBasedAttribute) or GameAttributeModel.oclIsTypeOf(StringBasedAttribute))]FString[/if][if (GameAttributeModel.oclIsTypeOf(NameBasedAttribute))]FName[/if][if (GameAttributeModel.oclIsTypeOf(TextBasedAttribute))]FText[/if][if (GameAttributeModel.oclIsTypeOf(Vector2DBasedAttribute))]FVector2D[/if][if (GameAttributeModel.oclIsTypeOf(VectorBasedAttribute))]FVector[/if][if (GameAttributeModel.oclIsTypeOf(RotatorBasedAttribute))]FRotator[/if][if (GameAttributeModel.oclIsTypeOf(TransformationBasedAttribute))]FTransform[/if][if (GameAttributeModel.oclIsTypeOf(ColorBasedAttribute))]FColor[/if][if (GameAttributeModel.oclIsTypeOf(TextureBasedAttribute))]UTexture2D*[/if][if (GameAttributeModel.oclIsTypeOf(ModelBasedAttribute))]UStaticMesh*[/if][if (GameAttributeModel.oclIsTypeOf(ParticleBasedAttribute))]UNiagaraSystem*[/if][if (GameAttributeModel.oclIsTypeOf(AudioBasedAttribute))]USoundBase*[/if][if (GameAttributeModel.oclIsTypeOf(MaterialBasedAttribute))]UMaterialInterface*[/if][if (GameAttributeModel.oclIsTypeOf(EnumBasedAttribute))][if (GameAttributeModel.oclAsType(EnumBasedAttribute).EnumType.oclIsTypeOf(SimpleEnumStructure))]E[GameAttributeModel.oclAsType(EnumBasedAttribute).EnumType.FeatureName/][/if][if (GameAttributeModel.oclAsType(EnumBasedAttribute).EnumType.oclIsTypeOf(BitmaskedEnumStructure))]int32[/if][/if][if (GameAttributeModel.oclIsTypeOf(StructureBasedAttribute))]F[GameAttributeModel.oclAsType(StructureBasedAttribute).DataType.FeatureName/][/if]
+[if (GameAttributeModel.oclIsTypeOf(DecimalBasedAttribute))]float[/if][if (GameAttributeModel.oclIsTypeOf(IntegerBasedAttribute))]int32[/if][if (GameAttributeModel.oclIsTypeOf(BooleanBasedAttribute))]bool[/if][if (GameAttributeModel.oclIsTypeOf(CharacterBasedAttribute) or GameAttributeModel.oclIsTypeOf(StringBasedAttribute))]FString[/if][if (GameAttributeModel.oclIsTypeOf(NameBasedAttribute))]FName[/if][if (GameAttributeModel.oclIsTypeOf(TextBasedAttribute))]FText[/if][if (GameAttributeModel.oclIsTypeOf(Vector2DBasedAttribute))]FVector2D[/if][if (GameAttributeModel.oclIsTypeOf(VectorBasedAttribute))]FVector[/if][if (GameAttributeModel.oclIsTypeOf(RotatorBasedAttribute))]FRotator[/if][if (GameAttributeModel.oclIsTypeOf(TransformationBasedAttribute))]FTransform[/if][if (GameAttributeModel.oclIsTypeOf(ColorBasedAttribute))]FColor[/if][if (GameAttributeModel.oclIsTypeOf(TextureBasedAttribute))]UTexture2D*[/if][if (GameAttributeModel.oclIsTypeOf(ModelBasedAttribute))]UStaticMesh*[/if][if (GameAttributeModel.oclIsTypeOf(ParticleBasedAttribute))]UNiagaraSystem*[/if][if (GameAttributeModel.oclIsTypeOf(AudioBasedAttribute))]USoundBase*[/if][if (GameAttributeModel.oclIsTypeOf(MaterialBasedAttribute))]UMaterialInterface*[/if][if (GameAttributeModel.oclIsTypeOf(AnimationBasedAttribute))]UAnimMontage*[/if][if (GameAttributeModel.oclIsTypeOf(EnumBasedAttribute))][if (GameAttributeModel.oclAsType(EnumBasedAttribute).EnumType.oclIsTypeOf(SimpleEnumStructure))]E[GameAttributeModel.oclAsType(EnumBasedAttribute).EnumType.FeatureName/][/if][if (GameAttributeModel.oclAsType(EnumBasedAttribute).EnumType.oclIsTypeOf(BitmaskedEnumStructure))]int32[/if][/if][if (GameAttributeModel.oclIsTypeOf(StructureBasedAttribute))]F[GameAttributeModel.oclAsType(StructureBasedAttribute).DataType.FeatureName/][/if]
 [/template]
 
 [query public IsValueBasedConstraintBounded(ValueBasedConstraintModel : ValueBasedConstraint) : Boolean = if (not ValueBasedConstraintModel.BaseOrRangeConstraint.oclIsUndefined() and ValueBasedConstraintModel.BaseOrRangeConstraint.oclIsTypeOf(ValueRangeBasedConstraint)) then ValueBasedConstraintModel.BaseOrRangeConstraint.oclAsType(ValueRangeBasedConstraint).Limit = AdditionLimit::Bounded else false endif /]

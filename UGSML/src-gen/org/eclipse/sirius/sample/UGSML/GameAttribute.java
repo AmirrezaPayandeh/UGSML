@@ -19,7 +19,6 @@ package org.eclipse.sirius.sample.UGSML;
  * @generated
  */
 public interface GameAttribute extends GameFeature {
-
 	/**
 	 * Returns the value of the '<em><b>Data Structure Array</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
@@ -42,4 +41,5 @@ public interface GameAttribute extends GameFeature {
 	 * @generated
 	 */
 	void setDataStructureArray(boolean value);
+
 } // GameAttribute

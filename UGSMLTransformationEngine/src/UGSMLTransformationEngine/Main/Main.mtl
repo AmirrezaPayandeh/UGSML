@@ -25,6 +25,6 @@
 	[GenerateUGSMLDependencies(RootModel.Game)/]
 	[GenerateUGSMLDelegates(RootModel.Game)/]
 	[GenerateAttributeSystemFiles(RootModel.Game)/]
-	[GeneratePluginImage()/]
+	[GeneratePluginImage(RootModel)/]
 [/if]
 [/template]

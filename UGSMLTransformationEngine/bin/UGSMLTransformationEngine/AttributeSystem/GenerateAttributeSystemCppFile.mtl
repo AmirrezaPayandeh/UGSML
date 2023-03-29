@@ -6,10 +6,10 @@
 [import UGSMLTransformationEngine::AttributeSystem::GenerateAttributeSystemHeaderFile /]
 
 [template public GenerateAttributeSystemCppFile(AttributeSystemModel : AttributeSystem)]
-[file (GetPrivateDirectory() + 'AttributeSystem/' + AttributeSystemModel.SystemName + '.cpp', false, 'UTF-8')]
+[file (GetPrivateDirectory() + 'AttributeSystem/' + AttributeSystemModel.SystemName + 'Component.cpp', false, 'UTF-8')]
 [PrintCopyrightText()/]
 
-#include "AttributeSystem/[AttributeSystemModel.SystemName/].h"
+#include "AttributeSystem/[AttributeSystemModel.SystemName/]Component.h"
 #include "AttributeSystem/MOERandomGenerator.h"
 #include "NiagaraSystem.h"
 
@@ -834,6 +834,29 @@ UMaterialInterface* [PrintClassName(AttributeSystemModel)/]::Get[MaterialBasedAt
 [/let]
 [/let]
 [/if][comment End MaterialBasedConstraint Functions /]
+[if (SingleValueConstraintInstance.oclIsTypeOf(AnimationBasedConstraint))][comment Start AnimationBasedConstraint Functions /]
+[let AnimationBasedConstraintInstance : AnimationBasedConstraint = SingleValueConstraintInstance.oclAsType(AnimationBasedConstraint)]
+[let AnimationBasedAttributeInstance : AnimationBasedAttribute = AnimationBasedConstraintInstance.ConstrainedAttributeInstance]
+[if (IsAttributeVariable(AnimationBasedConstraintInstance))]
+
+void [PrintClassName(AttributeSystemModel)/]::Set[AnimationBasedAttributeInstance.FeatureName/](UAnimMontage* Value)
+{
+	UAnimMontage* Old[AnimationBasedAttributeInstance.FeatureName/] = Get[AnimationBasedAttributeInstance.FeatureName/]();
+	[AnimationBasedAttributeInstance.FeatureName/] = Value;
+	UAnimMontage* New[AnimationBasedAttributeInstance.FeatureName/] = Get[AnimationBasedAttributeInstance.FeatureName/]();
+
+	if (Old[AnimationBasedAttributeInstance.FeatureName/] != New[AnimationBasedAttributeInstance.FeatureName/])
+		On[AnimationBasedAttributeInstance.FeatureName/]Changed.Broadcast(Old[AnimationBasedAttributeInstance.FeatureName/], New[AnimationBasedAttributeInstance.FeatureName/]);
+}
+[/if]
+
+UAnimMontage* [PrintClassName(AttributeSystemModel)/]::Get[AnimationBasedAttributeInstance.FeatureName/]() const
+{
+	return [AnimationBasedAttributeInstance.FeatureName/];
+}
+[/let]
+[/let]
+[/if][comment End AnimationBasedConstraint Functions /]
 [if (SingleValueConstraintInstance.oclIsTypeOf(EnumBasedConstraint))][comment Start EnumBasedConstraint Functions /]
 [let EnumBasedConstraintInstance : EnumBasedConstraint = SingleValueConstraintInstance.oclAsType(EnumBasedConstraint)]
 [for (EnumBasedAttributeInstance : EnumBasedAttribute | EnumBasedConstraintInstance.ConstrainedAttributeInstance)]

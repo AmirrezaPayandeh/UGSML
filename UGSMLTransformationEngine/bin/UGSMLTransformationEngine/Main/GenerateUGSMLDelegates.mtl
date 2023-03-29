@@ -38,6 +38,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FModelVariableStatusSignature, USta
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FParticleVariableStatusSignature, UNiagaraSystem*, OldValue, UNiagaraSystem*, NewValue);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAudioVariableStatusSignature, USoundBase*, OldValue, USoundBase*, NewValue);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FMaterialVariableStatusSignature, UMaterialInterface*, OldValue, UMaterialInterface*, NewValue);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FAnimationVariableStatusSignature, UAnimMontage*, OldValue, UAnimMontage*, NewValue);
 [for (GameStructureContainerInstance : GameStructureContainer | GameModel.GameFeatureContainers)]
 [for (GameStructureInstance : GameStructure | GameStructureContainerInstance.GameStructures)]
 [if (GameStructureInstance.oclIsTypeOf(SimpleEnumStructure))]

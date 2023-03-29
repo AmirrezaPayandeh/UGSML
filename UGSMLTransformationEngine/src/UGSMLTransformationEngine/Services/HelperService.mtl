@@ -1,4 +1,4 @@
-[comment encoding = windows-1252 /]
+[comment encoding = UTF-8 /]
 [module HelperService('http://www.example.org/UGSML')/]
 
 [query public IncreamentBitmaskCounter(anOclAny: OclAny) : Integer

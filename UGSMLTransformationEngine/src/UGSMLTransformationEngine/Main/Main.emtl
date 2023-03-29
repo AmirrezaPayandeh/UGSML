@@ -120,7 +120,7 @@
         <body xsi:type="mtl:TemplateInvocation">
           <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
           <definition href="platform:/resource/UGSMLTransformationEngine/bin/UGSMLTransformationEngine/Main/GeneratePluginImage.emtl#/0/GeneratePluginImage"/>
-          <argument xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/16">
+          <argument xsi:type="ocl.ecore:VariableExp" name="RootModel" referredVariable="/0/Main/RootModel">
             <eType xsi:type="ecore:EClass" href="http://www.example.org/UGSML#//Root"/>
           </argument>
         </body>
@@ -379,12 +379,12 @@
   <ecore:EAnnotation source="positions">
     <eAnnotations source="positions.0" references="/0/Main">
       <details key="start" value="803"/>
-      <details key="end" value="1314"/>
+      <details key="end" value="1323"/>
       <details key="line" value="16"/>
     </eAnnotations>
     <eAnnotations source="positions.1" references="/0/Main/%">
       <details key="start" value="861"/>
-      <details key="end" value="1302"/>
+      <details key="end" value="1311"/>
       <details key="line" value="18"/>
     </eAnnotations>
     <eAnnotations source="positions.2" references="/0/Main/%/%">
@@ -564,17 +564,17 @@
     </eAnnotations>
     <eAnnotations source="positions.37" references="/0/Main/%/%.19">
       <details key="start" value="1273"/>
-      <details key="end" value="1294"/>
+      <details key="end" value="1303"/>
       <details key="line" value="0"/>
     </eAnnotations>
-    <eAnnotations source="positions.38" references="/0/Main/%/%.19/self">
-      <details key="start" value="-1"/>
-      <details key="end" value="-1"/>
+    <eAnnotations source="positions.38" references="/0/Main/%/%.19/RootModel">
+      <details key="start" value="1293"/>
+      <details key="end" value="1302"/>
       <details key="line" value="0"/>
     </eAnnotations>
     <eAnnotations source="positions.39" references="/0/Main/%/%.20">
-      <details key="start" value="1296"/>
-      <details key="end" value="1297"/>
+      <details key="start" value="1305"/>
+      <details key="end" value="1306"/>
       <details key="line" value="29"/>
     </eAnnotations>
     <eAnnotations source="positions.40" references="/0/Main/%/%.21">

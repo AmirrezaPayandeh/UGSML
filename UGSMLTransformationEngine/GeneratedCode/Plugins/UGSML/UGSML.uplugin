@@ -1,0 +1,30 @@
+{
+	"FileVersion": 3,
+	"Version": 1.0,
+	"VersionName": "V1",
+	"FriendlyName": "UGSML",
+	"Description": "UGSML is an auto generated plugin, used to create attribute systems for your games.",
+	"Category": "Game System",
+	"CreatedBy": "Amirreza Payandeh",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "UGSML",
+			"Type": "Runtime",
+			"LoadingPhase": "PreDefault"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "Niagara",
+			"Enabled": true
+		}
+	]
+}

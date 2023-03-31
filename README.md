@@ -35,7 +35,7 @@ UGSML is a powerful Domain Specific Modeling Language (DSML) that offers a range
 7. Enumeration Data Type
 8. Structure Data Type
 
-For more detailed explanation of data types and constraints, please refer to our documentation at [UGSML Documentation](https://www.notion.so/345dc4a516474bcbbb1fd0fa773d5c49?v=d31a38e0cb61462c8ba0cf950b87b62b) page.
+For more detailed explanation of data types and constraints, please refer to our documentation at [UGSML Documentation](https://hail-target-97a.notion.site/345dc4a516474bcbbb1fd0fa773d5c49?v=d31a38e0cb61462c8ba0cf950b87b62b) page.
 
 ### UGSML DEMO
 <p align="center">
@@ -54,7 +54,7 @@ Here is the steps to a fresh installation of UGSML (requires JDK 11 onwards):
 6. Search for "Acceleo" and install the latest version.
 7. Restart the editor.
 
-The easier installation process is available at the [UGSML Documentation](https://www.notion.so/345dc4a516474bcbbb1fd0fa773d5c49?v=d31a38e0cb61462c8ba0cf950b87b62b) page.
+The easier installation process is available at the [UGSML Documentation](https://hail-target-97a.notion.site/345dc4a516474bcbbb1fd0fa773d5c49?v=d31a38e0cb61462c8ba0cf950b87b62b) page.
 
 ## Getting Started
 Here are the steps to create a UGSML modeling project:
@@ -78,7 +78,7 @@ Here are the steps to create a UGSML modeling project:
 
 4. Now you can start modeling in UGSML.
 
-For more detailed tutorials on using UGSML, please refer to our documentation at [UGSML Documentation](https://www.notion.so/345dc4a516474bcbbb1fd0fa773d5c49?v=d31a38e0cb61462c8ba0cf950b87b62b) page.
+For more detailed tutorials on using UGSML, please refer to our documentation at [UGSML Documentation](https://hail-target-97a.notion.site/345dc4a516474bcbbb1fd0fa773d5c49?v=d31a38e0cb61462c8ba0cf950b87b62b) page.
 
 ## Participating in Evaluation
 I am currently working on my master's thesis project, and I would like to invite you to participate in the evaluation process. Your feedback is crucial in helping me improve the project and ensure its success.

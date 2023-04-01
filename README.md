@@ -103,7 +103,7 @@ Contributions to UGSML are welcome! To contribute, follow these steps:
 5. Submit a pull request on Github.
 
 ## License
-UGSML is licensed under the Apache License. See [LICENSE.txt]() for more information.
+UGSML is licensed under the EPL License. See [LICENSE](https://github.com/AmirrezaPayandeh/UGSML/blob/master/LICENSE) for more information.
 
 ## Contact
 For questions or support, please contact me at BlackLord.ap@gmail.com.

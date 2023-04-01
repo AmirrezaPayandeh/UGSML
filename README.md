@@ -46,12 +46,12 @@ Overall, UGSML is a powerful tool for anyone looking to streamline the process o
 
 ## Getting Up and Running
 Here is the steps to a fresh installation of UGSML (requires JDK 11 onwards):
-1. Download and install Eclipse Modeling Framework (EMF) for Java Developers from [This Link](https://mirror.dogado.de/eclipse/technology/epp/downloads/release/2022-12/R/eclipse-modeling-2022-12-R-win32-x86_64.zip).
+1. Download and install Eclipse Modeling Framework (EMF), version 2022-12 for Java Developers from [This Link](https://mirror.dogado.de/eclipse/technology/epp/downloads/release/2022-12/R/eclipse-modeling-2022-12-R-win32-x86_64.zip).
 2. Download the necessary files from the [Release](https://github.com/AmirrezaPayandeh/UGSML/releases/tag/V1.0.0) page.
-3. Unzip the UGSML_1.0.0.zip file and copy the extracted files to your `"eclipse installation path\dropins"`.
+3. Unzip the UGSML_1.0.0.zip file and copy the extracted files to your `"eclipse installation path/dropins"`.
 4. Open Eclipse and go to Help > Eclipse Marketplace.
-5. Search for "Sirius" and install the latest version.
-6. Search for "Acceleo" and install the latest version.
+5. Search for "Sirius" and install version 7.1.
+6. Search for "Acceleo" and install version 3.7.
 7. Restart the editor.
 
 The easier installation process is available at the [UGSML Documentation](https://hail-target-97a.notion.site/345dc4a516474bcbbb1fd0fa773d5c49?v=d31a38e0cb61462c8ba0cf950b87b62b) page.
@@ -89,8 +89,7 @@ Participating in this evaluation process is completely voluntary, but your contr
 
 ### Link to the evaluation form:
 
-* **[UGSML Evaluation (English)]()**
-* **[مشارکت در ارزیابی (فارسی)](https://docs.google.com/forms/d/e/1FAIpQLSdVgoiDO-jRTsHX8rXXYottpzt_bXceD3B_8WnHD0r0Z8fC-w/viewform)**
+* **[UGSML Evaluation Form (English)]()**
 
 Thank you for considering this opportunity to contribute to my master's thesis project. Your feedback is invaluable, and I look forward to hearing from you.
 
@@ -104,7 +103,7 @@ Contributions to UGSML are welcome! To contribute, follow these steps:
 5. Submit a pull request on Github.
 
 ## License
-UGSML is licensed under the MIT License. See LICENSE.txt for more information.
+UGSML is licensed under the Apache License. See [LICENSE.txt]() for more information.
 
 ## Contact
 For questions or support, please contact me at BlackLord.ap@gmail.com.

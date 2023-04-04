@@ -13,6 +13,7 @@ UGSML is a powerful Domain Specific Modeling Language (DSML) that offers a range
 - Integration with Unreal Engine: The generated code can be easily integrated into your Unreal Engine projects, allowing you to quickly create attribute systems for your game objects.
 - User-friendly interface: UGSML has a user-friendly interface that makes it easy for both novice and experienced users to create models and generate code.
 - Extensibility: UGSML is highly extensible, allowing you to add new features and functionality as needed.
+- Compile time: UGSML provides you full code of the defined attribute system, allowing you to compile your code once and save compilation time.
 
 ### Supported Data Types and Constraints:
 1. Integer/Decimal Data Types

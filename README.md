@@ -90,7 +90,7 @@ Participating in this evaluation process is completely voluntary, but your contr
 
 ### Link to the evaluation form:
 
-* **[UGSML Evaluation Form (English)]()**
+* **[UGSML Evaluation Form (English)](docs.google.com/forms/d/e/1FAIpQLSfMlBpNXcuGcpC2mJi0lkzucVOueUiCJq7T_PHnVVU4p1KWRg/viewform)**
 
 Thank you for considering this opportunity to contribute to my master's thesis project. Your feedback is invaluable, and I look forward to hearing from you.
 

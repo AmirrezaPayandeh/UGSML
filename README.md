@@ -48,7 +48,7 @@ Overall, UGSML is a powerful tool for anyone looking to streamline the process o
 ## Getting Up and Running
 Here is the steps to a fresh installation of UGSML (requires JDK 11 onwards):
 1. Download and unzip version 2022-12 of Eclipse Modeling Framework (EMF) from [This Link](https://mirror.dogado.de/eclipse/technology/epp/downloads/release/2022-12/R/eclipse-modeling-2022-12-R-win32-x86_64.zip) (portable version).
-2. Download the UGSML_1.0.0.zip file from the [Release](https://github.com/AmirrezaPayandeh/UGSML/releases/tag/V1.0.0) page.
+2. Download the UGSML_1.0.0.zip file from the [Release](https://github.com/AmirrezaPayandeh/UGSML/releases/tag/V1.0.0) page (or directly from [This Link](https://github.com/AmirrezaPayandeh/UGSML/releases/download/V1.0.0/UGSML_1.0.0.zip)).
 3. Unzip the UGSML_1.0.0.zip file and copy the extracted files to the `dropins` folder of the extracted Eclipse software.
 4. Open Eclipse and go to `Help > Eclipse Marketplace`.
 5. Search for "Acceleo" and install Acceleo version 3.7.

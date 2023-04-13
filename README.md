@@ -8,10 +8,10 @@ UGSML is a Domain Specific Modeling Language (DSML), based on [Eclipse Framework
 UGSML is a powerful Domain Specific Modeling Language (DSML) that offers a range of features to help you generate C++ code of attribute systems for your Unreal Engine projects.
 
 ### UGSML Key Features:
-- Graphical modeling: UGSML is based on Eclipse Framework and uses Sirius to define graphical elements, making it easy to create and modify models visually.
-- Code generation: UGSML uses Acceleo as the transformation engine to generate C++ code from your models, saving you time and effort.
+- Graphical Modeling: UGSML is based on Eclipse Framework and uses Sirius to define graphical elements, making it easy to create and modify models visually.
+- Code Generation: UGSML uses Acceleo as the transformation engine to generate C++ code from your models, saving you time and effort.
 - Ease of Deployment: The generated code can be easily integrated into your Unreal Engine projects, allowing you to quickly create attribute systems for your game objects.
-- User-friendly interface: UGSML has a user-friendly interface that makes it easy for both novice and experienced users to create models and generate code.
+- User-Friendly Interface: UGSML has a user-friendly interface that makes it easy for both novice and experienced users to create models and generate code.
 - Extensibility: UGSML is highly extensible, allowing you to add new features and functionality as needed.
 - Compilation Time: UGSML provides you full code of the defined attribute system, allowing you to compile your code once and save compilation time.
 
